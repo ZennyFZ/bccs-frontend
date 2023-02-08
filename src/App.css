@@ -127,3 +127,60 @@
     margin-top: 8px;
     vertical-align: middle;
   }
+
+  .AboutContainer{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 50px;
+  }
+
+  .AboutContentContainer{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    width: 50%;
+  }
+
+  .AboutTitle{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 0 auto 24px;
+    font-size: 32px;
+    font-weight: 700
+  }
+
+  .AboutDescription{
+    margin: 0 auto 30px;
+    color: #797b7c;
+    font-size: 16px;
+    line-height: 28px;
+    font-weight: 400;
+    text-align: center;
+  }
+
+  .AboutButton{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .AboutBox{
+    margin-bottom: 56px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .AboutBoxItem{
+    max-width: 621px;
+    margin: 0 15px 0;
+    text-align: center;
+    background: #fff;
+    box-shadow: 0 2px 4px 1px rgb(0 0 0 / 25%);
+    border-radius: 8px;
+    padding: 25px;
+  }
