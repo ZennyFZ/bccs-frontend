@@ -1,5 +1,7 @@
 export default function Profile() {
-    <div>
-        <h1>Cart</h1>
-    </div>
+    return (
+        <div>
+            <h1>Profile</h1>
+        </div>
+    )
 }

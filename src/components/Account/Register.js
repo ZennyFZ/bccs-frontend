@@ -1,5 +1,7 @@
 export default function Register() {
-    <div>
-        <h1>Cart</h1>
-    </div>
+    return (
+        <div>
+        <h1>Register</h1>
+        </div>
+    );
 }

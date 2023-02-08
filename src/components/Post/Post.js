@@ -1,5 +1,7 @@
-export default function News() {
-    <div>
-        <h1>Cart</h1>
-    </div>
+export default function Post() {
+    return (
+        <div>
+            <h1>Post</h1>
+        </div>
+    );
 }
