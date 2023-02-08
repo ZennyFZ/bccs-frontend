@@ -1,7 +1,7 @@
 export default function Banner() {
     return (
         <div>
-            <img style={{ width: "100%" }} src="assets/images/capture.png" />
+            <img style={{ width: "100%" }} src="https://cdn.discordapp.com/attachments/859296542762729475/1072864991209857167/Capture.PNG" />
             <div className="content">
                 <span className="heading">Bird Care</span>
                 <div className="heading2">Consulting</div>
