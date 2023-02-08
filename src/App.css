@@ -184,3 +184,36 @@
     border-radius: 8px;
     padding: 25px;
   }
+
+  .LoginContainer{
+    position: relative;
+    text-align: center;
+  }
+
+  .LForm{
+    position: absolute;
+    bottom: 150px;
+    left: 30px;
+
+    border-radius: 10px;
+  }
+
+  .LoginForm{
+    background: #ebe3f6;
+    color: #713abf;
+    border: none;
+    padding: 1px 70px;
+    font-size: 13px;
+    height: 40px;
+    border-radius: 0;
+    box-shadow: none!important;
+  }
+
+  .LoginButton{
+    height: 50px;
+    color: deeppink;
+    font-size: 18px;
+    padding: 0 15px;
+    line-height: 50px;
+    font-weight: 500;
+  }
