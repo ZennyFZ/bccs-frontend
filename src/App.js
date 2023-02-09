@@ -1,5 +1,4 @@
 import './App.css';
-import MessengerCustomerChat from 'react-messenger-customer-chat';
 import Navigation from './components/Navigation';
 import Main from './components/Main';
 import About from './components/About';
@@ -71,10 +70,6 @@ function App() {
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
         <Footer />
-        <MessengerCustomerChat
-          pageId="100089784416683"
-          appId="1527757557709055"
-        />
       </Router>
     </div>
   );

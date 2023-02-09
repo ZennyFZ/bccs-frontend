@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 export default function Login() {
     return (
         <div className="LoginContainer">
-            <img style={{opacity: 0.4}} src="https://8anime.net/storage/ads/2023-v2.png"></img>
+            <img style={{opacity: 0.4, width: "1536px", height: "510px"}} src="https://8anime.net/storage/ads/2023-v2.png"></img>
             <div className="LForm">
                 <h1>Member login UwU</h1>
                 <h5>Bird Care Consulting System - a better place to watch anime online for free!</h5>
