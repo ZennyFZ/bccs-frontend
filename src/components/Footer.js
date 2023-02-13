@@ -14,35 +14,38 @@ export default function Footer() {
             </div>
 
             <div className="footer-box">
-                <div style={{fontWeight: "bold"}}>Available Time:</div>
-                <div>Mon to Fri: 6AM-5PM</div>
-                <div>Sat to Sun: Closed</div>
+                <div style={{fontWeight: "bold"}}>Thời Gian Hoạt Động:</div>
+                <div>Thứ 2 tới Thứ 6: 6h sáng-5h chiều</div>
+                <div>Thứ 7 tới Chủ Nhật: Đóng Cửa</div>
             </div>
 
             <div className="footer-box">
-                <div style={{fontWeight: "bold"}}>Services:</div>
+                <div style={{fontWeight: "bold"}}>Các Dịch Vụ:</div>
                 <Link to="/schedule/nau-chim" style={{textDecoration: "none", color: "black"}}>
-                    <div>Nấu Chim</div>
+                    <div>Trị Bệnh Cho Chim</div>
                 </Link>
                 <Link to="/schedule/tam-cho-chim" style={{textDecoration: "none", color: "black"}}>
                     <div>Tắm Cho Chim</div>
                 </Link>
                 <Link to="/schedule/chai-long-cho-chim" style={{textDecoration: "none", color: "black"}}>
-                    <div>Chải Lông Cho Chim</div>
+                    <div>Ngừa Bệnh Cho Chim</div>
                 </Link>
                 <Link to="/schedule/kham-benh-cho-chim" style={{textDecoration: "none", color: "black"}}>
-                    <div>Khám Bệnh Cho Chim</div>
+                    <div>Khám Sức Khỏe Định Kì</div>
+                </Link>
+                <Link to="/schedule/kham-benh-cho-chim" style={{textDecoration: "none", color: "black"}}>
+                    <div>Khách Sạn Cho Chim</div>
                 </Link>
             </div>
 
             <div className="footer-box">
-                <div><div style={{fontWeight: "bold"}}>Address:</div> 1234 Abyss Void, Juggement Road, High Fire city, 19972</div>
-                <div><div style={{fontWeight: "bold"}}>Hotline:</div> 19001080</div>
+                <div><div style={{fontWeight: "bold"}}>Địa Chỉ:</div> 1234 Abyss Void, Juggement Road, High Fire city, 19972</div>
+                <div><div style={{fontWeight: "bold"}}>Số Điện Thoại:</div> 19001080</div>
             </div>
 
             <div className="footer-box">
                 <Link to="/about" style={{textDecoration: "none"}}>
-                    <div style={{fontWeight: "bold"}}>More About Us</div>
+                    <div style={{fontWeight: "bold"}}>Tìm Hiểu Thêm</div>
                 </Link>
             </div>
 

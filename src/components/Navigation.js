@@ -34,21 +34,25 @@ export default function Navigation() {
             </Link>
 
             <Link to="/" style={{textDecoration: "none"}}>
-              <div style={{margin: "23px 2px 9px 60px", color: "black"}}>Home</div>
+              <div style={{margin: "23px 2px 9px 60px", color: "black"}}>Trang Chủ</div>
             </Link>
 
             <Link to="/product" style={{textDecoration: "none"}}>
-              <div style={{margin: "23px 2px 9px 60px", color: "black"}}>Product</div>
+              <div style={{margin: "23px 2px 9px 60px", color: "black"}}>Sản Phẩm</div>
+            </Link>
+
+            <Link to="/service" style={{textDecoration: "none"}}>
+              <div style={{margin: "23px 2px 9px 60px", color: "black"}}>Dịch Vụ Chim</div>
             </Link>
 
             <Link to="/post" style={{textDecoration: "none"}}>
-              <div style={{margin: "23px 2px 9px 60px", color: "black"}}>Post</div>
+              <div style={{margin: "23px 2px 9px 60px", color: "black"}}>Thư Viện Chim</div>
             </Link>
 
-            <Link to="/schedule" style={{textDecoration: "none"}}>
-              <div style={{margin: "23px 2px 9px 60px", color: "black"}}>Schedule</div>
+            <Link to="/about" style={{textDecoration: "none"}}>
+              <div style={{margin: "23px 2px 9px 60px", color: "black"}}>Liên Hệ</div>
             </Link>
-            {/* Home, Product, Post, Schedule */}
+            {/* Home, Product, Service, Post */}
 
             {/* random space */}
             <Typography
@@ -70,7 +74,7 @@ export default function Navigation() {
             <div style={{margin: "10px 1px -4px 15px"}}>
               <Link to="/login" style={{ textDecoration: "none" }}>
                 <Button sx={{ my: 2, color: "black", font: "manrope", fontWeight: "bold", display: "block" }}>
-                  Sign in
+                  Đăng Nhập
                 </Button>
               </Link>
             </div>
