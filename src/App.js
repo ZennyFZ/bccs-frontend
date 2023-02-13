@@ -3,7 +3,7 @@ import Navigation from './components/Navigation';
 import Main from './components/Main';
 import About from './components/About';
 import Footer from './components/Footer';
-import { Main_product } from './components/Product/Main_product';
+import {Main_product}  from './components/Product/Main_product';
 import Product from './components/Product/Product';
 import ProductDetail from './components/Product/ProductDetail';
 import Cart from './components/Product/Cart';
@@ -41,8 +41,8 @@ function App() {
           <Route path="/lien-he" element={<About />} />
 
           {/* Product */}
-          <Route path="/san-pham" element={<Product />} />
-          <Route path="/san-phan/:id" element={<ProductDetail />} />
+          <Route path="/san-pham" element={<Main_product />} />
+          <Route path="/chi-tiet-san-phan/:id" element={<ProductDetail />} />
           <Route path="/gio-hang" element={<Cart />} />
           <Route path="/thanh-toan" element={<Checkout />} />
 
