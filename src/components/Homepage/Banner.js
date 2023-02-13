@@ -8,6 +8,7 @@ export default function Banner() {
                 <span className="text">
                     Our service is to help you establish the best possible relationship with your bird companions
                     while assuring pet health for the highest quality of life.
+                    Vi suc khoe cua ban
                 </span>
             </div>
         </div>
