@@ -19,13 +19,13 @@ export default function Login() {
                             <input type="checkbox" id="rememberMe" name="rememberMe" value="rememberMe"></input>
                             <span>Tự động đăng nhập</span>
 
-                            <Link style={{textDecoration: "none "}} to="/reset-password">
+                            <Link style={{textDecoration: "none "}} to="/khoi-phuc-tai-khoan">
                                 <span style={{color: "deeppink", marginLeft: "55px"}}>Quên mật khẩu?</span>
                             </Link>
                         </div>
                     </div>
                     <Button variant="contained">Đăng nhập</Button>
-                    <div>Don't have account? <Link style={{textDecoration: "none "}} to="/register"><span style={{color: "deeppink"}}>Register now!!!</span></Link> </div>
+                    <div>Don't have account? <Link style={{textDecoration: "none "}} to="/dang-ky"><span style={{color: "deeppink"}}>Register now!!!</span></Link> </div>
                 </form>
             </div>
         </div>

@@ -21,7 +21,7 @@ export default function Register() {
                         <input className="LoginForm" type="password" placeholder="Your Password..."></input>
                     </div>
                     <Button style={{marginTop: "15px"}} variant="contained">Register</Button>
-                    <div>What? Already have account? <Link style={{textDecoration: "none "}} to="/login"><span style={{color: "deeppink"}}>Login now!!!</span></Link> </div>
+                    <div>What? Already have account? <Link style={{textDecoration: "none "}} to="/dang-nhap"><span style={{color: "deeppink"}}>Login now!!!</span></Link> </div>
                 </form>
             </div>
         </div>

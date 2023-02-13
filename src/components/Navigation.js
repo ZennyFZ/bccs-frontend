@@ -37,19 +37,19 @@ export default function Navigation() {
               <div style={{margin: "23px 2px 9px 60px", color: "black"}}>Trang Chủ</div>
             </Link>
 
-            <Link to="/product" style={{textDecoration: "none"}}>
+            <Link to="/san-pham" style={{textDecoration: "none"}}>
               <div style={{margin: "23px 2px 9px 60px", color: "black"}}>Sản Phẩm</div>
             </Link>
 
-            <Link to="/service" style={{textDecoration: "none"}}>
+            <Link to="/dich-vu" style={{textDecoration: "none"}}>
               <div style={{margin: "23px 2px 9px 60px", color: "black"}}>Dịch Vụ Chim</div>
             </Link>
 
-            <Link to="/post" style={{textDecoration: "none"}}>
+            <Link to="/bai-viet" style={{textDecoration: "none"}}>
               <div style={{margin: "23px 2px 9px 60px", color: "black"}}>Thư Viện Chim</div>
             </Link>
 
-            <Link to="/about" style={{textDecoration: "none"}}>
+            <Link to="/lien-he" style={{textDecoration: "none"}}>
               <div style={{margin: "23px 2px 9px 60px", color: "black"}}>Liên Hệ</div>
             </Link>
             {/* Home, Product, Service, Post */}
@@ -64,7 +64,7 @@ export default function Navigation() {
 
             {/* Cart */}
             <div style={{ margin: "10px 1px -4px 15px" }}>
-              <Link to="/cart" style={{ textDecoration: "none" }}>
+              <Link to="/gio-hang" style={{ textDecoration: "none" }}>
                 <ShoppingCartIcon sx={{ my: 2, color: "black", display: "block" }} />
               </Link>
             </div>
@@ -72,7 +72,7 @@ export default function Navigation() {
               
             {/* Account */}
             <div style={{margin: "10px 1px -4px 15px"}}>
-              <Link to="/login" style={{ textDecoration: "none" }}>
+              <Link to="/dang-nhap" style={{ textDecoration: "none" }}>
                 <Button sx={{ my: 2, color: "black", font: "manrope", fontWeight: "bold", display: "block" }}>
                   Đăng Nhập
                 </Button>

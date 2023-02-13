@@ -21,30 +21,30 @@ export default function Footer() {
 
             <div className="footer-box">
                 <div style={{fontWeight: "bold"}}>Các Dịch Vụ:</div>
-                <Link to="/schedule/nau-chim" style={{textDecoration: "none", color: "black"}}>
+                <Link to="/dich-vu/tri-benh-cho-chim" style={{textDecoration: "none", color: "black"}}>
                     <div>Trị Bệnh Cho Chim</div>
                 </Link>
-                <Link to="/schedule/tam-cho-chim" style={{textDecoration: "none", color: "black"}}>
-                    <div>Tắm Cho Chim</div>
+                <Link to="/dich-vu/lam-dep-cho-chim" style={{textDecoration: "none", color: "black"}}>
+                    <div>Làm Đẹp Cho Chim</div>
                 </Link>
-                <Link to="/schedule/chai-long-cho-chim" style={{textDecoration: "none", color: "black"}}>
+                <Link to="/dich-vu/ngua-benh-cho-chim" style={{textDecoration: "none", color: "black"}}>
                     <div>Ngừa Bệnh Cho Chim</div>
                 </Link>
-                <Link to="/schedule/kham-benh-cho-chim" style={{textDecoration: "none", color: "black"}}>
+                <Link to="/dich-vu/kham-suc-khoe-dinh-ki" style={{textDecoration: "none", color: "black"}}>
                     <div>Khám Sức Khỏe Định Kì</div>
                 </Link>
-                <Link to="/schedule/kham-benh-cho-chim" style={{textDecoration: "none", color: "black"}}>
+                <Link to="/dich-vu/khach-san-cho-chim" style={{textDecoration: "none", color: "black"}}>
                     <div>Khách Sạn Cho Chim</div>
                 </Link>
             </div>
 
             <div className="footer-box">
-                <div><div style={{fontWeight: "bold"}}>Địa Chỉ:</div> 1234 Abyss Void, Juggement Road, High Fire city, 19972</div>
+                <div><div style={{fontWeight: "bold"}}>Địa Chỉ:</div> 525 Nguyễn Trãi, Hồ Chí Minh</div>
                 <div><div style={{fontWeight: "bold"}}>Số Điện Thoại:</div> 19001080</div>
             </div>
 
             <div className="footer-box">
-                <Link to="/about" style={{textDecoration: "none"}}>
+                <Link to="/lien-he" style={{textDecoration: "none"}}>
                     <div style={{fontWeight: "bold"}}>Tìm Hiểu Thêm</div>
                 </Link>
             </div>

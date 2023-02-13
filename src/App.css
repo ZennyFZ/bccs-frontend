@@ -1,3 +1,13 @@
+.bottom-line2{
+  width: 20%;
+  background: #0761e7;
+  height: 3px;
+  margin: 0 auto;
+  margin-bottom: 5px;
+}
+.opa{
+  opacity: 0.4;
+}
 .footer{
     display: flex;
     margin: 0px -0.3125rem;
