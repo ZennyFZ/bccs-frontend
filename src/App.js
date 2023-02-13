@@ -3,6 +3,7 @@ import Navigation from './components/Navigation';
 import Main from './components/Main';
 import About from './components/About';
 import Footer from './components/Footer';
+import { Main_product } from './components/Product/Main_product';
 import Product from './components/Product/Product';
 import ProductDetail from './components/Product/ProductDetail';
 import Cart from './components/Product/Cart';
