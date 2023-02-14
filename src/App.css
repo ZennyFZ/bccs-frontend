@@ -238,3 +238,34 @@
     text-decoration: none;
     color: black;
   }
+
+  .Product-item-detail{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .Product-item-price{
+    display: flex;
+    flex-direction: column;
+  }
+  .Price-money{
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+  }
+  .Product-info{
+    min-height: 200px;
+    position: relative;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+  }
+  .placeholder{
+    min-height: 20px;
+  }
+  @media only screen and (min-width: 600px){
+    .ProductName{
+      min-height: 58px;
+    }
+  }
+  
