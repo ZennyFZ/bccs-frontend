@@ -14,6 +14,7 @@ import Profile from './components/Account/Profile';
 import Post from './components/Post/Post';
 import PostDetail from './components/Post/PostDetail';
 import Service from './components/Service/Service';
+import ServiceDetail from './components/Service/ServiceDetail';
 
 import Admin from './components/Admin/Page/Admin';
 import AccountAdmin from './components/Admin/Page/Account';
@@ -57,6 +58,7 @@ function App() {
 
           {/* Schedule */}
           <Route path="/dich-vu" element={<Service />} />
+          <Route path="/chi-tiet-dich-vu/:id" element={<ServiceDetail />} />
 
           {/* Admin */}
           <Route path="/admin" element={<Protected><Admin /></Protected>} />

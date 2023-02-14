@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import callerApi from '../../utils/APICaller';
+import callerApi from '../../utils/APICaller2';
 import ServicePreview from './ServicePreview';
 export class Homepage_Service extends Component {
   constructor(props){
