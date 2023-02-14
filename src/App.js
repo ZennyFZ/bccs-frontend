@@ -4,7 +4,6 @@ import Main from './components/Main';
 import About from './components/About';
 import Footer from './components/Footer';
 import {Main_product}  from './components/Product/Main_product';
-import Product from './components/Product/Product';
 import ProductDetail from './components/Product/ProductDetail';
 import Cart from './components/Product/Cart';
 import Checkout from './components/Product/Checkout';
@@ -14,7 +13,7 @@ import ResetPassword from './components/Account/ResetPassword';
 import Profile from './components/Account/Profile';
 import Post from './components/Post/Post';
 import PostDetail from './components/Post/PostDetail';
-import Schedule from './components/Schedule/Schedule';
+import Service from './components/Service/Service';
 
 import Admin from './components/Admin/Page/Admin';
 import AccountAdmin from './components/Admin/Page/Account';
@@ -57,7 +56,7 @@ function App() {
           <Route path="/bai-viet/:id" element={<PostDetail />} />
 
           {/* Schedule */}
-          <Route path="/dich-vu" element={<Schedule />} />
+          <Route path="/dich-vu" element={<Service />} />
 
           {/* Admin */}
           <Route path="/admin" element={<Protected><Admin /></Protected>} />
