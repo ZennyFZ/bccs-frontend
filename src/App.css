@@ -228,3 +228,13 @@
     font-weight: 500;
   }
 
+  .ProductTitle{
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    color: black;
+  }
