@@ -1,44 +1,32 @@
-export default function Introduction() {
+import { Link } from 'react-router-dom'
+import { Container,Row,Col,Card,Button } from 'react-materialize'
+export default function ServicePreview({Services}) {
     return (
         <div style={{font: "marope"}}>
-            <div className="introHeading">What We Do?</div>
-            <div className="introRow">
-                <div className="introColumn">
-                    <div className="introImg">
-                        <img src="https://cdn.discordapp.com/attachments/859296542762729475/1072422888004657243/image.png" />
-                    </div>
-                    <div className="introTitle">
-                        <div className="introTitleText">Bird Product</div>
-                    </div>
-                    <div className="introText">
-                        <div className="introTextD">Wonder twenty hunted and put income set desire expect. Am cottage calling.</div>
-                    </div>
-                </div>
-
-                <div className="introColumn">
-                    <div className="introImg">
-                        <img src="https://cdn.discordapp.com/attachments/859296542762729475/1072422888004657243/image.png" />
-                    </div>
-                    <div className="introTitle">
-                        <div className="introTitleText">Bird Service</div>
-                    </div>
-                    <div className="introText">
-                        <div className="introTextD">Wonder twenty hunted and put income set desire expect. Am cottage calling.</div>
-                    </div>
-                </div>
-
-                <div className="introColumn">
-                    <div className="introImg">
-                        <img src="https://cdn.discordapp.com/attachments/859296542762729475/1072422888004657243/image.png" />
-                    </div>
-                    <div className="introTitle">
-                        <div className="introTitleText">Instant Valuation</div>
-                    </div>
-                    <div className="introText">
-                        <div className="introTextD">Wonder twenty hunted and put income set desire expect. Am cottage calling.</div>
-                    </div>
-                </div>
-            </div>
+            <br/>
+            <div className="bottom-line2" style={{marginTop: "25px"}}></div>
+            <div className="introHeading">Các Dịch Vụ chăm Sóc Chim</div>
+            <Container>
+                <br/>
+                <Row >
+                    {Services.slice(0,5).map((service) =>
+                    (<Col s={12} m={6} l={4}  >
+                        <Card>
+                         <img style={{width: "300px", height: "200px"}} src={service.image} />
+                         <Link to={`chi-tiet-dich-vu/${service.id}`}>
+                         <h3 className='ProductTitle'>{service.name}</h3>
+                         </Link>
+                            <p style={{textAlign: "center"}}>{service.price} VND</p>
+                            <Link to={`/gio-hang`}>
+                                <p style={{textAlign: "center", marginTop: "10px"}}><Button>Đặt ngay</Button></p>
+                            </Link>
+                        </Card>
+                    </Col>))}
+                </Row>
+            </Container>
+            <Link to={"/dich-vu"}>
+                <p style={{textAlign: "center", marginTop: "10px", color: "black", fontSize: "15px"}}>Xem Thêm...</p>
+            </Link>
         </div>
     )
 }
