@@ -1,29 +1,121 @@
-import { Link } from "react-router-dom";
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-export default function Register() {
-    return (
-        <div className="LoginContainer">
-            <img style={{opacity: 0.4}} src="https://8anime.net/storage/ads/2023-v2.png"></img>
-            <div className="LForm">
-                <h1>Registration</h1>
-                <h5>Bird Care Consulting System - a better place to watch anime online for free!</h5>
-                <form>
-                    <div>
-                        <input className="LoginForm" type="text" placeholder="Your Full Name..."></input>
-                    </div>
-                    <div style={{marginTop: "15px"}}> 
-                        <input className="LoginForm" type="text" placeholder="Your Username..."></input>
-                    </div>
-                    <div style={{marginTop: "15px"}}>
-                        <input className="LoginForm" type="text" placeholder="Your Email..."></input>
-                    </div>
-                    <div style={{marginTop: "15px"}}>
-                        <input className="LoginForm" type="password" placeholder="Your Password..."></input>
-                    </div>
-                    <Button style={{marginTop: "15px"}} variant="contained">Register</Button>
-                    <div>What? Already have account? <Link style={{textDecoration: "none "}} to="/dang-nhap"><span style={{color: "deeppink"}}>Login now!!!</span></Link> </div>
-                </form>
-            </div>
-        </div>
-    )
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+
+const theme = createTheme();
+
+export default function Login() {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
+  };
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Grid container component="main" sx={{ height: '100vh' }}>
+        <CssBaseline />
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
+          sx={{
+            backgroundImage: 'url(https://indianaaudubon.org/wp-content/uploads/2016/02/colourful-bird-high-definition-wallpaper-for-desktop-background-download-free.jpg)',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: (t) =>
+              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Đăng Ký
+            </Typography>
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Nhập Email..."
+                name="email"
+                autoComplete="email"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="username"
+                label="Nhập Username..."
+                type="text"
+                id="username"
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="fullname"
+                label="Nhập Họ Tên..."
+                type="text"
+                id="fullname"
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Nhập Mật Khẩu..."
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Đăng Ký
+              </Button>
+              <Grid container>
+                <Grid item>
+                  <Link href="/dang-nhap" variant="body2">
+                    Bạn đã có tài khoản? Đăng Nhập
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
+    </ThemeProvider>
+  );
 }
