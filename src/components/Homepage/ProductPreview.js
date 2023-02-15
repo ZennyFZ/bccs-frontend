@@ -13,7 +13,7 @@ export default function ProductPreview({Products}) {
                     (<Col s={12} m={6} l={4}  >
                         <Card>
                          <img style={{width: "300px", height: "200px"}} src={product.Image} />
-                         <Link to={`chi-tiet-san-phan/${product.ProductID}`}>
+                         <Link to={`/san-pham/chi-tiet-san-pham/${product.ProductID}`}>
                          <h3 className='ProductTitle'>{product.ProductName}</h3>
                          </Link>
                             <p style={{textAlign: "center"}}>{product.Price} VND</p>

@@ -42,7 +42,7 @@ function App() {
 
           {/* Product */}
           <Route path="/san-pham" element={<Main_product />} />
-          <Route path="/chi-tiet-san-phan/:id" element={<ProductDetail />} />
+          <Route path="/san-pham/chi-tiet-san-pham/:id" element={<ProductDetail />} />
           <Route path="/gio-hang" element={<Cart />} />
           <Route path="/thanh-toan" element={<Checkout />} />
 

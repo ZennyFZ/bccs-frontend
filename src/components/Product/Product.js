@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { Container,Row,Col,Card,Button } from 'react-materialize'
-import { height } from '@mui/system';
 export default function Product({ Products }) {
     console.log(Products);
     return (
@@ -13,7 +12,7 @@ export default function Product({ Products }) {
                         <Card>
                             <div className='Product-info'>
                             <img src={product.Image} />
-                            <p className='placeholder'></p>
+                            
                             <div className='Product-item-detail'>
                             <strong className='ProductName'>{product.ProductName}</strong>
                             <div className='Product-item-price'>
@@ -23,7 +22,7 @@ export default function Product({ Products }) {
                                 </div>
                             </div>
                             <p className='placeholder'></p>
-                            <Link style={{textAlign:"center"}} to={`detail/${product.id}`}>
+                            <Link style={{textAlign:"center"}} to={`/san-pham/chi-tiet-san-pham/${product.ProductID}`}>
                                 <Button style={{borderRadius:"50px"}}>Thêm vào vỏ hàng</Button>
                             </Link>
                             </div>
