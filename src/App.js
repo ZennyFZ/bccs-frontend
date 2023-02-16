@@ -11,7 +11,7 @@ import Login from './components/Account/Login';
 import Register from './components/Account/Register';
 import ResetPassword from './components/Account/ResetPassword';
 import Profile from './components/Account/Profile';
-import Post from './components/Post/Post';
+import Post_AllPost from './components/Post/Post_AllPost';
 import PostDetail from './components/Post/PostDetail';
 import Service from './components/Service/Service';
 import ServiceDetail from './components/Service/ServiceDetail';
@@ -53,7 +53,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
 
           {/* Post */}
-          <Route path="/bai-viet" element={<Post />} />
+          <Route path="/bai-viet" element={<Post_AllPost />} />
           <Route path="/bai-viet/:id" element={<PostDetail />} />
 
           {/* Schedule */}

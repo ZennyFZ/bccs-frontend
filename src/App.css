@@ -276,6 +276,15 @@
     min-height: 20px;
   }
 
+  .PostDescription{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    height: 110px;
+  }
+
   @media only screen and (min-width: 600px){
     .ProductName{
       min-height: 50px;
