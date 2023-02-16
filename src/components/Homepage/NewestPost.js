@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Container,Row,Col,Card,Button } from 'react-materialize'
+import PersonIcon from '@mui/icons-material/Person';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 export default function NewestPost({Posts}) {
     return (
         <div style={{font: "marope"}}>
@@ -13,15 +15,17 @@ export default function NewestPost({Posts}) {
                     (<Col s={12} m={6} l={4}  >
                         <Card>
                          <img style={{width: "300px", height: "200px"}} src={post.Image} />
-                         <span style={{float: "left"}}>bởi: {post.Author}</span>
-                         <span style={{float: "right"}}>ngày đăng: {post.Date}</span>
+                         <span style={{float: "left", display: "flex", justifyContent: "center", alignContent: "center", fontSize: "15px"}}>
+                            <span>
+                                <PersonIcon/>
+                            </span>
+                            {post.Author}
+                        </span>
+                         <span style={{float: "right", display: "flex", justifyContent: "center", alignContent: "center", fontSize: "15px"}}><AccessTimeIcon/> {post.Date}</span>
                          <Link to={`bai-viet/${post.PostID}`}>
                          <h3 className='ProductTitle'>{post.Title}</h3>
                          </Link>
-                            <p style={{textAlign: "center"}}>{post.Description}</p>
-                            <Link to={`/gio-hang`}>
-                                <p style={{textAlign: "center", marginTop: "10px"}}><Button>Chi Tiết</Button></p>
-                            </Link>
+                            <div>{post.Description}</div>
                         </Card>
                     </Col>))}
                 </Row>

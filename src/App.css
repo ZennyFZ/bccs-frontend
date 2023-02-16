@@ -247,8 +247,6 @@
     font-size: 20px;
     font-weight: bold;
     text-align: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
     text-decoration: none;
     color: black;
   }
@@ -277,6 +275,7 @@
   .placeholder{
     min-height: 20px;
   }
+
   @media only screen and (min-width: 600px){
     .ProductName{
       min-height: 50px;
