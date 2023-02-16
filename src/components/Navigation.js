@@ -5,11 +5,31 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import { useAuth0 } from "@auth0/auth0-react";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Button from "@mui/material/Button";
+//
+import Menu from '@mui/material/Menu';
+import Avatar from '@mui/material/Avatar';
+import MenuItem from '@mui/material/MenuItem';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
 
 
 export default function Navigation() {
+  const { loginWithRedirect } = useAuth0();
+  const { logout } = useAuth0();
+    //
+    const { user, isAuthenticated, isLoading } = useAuth0();
+    const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const handleOpenUserMenu = (event) => {
+      setAnchorElUser(event.currentTarget);
+    };
+    const handleCloseUserMenu = () => {
+      setAnchorElUser(null);
+    };
+
+  //
 
   return (
     <div className="Naviagation">
@@ -63,7 +83,7 @@ export default function Navigation() {
             {/* random space */}
 
             {/* Cart */}
-            <div style={{ margin: "10px 1px -4px 15px" }}>
+            <div style={{ margin: "10px 15px -4px 15px" }}>
               <Link to="/gio-hang" style={{ textDecoration: "none" }}>
                 <ShoppingCartIcon sx={{ my: 2, color: "black", display: "block" }} />
               </Link>
@@ -71,14 +91,63 @@ export default function Navigation() {
             {/* Cart */}
               
             {/* Account */}
-            <div style={{margin: "10px 1px -4px 15px"}}>
-              <Link to="/dang-nhap" style={{ textDecoration: "none" }}>
-                <Button sx={{ my: 2, color: "black", font: "manrope", fontWeight: "bold", display: "block" }}>
+            {/* <div style={{margin: "10px 1px -4px 15px"}}>
+              <Link to="" style={{ textDecoration: "none" }}>
+                <Button sx={{ my: 2, color: "black", font: "manrope", fontWeight: "bold", display: "block" }} onClick={() => loginWithRedirect()}>
+                  Đăng Nhập
+                </Button>
+                <Button sx={{ my: 2, color: "black", font: "manrope", fontWeight: "bold", display: "block" }} onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+                  Đăng Xuất
+                </Button>
+              </Link>
+            </div> */}
+            {/* Account */}
+            {/* //Login */}
+            {user?.name && user?.email ? (
+              <div>
+                <Tooltip title="User Profile">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar alt={user.picture} src={user.picture} />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">
+                      <Link to="/profile" style={{ textDecoration: "none" }}>
+                        Hồ Sơ
+                      </Link>
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem>
+                    <Typography textAlign="center" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+                      Đăng Xuất
+                    </Typography>
+                  </MenuItem>
+                </Menu>
+              </div>
+              ) : (
+              <Link to="" style={{ textDecoration: "none" }}>
+                <Button sx={{ my: 2, display: "block" }} onClick={() => loginWithRedirect()}>
                   Đăng Nhập
                 </Button>
               </Link>
-            </div>
-            {/* Account */}
+            )}
+            {/* //Login */}
 
           </Toolbar>
         </AppBar>
