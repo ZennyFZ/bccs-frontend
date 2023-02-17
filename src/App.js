@@ -3,7 +3,7 @@ import Navigation from './components/Navigation';
 import Main from './components/Main';
 import About from './components/About';
 import Footer from './components/Footer';
-import {Main_product}  from './components/Product/Main_product';
+import { Main_product } from './components/Product/Main_product';
 import ProductDetail from './components/Product/ProductDetail';
 import Cart from './components/Product/Cart';
 import Checkout from './components/Product/Checkout';
@@ -25,10 +25,11 @@ import PostAdmin from './components/Admin/Page/Post';
 import ManagePost from './components/Admin/Edit Page/ManagePost';
 import ScheduleAdmin from './components/Admin/Page/Schedule';
 
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'materialize-css/dist/css/materialize.min.css';
 import M from 'materialize-css';
 import Protected from './context/Protected';
+import Main_service from './components/Service/Main_service';
 
 function App() {
   return (
@@ -57,7 +58,7 @@ function App() {
           <Route path="/bai-viet/:id" element={<PostDetail />} />
 
           {/* Schedule */}
-          <Route path="/dich-vu" element={<Service />} />
+          <Route path="/dich-vu" element={<Main_service />} />
           <Route path="/chi-tiet-dich-vu/:id" element={<ServiceDetail />} />
 
           {/* Admin */}
