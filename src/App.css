@@ -265,6 +265,14 @@
     justify-content: space-around;
     font-weight: bold;
   }
+  .Product-info-money{
+    display: flex;
+    justify-content: space-around;
+  }
+  .Product-info-main{
+    max-width: 1120px;
+  }
+
   .Product-info{
     min-height: 200px;
     position: relative;
@@ -274,6 +282,18 @@
   }
   .placeholder{
     min-height: 20px;
+  }
+  .Product-detail{
+    display: flex;
+    align-items: flex-start;
+    column-gap: 14px;
+  }
+  .Product-info-title{
+    margin: 0 0 16px;
+  }
+  .Price-list{
+    width: 300px;
+    margin: 0 0 16px;
   }
 
   .PostDescription{
