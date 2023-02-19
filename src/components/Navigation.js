@@ -15,6 +15,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 
+import {getTotals} from "../../src/context/CartSlice";
+import {useSelector, useDispatch} from 'react-redux';
+import { useEffect } from 'react';
+
 
 export default function Navigation() {
   const { loginWithRedirect } = useAuth0();
@@ -31,6 +35,15 @@ export default function Navigation() {
     };
 
   //
+  const cart = useSelector(state => state.cart);
+  const dispatch = useDispatch();
+  const handleGetTotals = () => {
+    dispatch(getTotals())
+  }
+
+  useEffect(() => {
+    handleGetTotals();
+  }, [cart])
 
   return (
     <div className="Naviagation">
@@ -87,6 +100,7 @@ export default function Navigation() {
             <div style={{ margin: "10px 15px -4px 15px" }}>
               <Link to="/gio-hang" style={{ textDecoration: "none" }}>
                 <ShoppingCartIcon sx={{ my: 2, color: "black", display: "block" }} />
+                <span className="quantity">{cart.cartTotalQuantity}</span>
               </Link>
             </div>
             {/* Cart */}
