@@ -81,7 +81,9 @@ export default function Cart() {
                                     <span className="amount">{cart.cartTotalAmount} VND</span>
                                 </div>
                                 <p>Đã bao gồm VAT nếu có</p>
-                                <Button>Thanh Toán</Button>
+                                <Link to="/thanh-toan">
+                                    <Button>Thanh Toán</Button>
+                                </Link>
                                 <div className="continue-shopping">
                                         <Link to="/san-pham">
                                             <KeyboardBackspaceIcon />
