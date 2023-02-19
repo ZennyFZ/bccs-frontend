@@ -462,7 +462,12 @@
     margin-bottom: 50px;
     height: 110px;
   }
-
+.quantity{
+  position: relative;
+  top: -47px;
+  left: 20px;
+  color: red;
+}
   @media only screen and (min-width: 600px){
     .ProductName{
       min-height: 50px;
