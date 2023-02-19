@@ -25,7 +25,7 @@ export default function Banner() {
               <img
                 alt=""
                 className="opa"
-                src="https://scontent.fsgn5-11.fna.fbcdn.net/v/t39.30808-6/327693628_486028683689679_8172360320194695285_n.jpg?stp=dst-jpg_p600x600&_nc_cat=111&ccb=1-7&_nc_sid=e3f864&_nc_ohc=ribFEfaX1_UAX-7yplp&_nc_ht=scontent.fsgn5-11.fna&oh=00_AfByuZRcfr0vbYZkyj7dHHpwUEGZo8dkvgmpEf1-7CXlrg&oe=63EF5673"
+                src="https://media.discordapp.net/attachments/1074943174696513640/1076788960392659005/Banner2.png?width=1440&height=594"
               />
             }
           >

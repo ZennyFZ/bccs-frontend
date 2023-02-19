@@ -3,10 +3,17 @@ import { useEffect, useState } from "react";
 import * as Config from "../../utils/Config";
 import axios from "axios";
 import { Container,Row,Col,Card,Button } from 'react-materialize'
-import { height } from "@mui/system";
+import { addToCart } from '../../context/CartSlice'
+import { useDispatch } from 'react-redux'
+import { Link } from "react-router-dom"
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 export default function ProductDetail() {
     const Productid = useParams();
     const [productlist, setProductList] = useState([])
+    const dispatch = useDispatch();
+    const handleAddToCart = (product) => {
+        dispatch(addToCart(product))
+    }
     console.log(Productid);
 
     function getData() {
@@ -27,6 +34,11 @@ export default function ProductDetail() {
            <Container>
             <Card>
                 <div className="Product-detail">
+                    <div className="continue-shopping">
+                        <Link to="/san-pham">
+                            <KeyboardBackspaceIcon />
+                        </Link>
+                    </div>
                     <div className="Product-media">
                         <img style={{height:"240px", width:"240px"}} src={productlist.Image} />
                     </div>
@@ -35,17 +47,19 @@ export default function ProductDetail() {
                             <strong style={{fontWeight:"700",fontSize:"15px",lineHeight:"5px"}} className='ProductName'>{productlist.ProductName}</strong>
                         </div>
                         <div  className="Product-add-form">
+                            <div className="Product-description">
+                                <span className='label' style={{fontWeight: "bold"}}>Thông tin sản phẩm: </span>
+                                <div className='Price'>{productlist.Description}</div>
+                            </div>
                             <div  className="Price-list">
-                                <div className="Product-info-money">
-                                    <span className='label'>Price</span>
-                                    <span className='Price'>{productlist.Price} VNĐ</span>
+                                <div style={{marginTop: "10px"}}>
+                                    <span className='label' style={{fontWeight: "bold"}}>Giá: </span>
+                                    <span className='Price'>{productlist.Price} VND</span>
                                 </div>
                             </div>
                             <div className="Product-option">
-                                    <div style={{textAlign:"center"}}>
-                                        <Button style={{borderTopLeftRadius:"15px",borderBottomLeftRadius:"15px"}}>-</Button>
-                                        <Button style={{backgroundColor:"white",color:"black",width:"100px"}} >1</Button>
-                                        <Button style={{borderTopRightRadius:"15px",borderBottomRightRadius:"15px"}}>+</Button>
+                                    <div>
+                                        <Button onClick={() => { handleAddToCart(productlist) }}>Mua ngay</Button>
                                     </div>
                             </div>
                         </div>

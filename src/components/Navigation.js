@@ -21,6 +21,7 @@ export default function Navigation() {
   const { logout } = useAuth0();
     //
     const { user, isAuthenticated, isLoading } = useAuth0();
+    console.log(user);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const handleOpenUserMenu = (event) => {
       setAnchorElUser(event.currentTarget);

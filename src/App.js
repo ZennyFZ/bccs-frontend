@@ -1,4 +1,5 @@
 import './App.css';
+import "react-toastify/dist/ReactToastify.css"
 import Navigation from './components/Navigation';
 import Main from './components/Main';
 import About from './components/About';
@@ -30,10 +31,23 @@ import 'materialize-css/dist/css/materialize.min.css';
 import M from 'materialize-css';
 import Protected from './context/Protected';
 import Main_service from './components/Service/Main_service';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
     <div className="App">
+      <ToastContainer 
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Router>
         <Navigation />
         <Routes>
