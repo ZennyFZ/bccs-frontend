@@ -47,7 +47,7 @@ export default function Checkout() {
                     />
                 </Box>
                 <Box>
-                    <FormControl variant="standard" sx={{ m: 1}} style={{width:"98%"}}>
+                    <FormControl variant="standard" sx={{ m: 1}} style={{width:"95%", marginLeft: "10px"}}>
                         <InputLabel >Phương thức thanh toán</InputLabel>
                         <Select
                             value={Typepayment}

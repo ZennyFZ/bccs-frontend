@@ -16,6 +16,9 @@ import Post_AllPost from './components/Post/Post_AllPost';
 import PostDetail from './components/Post/PostDetail';
 import Service from './components/Service/Service';
 import ServiceDetail from './components/Service/ServiceDetail';
+import Order from './components/Order/Order';
+import Main_Order from './components/Order/Main_Order';
+import OrderDetail from './components/Order/OrderDetail';
 
 import Admin from './components/Admin/Page/Admin';
 import AccountAdmin from './components/Admin/Page/Account';
@@ -60,6 +63,10 @@ function App() {
           <Route path="/san-pham/chi-tiet-san-pham/:id" element={<ProductDetail />} />
           <Route path="/gio-hang" element={<Cart />} />
           <Route path="/thanh-toan" element={<Checkout />} />
+
+          {/* Order */}
+          <Route path="/don-hang" element={<Main_Order />} />
+          <Route path="/don-hang/:id" element={<OrderDetail />} />
 
           {/* Account */}
           <Route path="/dang-nhap" element={<Login />} />

@@ -82,7 +82,7 @@ export default function Cart() {
                                 </div>
                                 <p>Đã bao gồm VAT nếu có</p>
                                 <Link to="/thanh-toan">
-                                    <Button>Thanh Toán</Button>
+                                <Button>Mua Hàng</Button>
                                 </Link>
                                 <div className="continue-shopping">
                                         <Link to="/san-pham">
