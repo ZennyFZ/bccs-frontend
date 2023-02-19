@@ -4,6 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from "@auth0/auth0-react";
+import {configureStore} from '@reduxjs/toolkit';
+import {Provider} from 'react-redux';
+import cartReducer from './context/CartSlice';
+
+const store = configureStore({
+  reducer: {
+    cart: cartReducer,
+  }
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +24,9 @@ root.render(
     }}
   >
   <React.StrictMode>
+  <Provider store={store}>
     <App />
+  </Provider>
   </React.StrictMode>
   </Auth0Provider>
 );
