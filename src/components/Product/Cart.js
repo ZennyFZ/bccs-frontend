@@ -4,8 +4,11 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import Button from "@mui/material/Button";
 import { removeFromCart, decreaseQuantity, increaseQuantity, clearCart, getTotals} from "../../context/CartSlice";
 import { useEffect } from 'react';
+import { useAuth0 } from "@auth0/auth0-react";
+import { toast } from "react-toastify";
 export default function Cart() {
     const cart = useSelector(state => state.cart);
+    const {isAuthenticated} = useAuth0();
     const dispatch = useDispatch();
     const handleRemoveFromCart = (cartItem) => {
         dispatch(removeFromCart(cartItem))
@@ -21,6 +24,22 @@ export default function Cart() {
     }
     const handleGetTotals = () => {
         dispatch(getTotals())
+    }
+    const checkUser = () => {
+        if (isAuthenticated) {
+            window.location.href = "http://localhost:3000/thanh-toan";
+        }else{
+            toast.error("Bạn cần đăng nhập để thanh toán", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "light",
+            });
+        }
     }
 
     useEffect(() => {
@@ -80,9 +99,9 @@ export default function Cart() {
                                     <span className="amount">{cart.cartTotalAmount} VND</span>
                                 </div>
                                 <p>Đã bao gồm VAT nếu có</p>
-                                <Link to="/thanh-toan">
-                                <Button>Mua Hàng</Button>
-                                </Link>
+
+                                <Button onClick={() => checkUser()}>Mua Hàng</Button>
+
                                 <div className="continue-shopping">
                                         <Link to="/san-pham">
                                             <Button><KeyboardBackspaceIcon />Tiếp tục mua hàng</Button>

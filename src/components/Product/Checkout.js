@@ -6,8 +6,21 @@ import FormControl from '@mui/material/FormControl';
 import { Button } from "react-materialize";
 import Select from '@mui/material/Select';
 import React from "react";
+// import { useAuth0 } from "@auth0/auth0-react";
+// import { useEffect } from "react";
 export default function Checkout() {
     const [Typepayment, setTypePayment] = React.useState('');
+    // const {isAuthenticated} = useAuth0();
+    // const checkUser = () => {
+    //     if (isAuthenticated==false) {
+    //         window.location.href = "http://localhost:3000/";
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     checkUser();
+    // }, [])
+    // Đang cải thiện, không được uncomment
 
     const handleChange = (event) => {
       setTypePayment(event.target.value);
