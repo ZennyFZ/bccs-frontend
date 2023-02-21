@@ -24,8 +24,8 @@ export default function ServicePreview({ Services }) {
                     </Col>))}
                 </Row>
             </Container>
-            <Link to={"/dich-vu"}>
-                <p style={{ textAlign: "center", marginTop: "10px", color: "black", fontSize: "15px" }}>Xem Thêm...</p>
+            <Link to={"/dich-vu"} style={{display: "flex", justifyContent: "center", alignContent: "center"}}>
+                <Button>Xem Thêm</Button>
             </Link>
         </div>
     )

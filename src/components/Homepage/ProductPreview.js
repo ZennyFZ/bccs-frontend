@@ -16,20 +16,32 @@ export default function ProductPreview({Products}) {
                 <br/>
                 <Row >
                     {Products.slice(0,6).map((product) =>
-                    (<Col s={12} m={6} l={4}  key= {product.ProductID}>
-                        <Card>
-                         <img style={{width: "300px", height: "200px"}} src={product.Image} />
-                         <Link to={`/san-pham/chi-tiet-san-pham/${product.ProductID}`}>
-                         <h3 className='ProductTitle'>{product.ProductName}</h3>
-                         </Link>
-                            <p style={{textAlign: "center"}}>{product.Price} VND</p>
-                            <p style={{textAlign: "center", marginTop: "10px"}}><Button onClick={ () => {handleAddToCart(product)}}>Mua ngay</Button></p>
+                    (<Col s={12} m={6} l={4}  >
+                        <Card style={{ borderRadius: "12px" }}>
+                            <div className='Product-info'>
+                                <img src={product.Image} />
+
+                                <div className='Product-item-detail'>
+                                    <Link style={{ textAlign: "center", fontWeight: "bold", color: "black" }} to={`/san-pham/chi-tiet-san-pham/${product.ProductID}`}>
+                                        <p className='ProductName'>{product.ProductName}</p>
+                                    </Link>
+                                    <div className='Product-item-price'>
+                                        <div className='Price-money'>
+                                            <span className='label'>Giá</span>
+                                            <span className='Price'>{product.Price} VNĐ</span>
+                                        </div>
+                                    </div>
+                                    <div style={{ textAlign: "center", marginTop: "10px" }}>
+                                        <Button onClick={() => { handleAddToCart(product) }} className='btn btn-primary'>Thêm vào giỏ hàng</Button>
+                                    </div>
+                                </div>
+                            </div>
                         </Card>
                     </Col>))}
                 </Row>
             </Container>
-            <Link to={"/san-pham"}>
-                <p style={{textAlign: "center", marginTop: "10px", color: "black", fontSize: "15px"}}>Xem Thêm...</p>
+            <Link to={"/san-pham"} style={{display: "flex", justifyContent: "center", alignContent: "center"}}>
+                <Button>Xem Thêm</Button>
             </Link>
         </div>
     )

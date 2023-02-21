@@ -7,7 +7,7 @@ import { Link } from "react-router-dom"
 export default function OrderDetail() {
     const orderid = useParams();
     const [orderdetail, setOrderDetail] = useState([])
-    console.log(orderid);
+    console.log(orderdetail);
 
     function getData() {
         axios.get(`${Config.API_URL3}/orderdetail/` + orderid.id)
@@ -33,6 +33,7 @@ export default function OrderDetail() {
                     </div>
                     <div className="cart-items">
                         <div className="cart-item2" key={orderdetail.id}>
+
 
                         </div>
                     </div>

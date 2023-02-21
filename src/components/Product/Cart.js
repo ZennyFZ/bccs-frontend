@@ -36,8 +36,7 @@ export default function Cart() {
                         <p>Không có sản phẩm nào trong giỏ hàng của bạn.</p>
                         <div className="start-shopping">
                             <Link to="/san-pham">
-                                <KeyboardBackspaceIcon/>
-                                <span>Tiếp tục mua hàng</span>
+                                <Button><KeyboardBackspaceIcon />Tiếp tục mua hàng</Button>
                             </Link>
                         </div>
                     </div>
@@ -62,7 +61,7 @@ export default function Cart() {
                                         </div>
                                         <div className="cart-product-price">{cartItem.Price} VND</div>
                                         <div className="cart-product-quantity">
-                                            <Button onClick={() => handleDecreaseQuantity(cartItem)} >-</Button>
+                                            <Button onClick={() => handleDecreaseQuantity(cartItem)}>-</Button>
                                             <div className="count">{cartItem.cartQuantity}</div>
                                             <Button onClick={() => handleIncreaseQuantity(cartItem)} >+</Button>
                                         </div>
@@ -74,7 +73,7 @@ export default function Cart() {
                             })}
                         </div>
                         <div className="cart-summary">
-                            <Button onClick={() => handleClearCart()} className="clear-cart">Xóa Giỏ Hàng</Button>
+                            <Button onClick={() => handleClearCart()}>Xóa Giỏ Hàng</Button>
                             <div className="cart-checkout">
                                 <div className="subtotal">
                                     <span>Tổng Tiền</span>
@@ -86,8 +85,7 @@ export default function Cart() {
                                 </Link>
                                 <div className="continue-shopping">
                                         <Link to="/san-pham">
-                                            <KeyboardBackspaceIcon />
-                                            <span>Tiếp tục mua hàng</span>
+                                            <Button><KeyboardBackspaceIcon />Tiếp tục mua hàng</Button>
                                         </Link>
                                 </div>
                             </div>

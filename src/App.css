@@ -8,6 +8,13 @@
 .opa{
   opacity: 0.4;
 }
+.NavItem{
+  color: #000;
+}
+.NavItem:hover{
+  color: rgb(58, 116, 198);
+}
+
 .footer{
     display: flex;
     margin: 0px -0.3125rem;
@@ -17,6 +24,8 @@
     box-sizing: border-box;
     justify-content: space-between;
     align-items: center;
+    margin-top: 15px;
+    border-top: 1px solid grey ;
 }
 
 .footer-box{
@@ -372,6 +381,7 @@
   padding: 0.7rem 1.5rem;
   cursor: pointer;
 }
+
 .cart-item .cart-product-quantity .count {
   padding: 0.7rem 0;
 }
@@ -389,6 +399,7 @@
   border-top: 1px solid rgb(187, 187, 187);
   padding-top: 2rem;
 }
+
 .cart-summary .clear-btn {
   width: 130px;
   height: 40px;
@@ -430,6 +441,10 @@
   outline: none;
   cursor: pointer;
 }
+
+.cart-checkout button:hover {
+  background-color: #3b5db2;
+}
 .continue-shopping,
 .start-shopping {
   margin-top: 1rem;
@@ -445,6 +460,7 @@
 .start-shopping a span {
   margin-left: 0.5rem;
 }
+
 .cart-empty {
   font-size: 20px;
   margin-top: 2rem;

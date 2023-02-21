@@ -15,7 +15,7 @@ export default function Product({ Products }) {
                 <Row >
                     {Products.map((product) =>
                     (<Col s={12} m={6} l={4}  >
-                        <Card>
+                        <Card style={{borderRadius: "12px"}}>
                             <div className='Product-info'>
                                 <img src={product.Image} />
 

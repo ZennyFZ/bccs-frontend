@@ -67,24 +67,24 @@ export default function Navigation() {
               <div style={{margin: "26px 4px 2px 1px", fontSize: "20px", color: "black"}}>Bird Care Consulting</div>
             </Link>
 
-            <Link to="/" style={{textDecoration: "none"}}>
-              <div style={{margin: "23px 2px 9px 60px", color: "black"}}>Trang Chủ</div>
+            <Link to="/" style={{textDecoration: "none"}} className="NavItem">
+              <div style={{margin: "23px 2px 9px 60px"}}>Trang Chủ</div>
             </Link>
 
-            <Link to="/san-pham" style={{textDecoration: "none"}}>
-              <div style={{margin: "23px 2px 9px 60px", color: "black"}}>Sản Phẩm</div>
+            <Link to="/san-pham" style={{textDecoration: "none"}} className="NavItem">
+              <div style={{margin: "23px 2px 9px 60px"}}>Sản Phẩm</div>
             </Link>
 
-            <Link to="/dich-vu" style={{textDecoration: "none"}}>
-              <div style={{margin: "23px 2px 9px 60px", color: "black"}}>Dịch Vụ Chim</div>
+            <Link to="/dich-vu" style={{textDecoration: "none"}} className="NavItem">
+              <div style={{margin: "23px 2px 9px 60px"}}>Dịch Vụ Chim</div>
             </Link>
 
-            <Link to="/bai-viet" style={{textDecoration: "none"}}>
-              <div style={{margin: "23px 2px 9px 60px", color: "black"}}>Thư Viện Chim</div>
+            <Link to="/bai-viet" style={{textDecoration: "none"}} className="NavItem">
+              <div style={{margin: "23px 2px 9px 60px"}}>Thư Viện Chim</div>
             </Link>
 
-            <Link to="/lien-he" style={{textDecoration: "none"}}>
-              <div style={{margin: "23px 2px 9px 60px", color: "black"}}>Liên Hệ</div>
+            <Link to="/lien-he" style={{textDecoration: "none"}} className="NavItem">
+              <div style={{margin: "23px 2px 9px 60px"}}>Liên Hệ</div>
             </Link>
             {/* Home, Product, Service, Post */}
 
@@ -98,8 +98,8 @@ export default function Navigation() {
 
             {/* Cart */}
             <div style={{ margin: "10px 15px -4px 15px" }}>
-              <Link to="/gio-hang" style={{ textDecoration: "none" }}>
-                <ShoppingCartIcon sx={{ my: 2, color: "black", display: "block" }} />
+              <Link to="/gio-hang" style={{ textDecoration: "none" }} className= "NavItem">
+                <ShoppingCartIcon sx={{ my: 2, color: "black", display: "block",  "&:hover": { color: "blue"}}} />
                 <span className="quantity">{cart.cartTotalQuantity}</span>
               </Link>
             </div>
@@ -157,8 +157,10 @@ export default function Navigation() {
               </div>
               ) : (
               <Link to="" style={{ textDecoration: "none" }}>
-                <Button sx={{ my: 2, display: "block" }} onClick={() => loginWithRedirect()}>
-                  Đăng Nhập
+                <Button onClick={() => loginWithRedirect()}>
+                  <div className="NavItem">
+                    Đăng Nhập
+                  </div>
                 </Button>
               </Link>
             )}

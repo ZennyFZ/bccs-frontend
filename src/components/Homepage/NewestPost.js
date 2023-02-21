@@ -30,8 +30,8 @@ export default function NewestPost({Posts}) {
                     </Col>))}
                 </Row>
             </Container>
-            <Link to={"/bai-viet"}>
-                <p style={{textAlign: "center", marginTop: "10px", color: "black", fontSize: "15px"}}>Xem Thêm...</p>
+            <Link to={"/bai-viet"} style={{display: "flex", justifyContent: "center", alignContent: "center"}}>
+                <Button>Xem Thêm</Button>
             </Link>
         </div>
     )
