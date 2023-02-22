@@ -8,6 +8,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { toast } from "react-toastify";
 export default function Cart() {
     const cart = useSelector(state => state.cart);
+    console.log(cart);
     const {isAuthenticated} = useAuth0();
     const dispatch = useDispatch();
     const handleRemoveFromCart = (cartItem) => {
@@ -27,7 +28,7 @@ export default function Cart() {
     }
     const checkUser = () => {
         if (isAuthenticated) {
-            window.location.href = "http://localhost:3000/thanh-toan";
+            window.location.href = "/thanh-toan";
         }else{
             toast.error("Bạn cần đăng nhập để thanh toán", {
                 position: "bottom-right",
