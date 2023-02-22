@@ -114,7 +114,7 @@ export default function Checkout() {
                                             {cart.cartItems?.map(cartItem =>{
                                               return(
                                                 <div className='checkout-col'  key={cartItem.ProductID}>
-                                                    <span className=' checkout-text'>{cartItem.ProductName}</span>
+                                                    <span className=' checkout-text'>{cartItem.ProductName} x {cartItem.cartQuantity}</span>
                                                     <span className=' checkout-text'>{cartItem.Price} VND</span>
                                                 </div>
                                               )  
