@@ -512,6 +512,32 @@
   left: 20px;
   color: red;
 }
+/*checkout*/
+.section-title{
+  position: relative;
+  margin-bottom: 25px;
+  margin-top: 20px;
+}
+.checkout-title{
+  font-size: 30px;
+}
+.checkout{
+  padding: 50px;
+}
+.checkout-text{
+  font-size: 20px;
+  margin-bottom: 15px;
+  height: 40px;
+}
+.form-group{
+  margin-bottom: 15px;
+}
+.checkout-col{
+  display: flex;
+  justify-content: space-between;
+}
+
+/*checkout*/
   @media only screen and (min-width: 600px){
     .ProductName{
       min-height: 50px;
