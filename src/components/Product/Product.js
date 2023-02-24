@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom'
-import { Container,Row,Col,Card,Button } from 'react-materialize'
+import { Container, Row, Col, Card, Button, SideNav, SideNavItem, Select } from 'react-materialize'
 import { addToCart } from '../../context/CartSlice'
 import { useDispatch } from 'react-redux'
+import SearchIcon from '@mui/icons-material/Search';
+
 export default function Product({ Products }) {
     const dispatch = useDispatch();
     const handleAddToCart = (product) => {
@@ -9,12 +11,89 @@ export default function Product({ Products }) {
     }
     return (
         <div>
+
+            <div>
+
+                <SideNav
+                    id="SideNav-31"
+                    options={{
+                        draggable: true
+                    }}
+                    trigger={<Button
+                        className="red"
+                        floating
+                        icon={<SearchIcon />}
+                        large
+                        node="button"
+                        waves="light"
+                    />}
+                >
+                    <SideNavItem
+                        user={{
+                            background: 'https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                            email: '',
+                            image: 'assets/images/logo.png',
+                            name: '',
+                        }}
+                        userView
+                    />
+                    <br />
+                    <div className="form-group">
+                        <input style={{
+                            display: "block",
+                            width: "100%",
+                            height: "34px",
+                            padding: "6px 12px",
+                            fontSize: "16px",
+                            color: "#797b7c",
+                            backgroundColor: "#fff",
+                            border: "1px solid #ccc"
+                        }}
+                            type="text" className="form-control" placeholder="Tìm kiếm" required />
+                    </div>
+                    <Select
+                        id="Select-33"
+                        multiple
+                        options={{
+                            classes: '',
+                            dropdownOptions: {
+                                alignment: 'left',
+                                autoTrigger: true,
+                                closeOnClick: true,
+                                constrainWidth: true,
+                                coverTrigger: true,
+                                hover: false,
+                                inDuration: 150,
+                                outDuration: 250
+                            }
+                        }}
+                        value={[
+                            ''
+                        ]}
+                    >
+                        <option
+                            disabled
+                            value=""
+                        >
+                            Filter
+                        </option>
+                        <option value="1">
+                            Thức Ăn
+                        </option>
+                        <option value="2">
+                            Thuốc
+                        </option>
+                    </Select>
+
+                </SideNav>
+            </div>
+
             <Container>
                 <br />
                 <Row >
                     {Products.map((product) =>
                     (<Col s={12} m={6} l={4}  >
-                        <Card style={{borderRadius: "12px"}}>
+                        <Card style={{ borderRadius: "12px" }}>
                             <div className='Product-info'>
                                 <img src={product.Image} />
 
@@ -28,7 +107,7 @@ export default function Product({ Products }) {
                                             <span className='Price'>{product.Price} VNĐ</span>
                                         </div>
                                     </div>
-                                    <div style={{textAlign: "center", marginTop: "10px"}}>
+                                    <div style={{ textAlign: "center", marginTop: "10px" }}>
                                         <Button onClick={() => { handleAddToCart(product) }} className='btn btn-primary'>Thêm vào giỏ hàng</Button>
                                     </div>
                                 </div>
