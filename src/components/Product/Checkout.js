@@ -11,9 +11,9 @@ import { useState } from "react";
 import APICaller3 from "../../utils/APICaller3";
 // import { useAuth0 } from "@auth0/auth0-react";
 // import { useEffect } from "react";
-export default function Checkout() {
-    const [Typepayment, setTypePayment] = React.useState('');
-    
+export default function Checkout() { 
+    const navigate = useNavigate();
+
     const cart = useSelector(state => state.cart);
     const dispatch = useDispatch();
     const handleGetTotals = () => {
@@ -145,6 +145,11 @@ export default function Checkout() {
                                             <span style={{fontWeight:"bold"}} className='checkout-text'>Tổng tiền</span>
                                             <span className='checkout-text'>{cart.cartTotalAmount} VND</span>
                                         </div>
+                                        <span style={{fontSize: "20px", fontWeight: "bold"}}>Phương thức thanh toán:</span>
+                                        <div style={{display: "flex", justifyContent: "center", marginTop: "10px"}}>
+                                            <Button type="button" onClick={() => showSubmit()} style={{marginLeft: "10px"}}>Thanh toán khi nhận hàng</Button>
+                                            <Button type="button" onClick={() => showSubmit2()} style={{marginLeft: "30px"}}>Thanh toán online</Button>
+                                        </div>
                                     </div>
                         <div className="order-sum-title"></div>
                     </div>
@@ -154,7 +159,7 @@ export default function Checkout() {
                 </Grid>
 
 
-                {/*<FormControl variant="standard" sx={{ m: 1}} style={{width:"95%", marginLeft: "10px"}}>
+                {/* <FormControl variant="standard" sx={{ m: 1}} style={{width:"95%", marginLeft: "10px"}}>
                         <InputLabel >Phương thức thanh toán</InputLabel>
                         <Select
                             value={Typepayment}
@@ -164,8 +169,9 @@ export default function Checkout() {
                             <MenuItem value={"offline"}>Thanh toán tiền mặt</MenuItem>
                             <MenuItem value={"online"}>Thanh toán online</MenuItem>
                         </Select>
-        </FormControl>*/}
+        </FormControl> */}
             </Grid>
+            </form>
             </form>
         </div>
     )

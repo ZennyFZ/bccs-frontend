@@ -3,7 +3,6 @@ import { Container,Row,Col,Card,Button } from 'react-materialize'
 import { addToCart } from '../../context/CartSlice'
 import { useDispatch } from 'react-redux'
 export default function Product({ Products }) {
-    console.log(Products);
     const dispatch = useDispatch();
     const handleAddToCart = (product) => {
         dispatch(addToCart(product))
