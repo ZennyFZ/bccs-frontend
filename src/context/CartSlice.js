@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import axios from "axios";
 
 
 const initialState = {
@@ -132,6 +133,16 @@ const cartSlice = createSlice({
                 theme: "light",
             });
             localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+            // axios.put('https://63e4419cc04baebbcda2eb0c.mockapi.io/CartV2/1', {
+            //     cartItems: []
+            //     })
+            //     .then(function (response) {
+            //         console.log(response);
+            //         })
+            //     .catch(function (error) {
+            //         console.log(error);
+            //     }
+            // );
         },
         getTotals(state) {
             let { cartTotalQuantity, cartTotalAmount } = state.cartItems.reduce(

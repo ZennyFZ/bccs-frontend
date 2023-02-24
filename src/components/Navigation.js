@@ -18,14 +18,14 @@ import IconButton from '@mui/material/IconButton';
 import {getTotals} from "../../src/context/CartSlice";
 import {useSelector, useDispatch} from 'react-redux';
 import { useEffect } from 'react';
+import axios from "axios";
 
 
 export default function Navigation() {
   const { loginWithRedirect } = useAuth0();
   const { logout } = useAuth0();
     //
-    const { user, isAuthenticated, isLoading } = useAuth0();
-    console.log(user);
+    const { user } = useAuth0();
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const handleOpenUserMenu = (event) => {
       setAnchorElUser(event.currentTarget);
@@ -33,17 +33,33 @@ export default function Navigation() {
     const handleCloseUserMenu = () => {
       setAnchorElUser(null);
     };
+    const handleGetTotals = () => {
+      dispatch(getTotals())
+  }
+
 
   //
+  // const [cart2, setCart2] = React.useState([]);
+  // localStorage.setItem("cartItems", JSON.stringify(cart2));
   const cart = useSelector(state => state.cart);
   const dispatch = useDispatch();
-  const handleGetTotals = () => {
-    dispatch(getTotals())
-  }
+
+  // function getCartData() {
+  //     axios.get("https://63e4419cc04baebbcda2eb0c.mockapi.io/CartV2").then((response) => {
+  //       setCart2(response.data[0].cartItems);
+  //   }
+  //   )
+  // }
+
+  // useEffect(() => {
+  //     getCartData();
+  // }, [])
 
   useEffect(() => {
     handleGetTotals();
   }, [cart])
+
+
 
   return (
     <div className="Naviagation">
