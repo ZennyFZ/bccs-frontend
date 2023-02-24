@@ -7,6 +7,8 @@ import React from "react";
 import {getTotals} from "../../context/CartSlice";
 import {useSelector, useDispatch} from 'react-redux';
 import { useEffect } from 'react';
+import { useState } from "react";
+import APICaller3 from "../../utils/APICaller3";
 // import { useAuth0 } from "@auth0/auth0-react";
 // import { useEffect } from "react";
 export default function Checkout() {
@@ -21,6 +23,24 @@ export default function Checkout() {
         handleGetTotals();
     }, [cart])
 
+    const [formValue, setFormValue]= useState({username:'', email:'',phone:''});
+    const handleInput=(e)=>{
+        const {name, value}= e.target;
+        setFormValue({...formValue, [name]:value});
+    }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const allInputvalue = { username: formValue.username,
+                                email: formValue.email,
+                                phone: formValue.phone};
+        APICaller3("order","POST", {
+        body : allInputvalue
+    }).then(res => {
+        console.log(res);
+    });
+       console.log(allInputvalue);
+     }    
+    
     // const {isAuthenticated} = useAuth0();
     // const checkUser = () => {
     //     if (isAuthenticated==false) {
@@ -35,7 +55,8 @@ export default function Checkout() {
 
     return (
         <div className="checkout">
-            <Grid container spacing={2}>
+            <form onSubmit={ handleSubmit}>
+            <Grid container spacing={2} >
                 <Grid xs={6}>
                     <div className="billing-detail">
                         <div className="section-title">
@@ -53,7 +74,7 @@ export default function Checkout() {
                                 backgroundColor: "#fff",
                                 border: "1px solid #ccc"
                             }}
-                                type="text" className="form-control" placeholder="Họ tên" required />
+                                type="text" className="form-control" placeholder="Họ tên" name="username" value={formValue.username} onChange={ handleInput} required />
                         </div>
                         <div className="form-group">
                             <input style={{
@@ -66,7 +87,7 @@ export default function Checkout() {
                                 backgroundColor: "#fff",
                                 border: "1px solid #ccc"
                             }}
-                                type="email" className="form-control" placeholder="Email" required />
+                                type="email" className="form-control" placeholder="Email" name="email" value={formValue.email} onChange={ handleInput} required />
                         </div>
                         <div className="form-group">
                             <input style={{
@@ -79,12 +100,12 @@ export default function Checkout() {
                                 backgroundColor: "#fff",
                                 border: "1px solid #ccc"
                             }}
-                                type="number" className="form-control" placeholder="Số điện thoại" required />
+                                type="number" className="form-control" placeholder="Số điện thoại" name="phone" value={formValue.phone} onChange={ handleInput} required />
                         </div>
                         <div className="form-group">
                             <textarea style={{
                                 display: "block",
-                                width: "93%",
+                                maxWidth: "94%",
                                 height: "auto",
                                 padding: "6px 12px",
                                 fontSize: "16px",
@@ -92,7 +113,7 @@ export default function Checkout() {
                                 backgroundColor: "#fff",
                                 border: "1px solid #ccc"
                             }}
-                                type="text" className="form-control" placeholder="Ghi chú đơn hàng" required />
+                                type="text" className="form-control" placeholder="Ghi chú đơn hàng" name="txtnote" required />
                         </div>
                     </div>
                 </Grid>
@@ -128,7 +149,7 @@ export default function Checkout() {
                         <div className="order-sum-title"></div>
                     </div>
                     <div style={{ textAlign: "center", marginTop: "50px"}}>
-                        <Button style={{backgroundColor:"red", color:"white" }}  className='btn btn-primary'>Xác nhận</Button>
+                        <Button type="submit" style={{backgroundColor:"red", color:"white" }}  className='btn btn-primary'>Xác nhận</Button>
                     </div>
                 </Grid>
 
@@ -145,6 +166,7 @@ export default function Checkout() {
                         </Select>
         </FormControl>*/}
             </Grid>
+            </form>
         </div>
     )
 }
