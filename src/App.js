@@ -16,6 +16,7 @@ import Post_AllPost from './components/Post/Post_AllPost';
 import PostDetail from './components/Post/PostDetail';
 import Service from './components/Service/Service';
 import ServiceDetail from './components/Service/ServiceDetail';
+import Booking from './components/Service/Booking';
 import Order from './components/Order/Order';
 import Main_Order from './components/Order/Main_Order';
 import OrderDetail from './components/Order/OrderDetail';
@@ -39,7 +40,7 @@ import { ToastContainer } from 'react-toastify';
 function App() {
   return (
     <div className="App">
-      <ToastContainer 
+      <ToastContainer
         position="bottom-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -81,6 +82,7 @@ function App() {
           {/* Schedule */}
           <Route path="/dich-vu" element={<Main_service />} />
           <Route path="/chi-tiet-dich-vu/:id" element={<ServiceDetail />} />
+          <Route path="/booking" element={<Booking />} />
 
           {/* Admin */}
           <Route path="/admin" element={<Protected><Admin /></Protected>} />
