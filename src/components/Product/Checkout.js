@@ -1,7 +1,4 @@
 import { Grid} from "@mui/material";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import { Button} from "react-materialize";
 import React from "react";
 import {getTotals} from "../../context/CartSlice";
@@ -11,9 +8,8 @@ import { useState } from "react";
 import APICaller3 from "../../utils/APICaller3";
 // import { useAuth0 } from "@auth0/auth0-react";
 // import { useEffect } from "react";
-export default function Checkout() { 
-    const navigate = useNavigate();
-
+export default function Checkout() {
+//thông tin product từ cart    
     const cart = useSelector(state => state.cart);
     const dispatch = useDispatch();
     const handleGetTotals = () => {
@@ -22,8 +18,10 @@ export default function Checkout() {
     useEffect(() => {
         handleGetTotals();
     }, [cart])
+////////////////////////////////////
 
-    const [formValue, setFormValue]= useState({username:'', email:'',phone:''});
+//thông tin user điền form   
+    const [formValue, setFormValue]= useState({username:'', email:'',phone:'',adress:"",note:""});
     const handleInput=(e)=>{
         const {name, value}= e.target;
         setFormValue({...formValue, [name]:value});
@@ -32,7 +30,9 @@ export default function Checkout() {
         e.preventDefault();
         const allInputvalue = { username: formValue.username,
                                 email: formValue.email,
-                                phone: formValue.phone};
+                                phone: formValue.phone,
+                                adress: formValue.adress,
+                                note: formValue.note};
         APICaller3("order","POST", {
         body : allInputvalue
     }).then(res => {
@@ -40,7 +40,28 @@ export default function Checkout() {
     });
        console.log(allInputvalue);
      }    
-    
+////////////////////////////////////
+
+//thông tin chọn phương thức thanh toán
+    /*function showSubmit() {
+        document.getElementById("submit").style.display = "block";
+        setPaymentType("cod");
+    }
+
+    function showSubmit2() {
+        document.getElementById("submit").style.display = "block";
+        setPaymentType("online");
+    }
+
+    function submitBillingInfo() {
+        if (paymentType == "cod") {
+            navigate("/success");
+        } else if (paymentType == "online") {
+            navigate("/success2");
+        }
+    }*/
+////////////////////////////////////
+
     // const {isAuthenticated} = useAuth0();
     // const checkUser = () => {
     //     if (isAuthenticated==false) {
@@ -103,6 +124,19 @@ export default function Checkout() {
                                 type="number" className="form-control" placeholder="Số điện thoại" name="phone" value={formValue.phone} onChange={ handleInput} required />
                         </div>
                         <div className="form-group">
+                            <input style={{
+                                display: "block",
+                                maxWidth: "90%",
+                                height: "34px",
+                                padding: "6px 12px",
+                                fontSize: "16px",
+                                color: "#797b7c",
+                                backgroundColor: "#fff",
+                                border: "1px solid #ccc"
+                            }}
+                                type="text" className="form-control" placeholder="Địa chỉ nhận hàng" name="adress" value={formValue.adress} onChange={ handleInput} required />
+                        </div>
+                        <div className="form-group">
                             <textarea style={{
                                 display: "block",
                                 maxWidth: "94%",
@@ -113,7 +147,7 @@ export default function Checkout() {
                                 backgroundColor: "#fff",
                                 border: "1px solid #ccc"
                             }}
-                                type="text" className="form-control" placeholder="Ghi chú đơn hàng" name="txtnote" required />
+                                type="text" className="form-control" placeholder="Ghi chú" name="note" value={formValue.note} onChange={ handleInput} required />
                         </div>
                     </div>
                 </Grid>
@@ -144,11 +178,12 @@ export default function Checkout() {
                                         <div className='checkout-col'>
                                             <span style={{fontWeight:"bold"}} className='checkout-text'>Tổng tiền</span>
                                             <span className='checkout-text'>{cart.cartTotalAmount} VND</span>
-                                        </div>
-                                        <span style={{fontSize: "20px", fontWeight: "bold"}}>Phương thức thanh toán:</span>
-                                        <div style={{display: "flex", justifyContent: "center", marginTop: "10px"}}>
+
+                                            {/*<span style={{fontSize: "20px", fontWeight: "bold"}}>Phương thức thanh toán:</span>
+                                            <div style={{display: "flex", justifyContent: "center", marginTop: "10px"}}>
                                             <Button type="button" onClick={() => showSubmit()} style={{marginLeft: "10px"}}>Thanh toán khi nhận hàng</Button>
                                             <Button type="button" onClick={() => showSubmit2()} style={{marginLeft: "30px"}}>Thanh toán online</Button>
+                                        </div>*/}
                                         </div>
                                     </div>
                         <div className="order-sum-title"></div>
@@ -157,21 +192,7 @@ export default function Checkout() {
                         <Button type="submit" style={{backgroundColor:"red", color:"white" }}  className='btn btn-primary'>Xác nhận</Button>
                     </div>
                 </Grid>
-
-
-                {/* <FormControl variant="standard" sx={{ m: 1}} style={{width:"95%", marginLeft: "10px"}}>
-                        <InputLabel >Phương thức thanh toán</InputLabel>
-                        <Select
-                            value={Typepayment}
-                            onChange={handleChange}
-                            label="Phương Thức thanh toán"
-                        >
-                            <MenuItem value={"offline"}>Thanh toán tiền mặt</MenuItem>
-                            <MenuItem value={"online"}>Thanh toán online</MenuItem>
-                        </Select>
-        </FormControl> */}
             </Grid>
-            </form>
             </form>
         </div>
     )
