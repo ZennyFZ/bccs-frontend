@@ -20,6 +20,7 @@ import Booking from './components/Service/Booking';
 import Order from './components/Order/Order';
 import Main_Order from './components/Order/Main_Order';
 import OrderDetail from './components/Order/OrderDetail';
+import Success from './components/Product/Success';
 
 import Admin from './components/Admin/Page/Admin';
 import AccountAdmin from './components/Admin/Page/Account';
@@ -64,6 +65,7 @@ function App() {
           <Route path="/san-pham/chi-tiet-san-pham/:id" element={<ProductDetail />} />
           <Route path="/gio-hang" element={<Cart />} />
           <Route path="/thanh-toan" element={<Checkout />} />
+          <Route path="/trang-thai" element={<Success />} />
 
           {/* Order */}
           <Route path="/don-hang" element={<Main_Order />} />
