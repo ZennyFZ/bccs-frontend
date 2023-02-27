@@ -159,8 +159,15 @@ export default function Navigation() {
                 >
                   <MenuItem onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">
-                      <Link to="/profile" style={{ textDecoration: "none" }}>
+                      <Link to="/profile" style={{ textDecoration: "none", color: "#000000DE" }}>
                         Hồ Sơ
+                      </Link>
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">
+                      <Link to="/don-hang" style={{ textDecoration: "none", color: "#000000DE" }}>
+                        Đơn Hàng
                       </Link>
                     </Typography>
                   </MenuItem>
