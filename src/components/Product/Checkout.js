@@ -21,24 +21,26 @@ export default function Checkout() {
 ////////////////////////////////////
 
 //thông tin user điền form   
-    const [formValue, setFormValue]= useState({username:'', email:'',phone:'',adress:"",note:""});
+    const [formValue, setFormValue]= useState({username:'', email:'',phone:'',adress:"",note:"",Status:"đang vận chuyển"});
     const handleInput=(e)=>{
         const {name, value}= e.target;
         setFormValue({...formValue, [name]:value});
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const allInputvalue = { username: formValue.username,
-                                email: formValue.email,
-                                phone: formValue.phone,
-                                adress: formValue.adress,
-                                note: formValue.note};
         APICaller3("order","POST", {
-        body : allInputvalue
+            username: formValue.username,
+            email: formValue.email,
+            phone: formValue.phone,
+            adress: formValue.adress,
+            note: formValue.note,
+            TotalPrice: cart.cartTotalAmount,
+            ProductQuantity: cart.ProductQuantity,
+            Status: formValue.Status
     }).then(res => {
         console.log(res);
     });
-       console.log(allInputvalue);
+       
      }    
 ////////////////////////////////////
 
@@ -170,7 +172,7 @@ export default function Checkout() {
                                               return(
                                                 <div className='checkout-col'  key={cartItem.ProductID}>
                                                     <span className=' checkout-text'>{cartItem.ProductName} x {cartItem.cartQuantity}</span>
-                                                    <span className=' checkout-text'>{cartItem.Price} VND</span>
+                                                    <span className=' checkout-text' value={formValue.TotalPrice} onChange={ handleInput}>{cartItem.Price}  VND</span>
                                                 </div>
                                               )  
                                             })}

@@ -73,7 +73,7 @@ function App() {
           <Route path="/dang-nhap" element={<Login />} />
           <Route path="/dang-ky" element={<Register />} />
           <Route path="/khoi-phuc-tai-khoan" element={<ResetPassword />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Order />} />
 
           {/* Post */}
           <Route path="/bai-viet" element={<Post_AllPost />} />
