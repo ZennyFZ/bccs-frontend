@@ -7,11 +7,21 @@ import { useEffect } from 'react';
 import { useState } from "react";
 import APICaller3 from "../../utils/APICaller3";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
+import  { useNavigate } from "react-router-dom";
 // import { useAuth0 } from "@auth0/auth0-react";
 // import { useEffect } from "react";
 export default function Checkout() {
 //thông tin product từ cart    
     const cart = useSelector(state => state.cart);
+    const navigate = useNavigate();
+    const [name, setName] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [phone, setPhone] = React.useState('');
+    const [note, setNote] = React.useState('');
+    const [address, setAddress] = React.useState('');
+    const [paymentType, setPaymentType] = useState();
+    const [order, setOrder] = React.useState('');
+    const [billingInfo, setBillingInfo] = React.useState('');
     const dispatchh = useDispatch();
     const handleGetTotals = () => {
         dispatchh(getTotals())
@@ -72,6 +82,10 @@ export default function Checkout() {
     }
     setInterval(updateTime, 1000);
     const handleSubmit = async (e) => {
+        setOrder([cart]);
+        setBillingInfo([{ name, email, phone, note, address, paymentType }])
+        localStorage.setItem("billingInfo", JSON.stringify(billingInfo));
+        localStorage.setItem("orderInfo", JSON.stringify(order));;
         e.preventDefault();
         APICaller3("order","POST", {
             username: formValue.username,
@@ -86,12 +100,12 @@ export default function Checkout() {
     }).then(res => {
         console.log(res);
     });
-       
+       submitBillingInfo();
      }    
 ////////////////////////////////////
 
 //thông tin chọn phương thức thanh toán
-    /*function showSubmit() {
+    function showSubmit() {
         document.getElementById("submit").style.display = "block";
         setPaymentType("cod");
     }
@@ -107,7 +121,7 @@ export default function Checkout() {
         } else if (paymentType == "online") {
             navigate("/success2");
         }
-    }*/
+    }
 ////////////////////////////////////
 
     // const {isAuthenticated} = useAuth0();
@@ -227,15 +241,15 @@ export default function Checkout() {
                                             <span style={{fontWeight:"bold"}} className='checkout-text'>Tổng tiền</span>
                                             <span className='checkout-text'>{cart.cartTotalAmount} VND</span>
 
-                                            {/*<span style={{fontSize: "20px", fontWeight: "bold"}}>Phương thức thanh toán:</span>
+                                            <div style={{fontSize: "20px", fontWeight: "bold"}}>Phương thức thanh toán:</div>
                                             <div style={{display: "flex", justifyContent: "center", marginTop: "10px"}}>
-                                            <Button type="button" onClick={() => showSubmit()} style={{marginLeft: "10px"}}>Thanh toán khi nhận hàng</Button>
-                                            <Button type="button" onClick={() => showSubmit2()} style={{marginLeft: "30px"}}>Thanh toán online</Button>
-                                        </div>*/}
+                                                <Button type="button" onClick={() => showSubmit()} style={{marginLeft: "10px"}}>Thanh toán khi nhận hàng</Button>
+                                                <Button type="button" onClick={() => showSubmit2()} style={{marginLeft: "30px"}}>Thanh toán online</Button>
+                                            </div>
                                         </div>
 
                                         {/* Thanh Toan Online */}
-                                        {/* <div style={{width: '180px', height: '40px'}}>
+                                         <div style={{width: '180px', height: '40px'}}>
                                         {
                                         isPending ? <p>LOADING...</p> : (
                                             <>
@@ -247,13 +261,13 @@ export default function Checkout() {
                                             </>
                                         )
                                         }
-                                        </div> */}
+                                        </div> 
                                         {/* Thanh Toan Online */}
                                     </div>
                         <div className="order-sum-title"></div>
                     </div>
-                    <div style={{ textAlign: "center", marginTop: "50px"}}>
-                        <Button type="submit" style={{backgroundColor:"red", color:"white" }}  className='btn btn-primary'>Xác nhận</Button>
+                    <div style={{display: "none", textAlign: "center", marginTop: "50px"}} id="submit">
+                        <Button type="submit" style={{ backgroundColor: "red", color: "white" }} className='btn btn-primary'>Xác nhận</Button>
                     </div>
                 </Grid>
             </Grid>
