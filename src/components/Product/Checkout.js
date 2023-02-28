@@ -19,10 +19,9 @@ export default function Checkout() {
     useEffect(() => {
         handleGetTotals();
     }, [cart])
-
 //////////////////////////////////// Tich Hop Paypal
 
-    const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
+    const [{ options, isPending  }, dispatch] = usePayPalScriptReducer();
     const [currency, setCurrency] = useState(options.currency);
     const onCurrencyChange = ({ target: { value } }) => {
        setCurrency(value);
@@ -58,13 +57,20 @@ export default function Checkout() {
 //////////////////////////////////// Tich Hop Paypal
 
 ////////////////////////////////////
-
+//thời gian
+    const time = new Date().toLocaleDateString();
+    const [CurrentTime, setCurrentTime] = useState(time);
+    const updateTime =() =>{
+        let time = new Date().toLocaleDateString();
+        setCurrentTime(time);
+    }
 //thông tin user điền form   
     const [formValue, setFormValue]= useState({username:'', email:'',phone:'',adress:"",note:"",Status:"đang vận chuyển"});
     const handleInput=(e)=>{
         const {name, value}= e.target;
         setFormValue({...formValue, [name]:value});
     }
+    setInterval(updateTime, 1000);
     const handleSubmit = async (e) => {
         e.preventDefault();
         APICaller3("order","POST", {
@@ -74,8 +80,9 @@ export default function Checkout() {
             adress: formValue.adress,
             note: formValue.note,
             TotalPrice: cart.cartTotalAmount,
-            ProductQuantity: cart.ProductQuantity,
-            Status: formValue.Status
+            ProductQuantity: cart.cartQuantity,
+            Status: formValue.Status,
+            OrderDate: CurrentTime
     }).then(res => {
         console.log(res);
     });
