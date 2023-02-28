@@ -6,18 +6,57 @@ import {useSelector, useDispatch} from 'react-redux';
 import { useEffect } from 'react';
 import { useState } from "react";
 import APICaller3 from "../../utils/APICaller3";
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 // import { useAuth0 } from "@auth0/auth0-react";
 // import { useEffect } from "react";
 export default function Checkout() {
 //thông tin product từ cart    
     const cart = useSelector(state => state.cart);
-    const dispatch = useDispatch();
+    const dispatchh = useDispatch();
     const handleGetTotals = () => {
-        dispatch(getTotals())
+        dispatchh(getTotals())
     }
     useEffect(() => {
         handleGetTotals();
     }, [cart])
+
+//////////////////////////////////// Tich Hop Paypal
+
+    const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
+    const [currency, setCurrency] = useState(options.currency);
+    const onCurrencyChange = ({ target: { value } }) => {
+       setCurrency(value);
+       dispatchh({
+           type: "resetOptions",
+           value: {
+               ...options,
+               currency: value,
+           },
+       });
+   }
+
+    const onCreateOrder = (data, actions) => {
+        var VNDToUSD = (cart.cartTotalAmount/23000).toFixed(2);
+        console.log(VNDToUSD);
+        return actions.order.create({
+            purchase_units: [
+                {
+                    amount: {
+                        value: VNDToUSD,
+                    },
+                },
+            ],
+        });
+    }
+
+    const onApproveOrder = (data, actions) => {
+        return actions.order.capture().then((details) => {
+            localStorage.setItem("paymentStatus", JSON.stringify([details]));
+        });
+    }
+
+//////////////////////////////////// Tich Hop Paypal
+
 ////////////////////////////////////
 
 //thông tin user điền form   
@@ -187,6 +226,22 @@ export default function Checkout() {
                                             <Button type="button" onClick={() => showSubmit2()} style={{marginLeft: "30px"}}>Thanh toán online</Button>
                                         </div>*/}
                                         </div>
+
+                                        {/* Thanh Toan Online */}
+                                        {/* <div style={{width: '180px', height: '40px'}}>
+                                        {
+                                        isPending ? <p>LOADING...</p> : (
+                                            <>
+                                                <PayPalButtons
+                                                    style={{ layout: "vertical" }}
+                                                    createOrder={(data, actions) => onCreateOrder(data, actions)}
+                                                    onApprove={(data, actions) => onApproveOrder(data, actions)}
+                                                />
+                                            </>
+                                        )
+                                        }
+                                        </div> */}
+                                        {/* Thanh Toan Online */}
                                     </div>
                         <div className="order-sum-title"></div>
                     </div>
