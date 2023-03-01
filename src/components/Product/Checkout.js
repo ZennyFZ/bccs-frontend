@@ -14,14 +14,13 @@ export default function Checkout() {
     //thông tin product từ cart    
     const cart = useSelector(state => state.cart);
     const navigate = useNavigate();
-    const [name, setName] = React.useState('');
+    const [username, setName] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [phone, setPhone] = React.useState('');
     const [note, setNote] = React.useState('');
     const [address, setAddress] = React.useState('');
     const [paymentType, setPaymentType] = useState();
     const [order, setOrder] = React.useState('');
-    const [billingInfo, setBillingInfo] = React.useState('');
     const dispatchh = useDispatch();
     const handleGetTotals = () => {
         dispatchh(getTotals())
@@ -75,27 +74,26 @@ export default function Checkout() {
         setCurrentTime(time);
     }
     //thông tin user điền form   
-    const [formValue, setFormValue] = useState({ username: '', email: '', phone: '', adress: "", note: "", Status: "đang vận chuyển" });
+    const [billingInfo, setBillingInfo] = useState({ username: '', email: '', phone: '', adress: "", note: "", Status: "đang vận chuyển",paymentType:"" });
     const handleInput = (e) => {
         const { name, value } = e.target;
-        setFormValue({ ...formValue, [name]: value });
+        setBillingInfo({ ...billingInfo, [name]: value });
     }
     setInterval(updateTime, 1000);
     const handleSubmit = async (e) => {
         setOrder([cart]);
-        setBillingInfo([{ name, email, phone, note, address, paymentType }])
         localStorage.setItem("billingInfo", JSON.stringify(billingInfo));
         localStorage.setItem("orderInfo", JSON.stringify(order));;
         e.preventDefault();
         APICaller3("order", "POST", {
-            username: formValue.username,
-            email: formValue.email,
-            phone: formValue.phone,
-            adress: formValue.adress,
-            note: formValue.note,
+            username: billingInfo.username,
+            email: billingInfo.email,
+            phone: billingInfo.phone,
+            adress: billingInfo.adress,
+            note: billingInfo.note,
             TotalPrice: cart.cartTotalAmount,
-            ProductQuantity: cart.cartQuantity,
-            Status: formValue.Status,
+            ProductQuantity: cart.cartTotalQuantity,
+            Status: billingInfo.Status,
             OrderDate: CurrentTime
         }).then(res => {
             console.log(res);
@@ -157,7 +155,7 @@ export default function Checkout() {
                                     backgroundColor: "#fff",
                                     border: "1px solid #ccc"
                                 }}
-                                    type="text" className="form-control" placeholder="Họ tên" name="username" value={formValue.username} onChange={handleInput} required />
+                                    type="text" className="form-control" placeholder="Họ tên" name="username" value={billingInfo.username} onChange={handleInput} required />
                             </div>
                             <div className="form-group">
                                 <input style={{
@@ -170,7 +168,7 @@ export default function Checkout() {
                                     backgroundColor: "#fff",
                                     border: "1px solid #ccc"
                                 }}
-                                    type="email" className="form-control" placeholder="Email" name="email" value={formValue.email} onChange={handleInput} required />
+                                    type="email" className="form-control" placeholder="Email" name="email" value={billingInfo.email} onChange={handleInput} required />
                             </div>
                             <div className="form-group">
                                 <input style={{
@@ -183,7 +181,7 @@ export default function Checkout() {
                                     backgroundColor: "#fff",
                                     border: "1px solid #ccc"
                                 }}
-                                    type="number" className="form-control" placeholder="Số điện thoại" name="phone" value={formValue.phone} onChange={handleInput} required />
+                                    type="number" className="form-control" placeholder="Số điện thoại" name="phone" value={billingInfo.phone} onChange={handleInput} required />
                             </div>
                             <div className="form-group">
                                 <input style={{
@@ -196,7 +194,7 @@ export default function Checkout() {
                                     backgroundColor: "#fff",
                                     border: "1px solid #ccc"
                                 }}
-                                    type="text" className="form-control" placeholder="Địa chỉ nhận hàng" name="adress" value={formValue.adress} onChange={handleInput} required />
+                                    type="text" className="form-control" placeholder="Địa chỉ nhận hàng" name="adress" value={billingInfo.adress} onChange={handleInput} required />
                             </div>
                             <div className="form-group">
                                 <textarea style={{
@@ -209,7 +207,7 @@ export default function Checkout() {
                                     backgroundColor: "#fff",
                                     border: "1px solid #ccc"
                                 }}
-                                    type="text" className="form-control" placeholder="Ghi chú" name="note" value={formValue.note} onChange={handleInput} required />
+                                    type="text" className="form-control" placeholder="Ghi chú" name="note" value={billingInfo.note} onChange={handleInput}/>
                             </div>
                         </div>
                     </Grid>
@@ -232,7 +230,7 @@ export default function Checkout() {
                                         return (
                                             <div className='checkout-col' key={cartItem.ProductID}>
                                                 <span className=' checkout-text'>{cartItem.ProductName} x {cartItem.cartQuantity}</span>
-                                                <span className=' checkout-text' value={formValue.TotalPrice} onChange={handleInput}>{cartItem.Price}  VND</span>
+                                                <span className=' checkout-text'>{cartItem.Price}  VND</span>
                                             </div>
                                         )
                                     })}
