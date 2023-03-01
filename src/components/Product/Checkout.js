@@ -105,10 +105,12 @@ export default function Checkout() {
     //thông tin chọn phương thức thanh toán
     function showSubmit1() {
         document.getElementById("submit1").style.display = "block";
+        document.getElementById("submit2").style.display = "none";
         setPaymentType("cod");
     }
 
     function showSubmit2() {
+        document.getElementById("submit1").style.display = "none";
         document.getElementById("submit2").style.display = "block";
         setPaymentType("online");
     }
