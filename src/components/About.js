@@ -1,4 +1,4 @@
-import { Parallax, Carousel } from "react-materialize";
+import { Parallax } from "react-materialize";
 export default function About() {
   return (
 

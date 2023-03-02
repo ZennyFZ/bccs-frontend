@@ -1,6 +1,6 @@
-import { Button, Row, Col, Container, Icon, Card } from "react-materialize";
+import { Button, Row, Col, Container, Card } from "react-materialize";
 import { Link } from "react-router-dom";
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function Service({ Services }) {
     console.log(Services);

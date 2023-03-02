@@ -14,10 +14,7 @@ import ResetPassword from './components/Account/ResetPassword';
 import Profile from './components/Account/Profile';
 import Post_AllPost from './components/Post/Post_AllPost';
 import PostDetail from './components/Post/PostDetail';
-import Service from './components/Service/Service';
-import ServiceDetail from './components/Service/ServiceDetail';
 import Booking from './components/Service/Booking';
-import Order from './components/Order/Order';
 import Main_Order from './components/Order/Main_Order';
 import OrderDetail from './components/Order/OrderDetail';
 
@@ -81,7 +78,6 @@ function App() {
 
           {/* Schedule */}
           <Route path="/dich-vu" element={<Main_service />} />
-          <Route path="/dich-vu/chi-tiet-dich-vu/:id" element={<ServiceDetail />} />
           <Route path="/booking" element={<Booking />} />
 
           {/* Admin */}

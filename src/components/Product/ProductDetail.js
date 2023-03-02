@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as Config from "../../utils/Config";
 import axios from "axios";
-import { Container,Row,Col,Card,Button } from 'react-materialize'
+import { Container,Card,Button } from 'react-materialize'
 import { addToCart } from '../../context/CartSlice'
 import { useDispatch } from 'react-redux'
 import { Link } from "react-router-dom"
