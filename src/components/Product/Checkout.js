@@ -115,6 +115,8 @@ export default function Checkout() {
                 console.log(res);
             });
             submitBillingInfo();
+        }else if(paymentType=="online"){
+            showPaypalButton();
         }
     }
     ////////////////////////////////////
@@ -123,13 +125,25 @@ export default function Checkout() {
     function showSubmit1() {
         document.getElementById("submit1").style.display = "block";
         document.getElementById("submit2").style.display = "none";
+        document.getElementById("submit2_2").style.display = "none";
         setPaymentType("cod");
     }
 
     function showSubmit2() {
+        if(document.getElementById("submit2").style.display == "none" && document.getElementById("submit2_2").style.display == "block"){
         document.getElementById("submit1").style.display = "none";
         document.getElementById("submit2").style.display = "block";
+        document.getElementById("submit2_2").style.display = "none";
+        }else{
+            document.getElementById("submit1").style.display = "none";
+            document.getElementById("submit2").style.display = "block";
+        }
         setPaymentType("online");
+    }
+
+    function showPaypalButton() {
+        document.getElementById("submit2").style.display = "none";
+        document.getElementById("submit2_2").style.display = "block";
     }
 
     function submitBillingInfo() {
@@ -300,7 +314,10 @@ export default function Checkout() {
                             </div>
 
                             {/* Thanh Toan Online */}
-                            <div style={{ width: '180px', height: '40px', marginLeft: "250px", marginTop: "50px", display: "none" }} id="submit2" >
+                            <div style={{ textAlign: "center", marginTop: "50px", display: "none" }} id="submit2">
+                                <Button type="submit" style={{ backgroundColor: "red", color: "white" }} className='btn btn-primary'>Đặt hàng</Button>
+                            </div>
+                            <div style={{ width: '180px', height: '40px', marginLeft: "250px", marginTop: "50px", display: "none" }} id="submit2_2" >
                                 <PayPalButtons
                                     style={{ layout: "vertical" }}
                                     createOrder={(data, actions) => onCreateOrder(data, actions)}
