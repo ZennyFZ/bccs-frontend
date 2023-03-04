@@ -3,17 +3,21 @@ import { Container, Row, Col, Card, Button, SideNav, SideNavItem, Select } from 
 import { addToCart } from '../../context/CartSlice'
 import { useDispatch } from 'react-redux'
 import SearchIcon from '@mui/icons-material/Search';
+import Spinner from '../Spinner/spinner';
+import { useEffect, useState } from 'react';
 
 export default function Product({ Products }) {
     const dispatch = useDispatch();
+    const [loading, setloading] = useState(false);
+    useEffect(()=>{
+        setTimeout(setloading,800,true);
+    },[Products])
     const handleAddToCart = (product) => {
         dispatch(addToCart(product))
     }
     return (
         <div>
-
             <div>
-
                 <SideNav
                     id="SideNav-31"
                     options={{
@@ -87,35 +91,38 @@ export default function Product({ Products }) {
 
                 </SideNav>
             </div>
+                <Container>
+                    <br />
+                    <h3 class="AboutTitle">Các Dịch Vụ</h3>
+                    <div className="bottom-line2"></div>
+                    {!loading && <Spinner>LOADING . . . .</Spinner>}
+                    <Row >
+                        {Products.map((product) =>
+                        (<Col s={12} m={6} l={4}  >
+                            <Card style={{ borderRadius: "12px" }}>
+                                <div className='Product-info'>
+                                    <img src={product.Image} />
 
-            <Container>
-                <br />
-                <Row >
-                    {Products.map((product) =>
-                    (<Col s={12} m={6} l={4}  >
-                        <Card style={{ borderRadius: "12px" }}>
-                            <div className='Product-info'>
-                                <img src={product.Image} />
-
-                                <div className='Product-item-detail'>
-                                    <Link style={{ textAlign: "center", fontWeight: "bold", color: "black" }} to={`/san-pham/chi-tiet-san-pham/${product.ProductID}`}>
-                                        <p className='ProductName'>{product.ProductName}</p>
-                                    </Link>
-                                    <div className='Product-item-price'>
-                                        <div className='Price-money'>
-                                            <span className='label'>Giá</span>
-                                            <span className='Price'>{product.Price} VNĐ</span>
+                                    <div className='Product-item-detail'>
+                                        <Link style={{ textAlign: "center", fontWeight: "bold", color: "black" }} to={`/san-pham/chi-tiet-san-pham/${product.ProductID}`}>
+                                            <p className='ProductName'>{product.ProductName}</p>
+                                        </Link>
+                                        <div className='Product-item-price'>
+                                            <div className='Price-money'>
+                                                <span className='label'>Giá</span>
+                                                <span className='Price'>{product.Price} VNĐ</span>
+                                            </div>
+                                        </div>
+                                        <div style={{ textAlign: "center", marginTop: "10px" }}>
+                                            <Button onClick={() => { handleAddToCart(product) }} className='btn btn-primary'>Thêm vào giỏ hàng</Button>
                                         </div>
                                     </div>
-                                    <div style={{ textAlign: "center", marginTop: "10px" }}>
-                                        <Button onClick={() => { handleAddToCart(product) }} className='btn btn-primary'>Thêm vào giỏ hàng</Button>
-                                    </div>
                                 </div>
-                            </div>
-                        </Card>
-                    </Col>))}
-                </Row>
-            </Container>
+                            </Card>
+                        </Col>))}
+                    </Row>
+                </Container>
+
         </div>
 
     )

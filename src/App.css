@@ -550,6 +550,76 @@
 }
 
 /*checkout*/
+
+/*Register*/
+.instructions {
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  background: #000;
+  color: #fff;
+  padding: 0.25rem;
+  position: relative;
+  bottom: -10px;
+}
+
+.instructions > svg {
+  margin-right: 0.25rem;
+}
+
+.offscreen {
+  position: absolute;
+  left: -9999px;
+}
+
+.hide {
+  display: none;
+}
+
+.valid {
+  color: limegreen;
+  margin-left: 0.25rem;
+}
+
+.invalid {
+  color: red;
+  margin-left: 0.25rem;
+}
+
+.errmsg {
+  background-color: lightpink;
+  color: firebrick;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.Register{
+  text-align: center;
+}
+.Register-form{
+  max-width: 500px;
+  min-width: 300px;
+  max-height: 700px;
+  width: 30%;
+  height: 60%;
+  margin: 100px auto;
+  background-color: #FFFFFF;
+  border-radius: 25px;
+}
+.Register-button{
+  border-radius: 25px;
+  width: 80%;
+  height: 40px;
+  font-size: 1.3rem;
+  color: white;
+  font-weight: 700;
+  background: rgb(34,193,195);
+  background: linear-gradient(90deg, rgba(34,193,195,1) 0%,     rgba(253,187,45,1) 100%);
+  border: 0px;
+  cursor: pointer;
+  transition: opacity 0.25s ease-out;
+}
+
+/*/////////////Register////////////////*/
   @media only screen and (min-width: 600px){
     .ProductName{
       min-height: 50px;
