@@ -1,6 +1,6 @@
-import { Button, Row, Col, Container, Icon, Card } from "react-materialize";
+import { Button, Row, Col, Container, Card } from "react-materialize";
 import { Link } from "react-router-dom";
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function Service({ Services }) {
     console.log(Services);
@@ -16,11 +16,12 @@ export default function Service({ Services }) {
                     {Services.map((service) =>
                     (<Col s={12} m={6} l={4}  >
                         <div className='Service-info'>
-                            <Card style={{ borderRadius: "20px" }}>
+                            <Card style={{ borderRadius: "20px", width: "300px", height: "400px" }}>
                                 <img style={{ width: "250px", height: "150px" }} src={service.image} />
-                                <Link style={{ textAlign: "center", fontWeight: "bold", color: "black" }} to={`/dich-vu/chi-tiet-dich-vu/${service.ServiceID}`}>
-                                    <p className='Service'>{service.name}</p>
-                                </Link>
+                                <p style={{ textAlign: "center", fontWeight: "bold", color: "black" }} className='Service'>{service.name}</p>
+                                <div>
+                                    <p style={{ textAlign: "center" }}>{service.description}</p>
+                                </div>
                                 <div className='Service-item-price'>
                                     <div className='Price-money'>
                                         <p style={{ textAlign: "center" }}>{service.price} VND</p>

@@ -14,13 +14,9 @@ import ResetPassword from './components/Account/ResetPassword';
 import Profile from './components/Account/Profile';
 import Post_AllPost from './components/Post/Post_AllPost';
 import PostDetail from './components/Post/PostDetail';
-import Service from './components/Service/Service';
-import ServiceDetail from './components/Service/ServiceDetail';
 import Booking from './components/Service/Booking';
-import Order from './components/Order/Order';
 import Main_Order from './components/Order/Main_Order';
 import OrderDetail from './components/Order/OrderDetail';
-import Success from './components/Product/Success';
 
 import Admin from './components/Admin/Page/Admin';
 import AccountAdmin from './components/Admin/Page/Account';
@@ -65,7 +61,6 @@ function App() {
           <Route path="/san-pham/chi-tiet-san-pham/:id" element={<ProductDetail />} />
           <Route path="/gio-hang" element={<Cart />} />
           <Route path="/thanh-toan" element={<Checkout />} />
-          <Route path="/trang-thai" element={<Success />} />
 
           {/* Order */}
           <Route path="/don-hang" element={<Main_Order />} />
@@ -83,7 +78,6 @@ function App() {
 
           {/* Schedule */}
           <Route path="/dich-vu" element={<Main_service />} />
-          <Route path="/chi-tiet-dich-vu/:id" element={<ServiceDetail />} />
           <Route path="/booking" element={<Booking />} />
 
           {/* Admin */}

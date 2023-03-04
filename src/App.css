@@ -495,7 +495,7 @@
 .cart-container2 .titles2 {
   display: grid;
   align-items: center;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 2fr 2fr 1fr 1fr 1fr;
   column-gap: 0.5rem;
 }
 .cart-item2 {
@@ -508,6 +508,59 @@
 .cart-container2 .titles2 .total {
   padding-right: 0.5rem;
   justify-self: center;
+}
+
+/* order detail */
+.cart-container3 .titles3 {
+  margin: 2rem 0 1rem 0;
+}
+.cart-container3 .titles3 h3 {
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.cart-item3,
+.cart-container3 .titles3 {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 0.5rem;
+}
+.cart-item3 {
+  border-top: 1px solid rgb(187, 187, 187);
+  padding: 1rem 0;
+}
+.cart-container3 .titles3 .product-title {
+  padding-left: 0.5rem;
+}
+.cart-container3 .titles3 .total {
+  padding-right: 0.5rem;
+  justify-self: center;
+}
+
+.cart-item3 .cart-product3 {
+  display: flex;
+}
+.cart-item3 .cart-product3 img {
+  width: 200px;
+  height: 200px;
+  max-width: 100%;
+  margin-right: 1rem;
+}
+.cart-item3 .cart-product3 h3 {
+  font-weight: 400;
+  font-size: 30px;
+}
+.cart-item3 .cart-product3 button {
+  border: none;
+  outline: none;
+  margin-top: 0.7rem;
+  cursor: pointer;
+  background: none;
+  color: gray;
+}
+.cart-item3 .cart-product3 button:hover {
+  color: black;
 }
 
   .PostDescription{
