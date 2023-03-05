@@ -93,7 +93,7 @@ export default function Product({ Products }) {
             </div>
                 <Container>
                     <br />
-                    <h3 class="AboutTitle">Các Dịch Vụ</h3>
+                    <h3 class="AboutTitle">Các Sản Phẩm</h3>
                     <div className="bottom-line2"></div>
                     {!loading && <Spinner>LOADING . . . .</Spinner>}
                     <Row >

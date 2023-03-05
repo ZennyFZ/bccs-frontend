@@ -27,6 +27,8 @@ import PostAdmin from './components/Admin/Page/Post';
 import ManagePost from './components/Admin/Edit Page/ManagePost';
 import ScheduleAdmin from './components/Admin/Page/Schedule';
 
+import Dashboard from './components/Admin/Test folder/Dashboard';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'materialize-css/dist/css/materialize.min.css';
 import M from 'materialize-css';
@@ -82,13 +84,14 @@ function App() {
 
           {/* Admin */}
           <Route path="/admin" element={<Protected><Admin /></Protected>} />
-          <Route path="/admin/quan-ly-tai-khoan" element={<Protected><AccountAdmin /></Protected>} />
+          <Route path="/admin/quan-ly-tai-khoan" element={<AccountAdmin />} />
           <Route path="/admin/quan-ly-tai-khoan/:id" element={<Protected><ManageAccount /></Protected>} />
-          <Route path="/admin/quan-ly-san-pham" element={<Protected><ProductAdmin /></Protected>} />
+          <Route path="/admin/quan-ly-san-pham" element={<ProductAdmin />} />
           <Route path="/admin/quan-ly-san-pham/:id" element={<Protected><ManageProduct /></Protected>} />
-          <Route path="/admin/quan-ly-bai-viet" element={<Protected><PostAdmin /></Protected>} />
+          <Route path="/admin/quan-ly-bai-viet" element={<PostAdmin />} />
           <Route path="/admin/quan-ly-bai-viet/:id" element={<Protected><ManagePost /></Protected>} />
           <Route path="/admin/dich-vu" element={<Protected><ScheduleAdmin /></Protected>} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />
 
           {/* 404 */}
           <Route path="*" element={<h1>404 Not Found</h1>} />
