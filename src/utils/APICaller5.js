@@ -1,4 +1,4 @@
-//Cho Cart và CartDetail
+//Cho Booking và BookingDetail
 import axios from "axios";
 import * as Config from "./Config";
 export default function APICaller5(endpoint, method, body) {
