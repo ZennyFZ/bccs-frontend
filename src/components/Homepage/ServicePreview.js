@@ -17,8 +17,8 @@ export default function ServicePreview({ Services }) {
                                 <h3 className='ProductTitle'>{service.name}</h3>
                             </Link>
                             <p style={{ textAlign: "center" }}>{service.price} VND</p>
-                            <Link to={`/gio-hang`}>
-                                <p style={{ textAlign: "center", marginTop: "10px" }}><Button>Đặt ngay</Button></p>
+                            <Link to={`/dich-vu/${service.id}`}>
+                                <p style={{ textAlign: "center", marginTop: "10px" }}><Button>Đặt Ngay</Button></p>
                             </Link>
                         </Card>
                     </Col>))}

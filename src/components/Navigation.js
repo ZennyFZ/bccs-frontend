@@ -171,6 +171,13 @@ export default function Navigation() {
                       </Link>
                     </Typography>
                   </MenuItem>
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">
+                      <Link to="/lich-hen" style={{ textDecoration: "none", color: "#000000DE" }}>
+                        Lịch Hẹn
+                      </Link>
+                    </Typography>
+                  </MenuItem>
                   <MenuItem>
                     <Typography textAlign="center" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
                       Đăng Xuất

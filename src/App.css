@@ -563,6 +563,59 @@
   color: black;
 }
 
+/* Booking Detail */
+.cart-container4 .titles4 {
+  margin: 2rem 0 1rem 0;
+}
+.cart-container4 .titles4 h3 {
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.cart-item4,
+.cart-container4 .titles4 {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 0.5rem;
+}
+.cart-item4 {
+  border-top: 1px solid rgb(187, 187, 187);
+  padding: 1rem 0;
+}
+.cart-container4 .titles4 .product-title {
+  padding-left: 0.5rem;
+}
+.cart-container4 .titles4 .total {
+  padding-right: 0.5rem;
+  justify-self: center;
+}
+
+.cart-item4 .cart-product4 {
+  display: flex;
+}
+.cart-item4 .cart-product4 img {
+  width: 200px;
+  height: 200px;
+  max-width: 100%;
+  margin-right: 1rem;
+}
+.cart-item4 .cart-product4 h3 {
+  font-weight: 400;
+  font-size: 30px;
+}
+.cart-item4 .cart-product4 button {
+  border: none;
+  outline: none;
+  margin-top: 0.7rem;
+  cursor: pointer;
+  background: none;
+  color: gray;
+}
+.cart-item4 .cart-product4 button:hover {
+  color: black;
+}
+
   .PostDescription{
     display: flex;
     justify-content: center;
