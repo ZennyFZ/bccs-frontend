@@ -495,7 +495,7 @@
 .cart-container2 .titles2 {
   display: grid;
   align-items: center;
-  grid-template-columns: 1fr 2fr 1fr 4fr 2fr 2fr 2fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 2fr 2fr 1fr 1fr 1fr;
   column-gap: 0.5rem;
 }
 .cart-item2 {
@@ -623,8 +623,6 @@
     margin-top: 50px;
     margin-bottom: 50px;
     height: 110px;
-    overflow: hidden;
-    text-overflow: ellipsis; 
   }
 .quantity{
   position: relative;

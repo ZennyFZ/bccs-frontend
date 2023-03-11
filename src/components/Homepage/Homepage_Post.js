@@ -10,7 +10,7 @@ export class Homepage_Post extends Component {
 }
 
 componentDidMount(){
-    callerApi("Post/GetAllPost/FilterByDate?filter=newest", "GET", null).then(res => {
+    callerApi("Post", "GET", null).then(res => {
         this.setState({
             Posts: res.data
         });
