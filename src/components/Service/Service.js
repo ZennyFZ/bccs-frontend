@@ -15,14 +15,14 @@ export default function Service({ Services }) {
                         <div className='Service-info'>
                             <Card style={{ borderRadius: "20px"}}>
                                 <img style={{ width: "300px", height: "300px" }} src={service.image} />
-                                <p style={{ textAlign: "center", fontWeight: "bold", color: "black" }} className='Service'>{service.name}</p>
+                                <p style={{ textAlign: "center", fontWeight: "bold", color: "black" }} className='Service'>{service.serviceName}</p>
                                 <div className='Service-item-price'>
                                     <div className='Price-money'>
-                                        <p style={{ textAlign: "center" }}>{service.price} VND</p>
+                                        <p style={{ textAlign: "center" }}>{(service.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
                                     </div>
                                 </div>
                                 <p style={{ textAlign: "center", marginTop: "10px" }}>
-                                    <Link to={`/dich-vu/${service.id}`}>
+                                    <Link to={`/dich-vu/${service.serviceId}`}>
                                         <Button>
                                             Chi tiết
                                         </Button>
