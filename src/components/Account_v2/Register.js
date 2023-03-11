@@ -3,10 +3,10 @@ import BeenhereIcon from '@mui/icons-material/Beenhere';
 import callerApi5 from '../../utils/APICaller5';
 import InfoIcon from '@mui/icons-material/Info';
 import ErrorIcon from '@mui/icons-material/Error';
-import { Grid } from "@mui/material";
 import { Card } from "react-materialize";
+import { Link } from "react-router-dom";
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+const EMAIL_REGEX = /^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const Register = () => {
@@ -33,7 +33,7 @@ const Register = () => {
     }, [])
 
     useEffect(() => {
-        setValidName(USER_REGEX.test(user));
+        setValidName(EMAIL_REGEX.test(user));
     }, [user])
 
     useEffect(() => {
@@ -48,7 +48,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // if button enabled with JS hack
-        const v1 = USER_REGEX.test(user);
+        const v1 = EMAIL_REGEX.test(user);
         const v2 = PWD_REGEX.test(pwd);
         if (!v1 || !v2) {
             setErrMsg("Invalid Entry");
@@ -56,21 +56,20 @@ const Register = () => {
         }
         try {
             callerApi5("Account", "POST", {
-                username: user,
+                email: user,
                 password: pwd,
-                status : "1"
             }).then(response => {
                 console.log(response?.data);
                 console.log(response?.accessToken);
                 console.log(JSON.stringify(response))
-                setSuccess(true);
             });
             
             //clear state and controlled inputs
-            //need value attrib on inputs for this
+            //need value attrib on inputs for thisS
             setUser('');
             setPwd('');
             setMatchPwd('');
+            setSuccess(true);
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -98,14 +97,14 @@ const Register = () => {
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <h4>Register</h4>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="username">
+                        <label htmlFor="email">
                             Username:
                             <BeenhereIcon className={validName ? "valid" : "hide"} />
                             <ErrorIcon className={validName || !user ? "hide" : "invalid"} />
                         </label>
                         <input
                             type="text"
-                            id="username"
+                            id="email"
                             ref={userRef}
                             autoComplete="off"
                             onChange={(e) => setUser(e.target.value)}
@@ -174,8 +173,7 @@ const Register = () => {
                     <p>
                         Already registered?<br />
                         <span className="line">
-                            {/*put router link here*/}
-                            <a href="#">Sign In</a>
+                            <Link to ={'/dang-nhap'}>Sign up</Link>
                         </span>
                     </p>
                 </section>
