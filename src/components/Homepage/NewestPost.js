@@ -11,26 +11,21 @@ export default function NewestPost({Posts}) {
             <Container>
                 <br/>
                 <Row >
-                    {Posts.slice(0,3).map((post) =>
+                    {Posts.slice(Posts.length-3,Posts.length).map((post) =>
                     (<Col s={12} m={6} l={4}  >
                         <Card>
-                         <img style={{width: "300px", height: "200px"}} src={post.image} />
-                         <span style={{float: "left", display: "flex", justifyContent: "center", alignContent: "center", fontSize: "13px"}}>
+                         <img style={{width: "300px", height: "200px"}} src={post.Image} />
+                         <span style={{float: "left", display: "flex", justifyContent: "center", alignContent: "center", fontSize: "15px"}}>
                             <span>
                                 <PersonIcon/>
                             </span>
-                            {post.author}
+                            {post.Author}
                         </span>
-                        <span style={{float: "right", display: "flex", justifyContent: "center", alignContent: "center", fontSize: "13px"}}>
-                            <AccessTimeIcon/>
-                        {
-                            post.date.slice(8, 10) + "/" + post.date.slice(5, 7) + "/" + post.date.slice(0, 4) + " " + post.date.slice(11, 16)
-                        }
-                         </span>
-                         <Link to={`bai-viet/${post.postId}`}>
-                         <h3 className='ProductTitle'>{post.title}</h3>
+                         <span style={{float: "right", display: "flex", justifyContent: "center", alignContent: "center", fontSize: "15px"}}><AccessTimeIcon/> {post.Date}</span>
+                         <Link to={`bai-viet/${post.PostID}`}>
+                         <h3 className='ProductTitle'>{post.Title}</h3>
                          </Link>
-                            <div className="PostDescription" >{post.description}</div>
+                            <div>{post.Description}</div>
                         </Card>
                     </Col>))}
                 </Row>

@@ -40,10 +40,6 @@ function a11yProps(index) {
   };
 }
 
-function showButton(){
-  
-}
-
 export default function Order(Orders) {
   console.log(Orders);
   const [value, setValue] = React.useState(0);
@@ -70,7 +66,8 @@ export default function Order(Orders) {
               <div className="titles2">
                 <h3>Mã Đơn Hàng</h3>
                 <h3 className="product-title">Ngày Đặt</h3>
-                <h3 className="Quantity">Tổng Tiền</h3>
+                <h3 className="price">Số Lượng</h3>
+                <h3 className="Quantity">Giá</h3>
                 <h3>Địa Chỉ & Liên Hệ</h3>
                 <h3>Ghi Chú</h3>
                 <h3>Phương Thức Thanh Toán</h3>
@@ -81,36 +78,34 @@ export default function Order(Orders) {
                 {Orders.Orders?.map(order => {
                   return (
                     <div className="cart-item2" key={order.id}>
-                      <div>{order.orderId}</div>
+                      <div>{order.id}</div>
                       <div>
                         <div>
-                          <h5>{order.orderDate.slice(8,10)+"-"+order.orderDate.slice(5,7)+"-"+order.orderDate.slice(0,4)+" "+order.orderDate.slice(11,19)}</h5>
+                          <h5>{order.OrderDate}</h5>
                         </div>
                       </div>
-                      {/* <div className="cart-product-price">{order.ProductQuantity}</div> */}
+                      <div className="cart-product-price">{order.ProductQuantity}</div>
                       <div className="cart-product-quantity">
-                        <div className="count">{(order.amount).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
+                        <div className="count">{order.TotalPrice} VND</div>
                       </div>
                       <div>
                         <div>
-                          <h5 style={{ fontSize: '20px' }}>Địa chỉ nhận hàng: {order.address}</h5>
+                          <h5 style={{ fontSize: '20px' }}>Địa chỉ nhận hàng: {order.adress}</h5>
                           <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {order.phone}</h5>
+                          <h5 style={{ fontSize: '20px' }}>Email: {order.email}</h5>
                         </div>
                       </div>
                       <div>
                         {order.note}
                       </div>
                       <div>
-                        {order.paymentMethod}
+                        {order.paymentType}
                       </div>
                       <div className="cart-product-total-price">
-                        {order.statusId == 1 ? <div>Chờ Xác Nhận</div> : 
-                         order.statusId == 2 ? <div>Đã Xác Nhận</div> : 
-                         order.statusId == 3 ? <div>Hoàn Thành</div> : 
-                                               <div>Đã Hủy</div>}
+                        {order.Status}
                       </div>
                       <div>
-                        <Link to={`/don-hang/${order.orderId}`}>
+                        <Link to={`/don-hang/${order.id}`}>
                           <Button>Chi Tiết</Button>
                         </Link>
                       </div>
@@ -122,12 +117,13 @@ export default function Order(Orders) {
           </div>
         </TabPanel>
         <TabPanel value={value} index={1}>
-        <div className="cart-container2">
+          <div className="cart-container2">
             <div>
               <div className="titles2">
                 <h3>Mã Đơn Hàng</h3>
                 <h3 className="product-title">Ngày Đặt</h3>
-                <h3 className="Quantity">Tổng Tiền</h3>
+                <h3 className="price">Số Lượng</h3>
+                <h3 className="Quantity">Giá</h3>
                 <h3>Địa Chỉ & Liên Hệ</h3>
                 <h3>Ghi Chú</h3>
                 <h3>Phương Thức Thanh Toán</h3>
@@ -136,42 +132,44 @@ export default function Order(Orders) {
               </div>
               <div className="cart-items">
                 {Orders.Orders?.map(order => {
-                  if(order.statusId == 1){
-                  return (
-                    <div className="cart-item2" key={order.id}>
-                      <div>{order.orderId}</div>
-                      <div>
+                  if (order.Status === "Chờ Xác Nhận") {
+                    return (
+                      <div className="cart-item2" key={order.id}>
+                        <div>{order.id}</div>
                         <div>
-                          <h5>{order.orderDate.slice(8,10)+"-"+order.orderDate.slice(5,7)+"-"+order.orderDate.slice(0,4)+" "+order.orderDate.slice(11,19)}</h5>
+                          <div>
+                            <h5>{order.OrderDate}</h5>
+                          </div>
+                        </div>
+                        <div className="cart-product-price">{order.ProductQuantity}</div>
+                        <div className="cart-product-quantity">
+                          <div className="count">{order.TotalPrice} VND</div>
+                        </div>
+                        <div>
+                          <div>
+                            <h5 style={{ fontSize: '20px' }}>Địa chỉ nhận hàng: {order.adress}</h5>
+                            <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {order.phone}</h5>
+                            <h5 style={{ fontSize: '20px' }}>Email: {order.email}</h5>
+                          </div>
+                        </div>
+                        <div>
+                          {order.note}
+                        </div>
+                        <div>
+                          {order.paymentType}
+                        </div>
+                        <div className="cart-product-total-price">
+                          {order.Status}
+                        </div>
+                        <div>
+                          <Link to={`/don-hang/${order.id}`}>
+                            <Button>Chi Tiết</Button>
+                          </Link>
                         </div>
                       </div>
-                      {/* <div className="cart-product-price">{order.ProductQuantity}</div> */}
-                      <div className="cart-product-quantity">
-                        <div className="count">{(order.amount).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
-                      </div>
-                      <div>
-                        <div>
-                          <h5 style={{ fontSize: '20px' }}>Địa chỉ nhận hàng: {order.address}</h5>
-                          <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {order.phone}</h5>
-                        </div>
-                      </div>
-                      <div>
-                        {order.note}
-                      </div>
-                      <div>
-                        {order.paymentMethod}
-                      </div>
-                      <div className="cart-product-total-price">
-                        Chờ Xác Nhận
-                      </div>
-                      <div>
-                        <Link to={`/don-hang/${order.orderId}`}>
-                          <Button>Chi Tiết</Button>
-                        </Link>
-                      </div>
-                    </div>
-                  )
-                }})}
+                    )
+                  }
+                })}
               </div>
             </div>
           </div>
@@ -182,7 +180,8 @@ export default function Order(Orders) {
               <div className="titles2">
                 <h3>Mã Đơn Hàng</h3>
                 <h3 className="product-title">Ngày Đặt</h3>
-                <h3 className="Quantity">Tổng Tiền</h3>
+                <h3 className="price">Số Lượng</h3>
+                <h3 className="Quantity">Giá</h3>
                 <h3>Địa Chỉ & Liên Hệ</h3>
                 <h3>Ghi Chú</h3>
                 <h3>Phương Thức Thanh Toán</h3>
@@ -191,42 +190,44 @@ export default function Order(Orders) {
               </div>
               <div className="cart-items">
                 {Orders.Orders?.map(order => {
-                  if(order.statusId == 2){
-                  return (
-                    <div className="cart-item2" key={order.id}>
-                      <div>{order.orderId}</div>
-                      <div>
+                  if (order.Status === "Đã Xác Nhận") {
+                    return (
+                      <div className="cart-item2" key={order.id}>
+                        <div>{order.id}</div>
                         <div>
-                          <h5>{order.orderDate.slice(8,10)+"-"+order.orderDate.slice(5,7)+"-"+order.orderDate.slice(0,4)+" "+order.orderDate.slice(11,19)}</h5>
+                          <div>
+                            <h5>{order.OrderDate}</h5>
+                          </div>
+                        </div>
+                        <div className="cart-product-price">{order.ProductQuantity}</div>
+                        <div className="cart-product-quantity">
+                          <div className="count">{order.TotalPrice} VND</div>
+                        </div>
+                        <div>
+                          <div>
+                            <h5 style={{ fontSize: '20px' }}>Địa chỉ nhận hàng: {order.adress}</h5>
+                            <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {order.phone}</h5>
+                            <h5 style={{ fontSize: '20px' }}>Email: {order.email}</h5>
+                          </div>
+                        </div>
+                        <div>
+                          {order.note}
+                        </div>
+                        <div>
+                          {order.paymentType}
+                        </div>
+                        <div className="cart-product-total-price">
+                          {order.Status}
+                        </div>
+                        <div>
+                          <Link to={`/don-hang/${order.id}`}>
+                            <Button>Chi Tiết</Button>
+                          </Link>
                         </div>
                       </div>
-                      {/* <div className="cart-product-price">{order.ProductQuantity}</div> */}
-                      <div className="cart-product-quantity">
-                        <div className="count">{(order.amount).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
-                      </div>
-                      <div>
-                        <div>
-                          <h5 style={{ fontSize: '20px' }}>Địa chỉ nhận hàng: {order.address}</h5>
-                          <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {order.phone}</h5>
-                        </div>
-                      </div>
-                      <div>
-                        {order.note}
-                      </div>
-                      <div>
-                        {order.paymentMethod}
-                      </div>
-                      <div className="cart-product-total-price">
-                        Đã Xác Nhận
-                      </div>
-                      <div>
-                        <Link to={`/don-hang/${order.orderId}`}>
-                          <Button>Chi Tiết</Button>
-                        </Link>
-                      </div>
-                    </div>
-                  )
-                }})}
+                    )
+                  }
+                })}
               </div>
             </div>
           </div>
@@ -237,7 +238,8 @@ export default function Order(Orders) {
               <div className="titles2">
                 <h3>Mã Đơn Hàng</h3>
                 <h3 className="product-title">Ngày Đặt</h3>
-                <h3 className="Quantity">Tổng Tiền</h3>
+                <h3 className="price">Số Lượng</h3>
+                <h3 className="Quantity">Giá</h3>
                 <h3>Địa Chỉ & Liên Hệ</h3>
                 <h3>Ghi Chú</h3>
                 <h3>Phương Thức Thanh Toán</h3>
@@ -246,42 +248,44 @@ export default function Order(Orders) {
               </div>
               <div className="cart-items">
                 {Orders.Orders?.map(order => {
-                  if(order.statusId == 3){
-                  return (
-                    <div className="cart-item2" key={order.id}>
-                      <div>{order.orderId}</div>
-                      <div>
+                  if (order.Status === "Hoàn Thành") {
+                    return (
+                      <div className="cart-item2" key={order.id}>
+                        <div>{order.id}</div>
                         <div>
-                          <h5>{order.orderDate.slice(8,10)+"-"+order.orderDate.slice(5,7)+"-"+order.orderDate.slice(0,4)+" "+order.orderDate.slice(11,19)}</h5>
+                          <div>
+                            <h5>{order.OrderDate}</h5>
+                          </div>
+                        </div>
+                        <div className="cart-product-price">{order.ProductQuantity}</div>
+                        <div className="cart-product-quantity">
+                          <div className="count">{order.TotalPrice} VND</div>
+                        </div>
+                        <div>
+                          <div>
+                            <h5 style={{ fontSize: '20px' }}>Địa chỉ nhận hàng: {order.adress}</h5>
+                            <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {order.phone}</h5>
+                            <h5 style={{ fontSize: '20px' }}>Email: {order.email}</h5>
+                          </div>
+                        </div>
+                        <div>
+                          {order.note}
+                        </div>
+                        <div>
+                          {order.paymentType}
+                        </div>
+                        <div className="cart-product-total-price">
+                          {order.Status}
+                        </div>
+                        <div>
+                          <Link to={`/don-hang/${order.id}`}>
+                            <Button>Chi Tiết</Button>
+                          </Link>
                         </div>
                       </div>
-                      {/* <div className="cart-product-price">{order.ProductQuantity}</div> */}
-                      <div className="cart-product-quantity">
-                        <div className="count">{(order.amount).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
-                      </div>
-                      <div>
-                        <div>
-                          <h5 style={{ fontSize: '20px' }}>Địa chỉ nhận hàng: {order.address}</h5>
-                          <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {order.phone}</h5>
-                        </div>
-                      </div>
-                      <div>
-                        {order.note}
-                      </div>
-                      <div>
-                        {order.paymentMethod}
-                      </div>
-                      <div className="cart-product-total-price">
-                        Hoàn Thành
-                      </div>
-                      <div>
-                        <Link to={`/don-hang/${order.orderId}`}>
-                          <Button>Chi Tiết</Button>
-                        </Link>
-                      </div>
-                    </div>
-                  )
-                }})}
+                    )
+                  }
+                })}
               </div>
             </div>
           </div>
@@ -292,7 +296,8 @@ export default function Order(Orders) {
               <div className="titles2">
                 <h3>Mã Đơn Hàng</h3>
                 <h3 className="product-title">Ngày Đặt</h3>
-                <h3 className="Quantity">Tổng Tiền</h3>
+                <h3 className="price">Số Lượng</h3>
+                <h3 className="Quantity">Giá</h3>
                 <h3>Địa Chỉ & Liên Hệ</h3>
                 <h3>Ghi Chú</h3>
                 <h3>Phương Thức Thanh Toán</h3>
@@ -301,42 +306,44 @@ export default function Order(Orders) {
               </div>
               <div className="cart-items">
                 {Orders.Orders?.map(order => {
-                  if(order.statusId == 4){
-                  return (
-                    <div className="cart-item2" key={order.id}>
-                      <div>{order.orderId}</div>
-                      <div>
+                  if (order.Status === "Đã Hủy") {
+                    return (
+                      <div className="cart-item2" key={order.id}>
+                        <div>{order.id}</div>
                         <div>
-                          <h5>{order.orderDate.slice(8,10)+"-"+order.orderDate.slice(5,7)+"-"+order.orderDate.slice(0,4)+" "+order.orderDate.slice(11,19)}</h5>
+                          <div>
+                            <h5>{order.OrderDate}</h5>
+                          </div>
+                        </div>
+                        <div className="cart-product-price">{order.ProductQuantity}</div>
+                        <div className="cart-product-quantity">
+                          <div className="count">{order.TotalPrice} VND</div>
+                        </div>
+                        <div>
+                          <div>
+                            <h5 style={{ fontSize: '20px' }}>Địa chỉ nhận hàng: {order.adress}</h5>
+                            <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {order.phone}</h5>
+                            <h5 style={{ fontSize: '20px' }}>Email: {order.email}</h5>
+                          </div>
+                        </div>
+                        <div>
+                          {order.note}
+                        </div>
+                        <div>
+                          {order.paymentType}
+                        </div>
+                        <div className="cart-product-total-price">
+                          {order.Status}
+                        </div>
+                        <div>
+                          <Link to={`/don-hang/${order.id}`}>
+                            <Button>Chi Tiết</Button>
+                          </Link>
                         </div>
                       </div>
-                      {/* <div className="cart-product-price">{order.ProductQuantity}</div> */}
-                      <div className="cart-product-quantity">
-                        <div className="count">{(order.amount).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
-                      </div>
-                      <div>
-                        <div>
-                          <h5 style={{ fontSize: '20px' }}>Địa chỉ nhận hàng: {order.address}</h5>
-                          <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {order.phone}</h5>
-                        </div>
-                      </div>
-                      <div>
-                        {order.note}
-                      </div>
-                      <div>
-                        {order.paymentMethod}
-                      </div>
-                      <div className="cart-product-total-price">
-                        Đã Hủy
-                      </div>
-                      <div>
-                        <Link to={`/don-hang/${order.orderId}`}>
-                          <Button>Chi Tiết</Button>
-                        </Link>
-                      </div>
-                    </div>
-                  )
-                }})}
+                    )
+                  }
+                })}
               </div>
             </div>
           </div>

@@ -18,13 +18,13 @@ import Main_Order from './components/Order/Main_Order';
 import OrderDetail from './components/Order/OrderDetail';
 
 import Admin from './components/Admin/Page/Admin';
+import AccountAdmin from './components/Admin/Page/Account';
+import ManageAccount from './components/Admin/Edit Page/ManageAccount';
+import ProductAdmin from './components/Admin/Page/Product';
 import ManageProduct from './components/Admin/Edit Page/ManageProduct';
-import AddProduct from './components/Admin/Add Page/AddProduct';
+import PostAdmin from './components/Admin/Page/Post';
 import ManagePost from './components/Admin/Edit Page/ManagePost';
-import AddPost from './components/Admin/Add Page/AddPost';
-
-import ManageService from './components/Admin/Edit Page/ManageService';
-import AddService from './components/Admin/Add Page/AddService';
+import ScheduleAdmin from './components/Admin/Page/Schedule';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'materialize-css/dist/css/materialize.min.css';
@@ -86,24 +86,15 @@ function App() {
           <Route path="/lich-hen" element={<Main_Booking />} />
           <Route path="/lich-hen/:id" element={<BookingOrderDetail />} />
 
-
           {/* Admin */}
-          {/* <Route path="/admin" element={<Protected><Admin /></Protected>} />
+          <Route path="/admin" element={<Protected><Admin /></Protected>} />
           <Route path="/admin/quan-ly-tai-khoan" element={<Protected><AccountAdmin /></Protected>} />
           <Route path="/admin/quan-ly-tai-khoan/:id" element={<Protected><ManageAccount /></Protected>} />
           <Route path="/admin/quan-ly-san-pham" element={<Protected><ProductAdmin /></Protected>} />
           <Route path="/admin/quan-ly-san-pham/:id" element={<Protected><ManageProduct /></Protected>} />
           <Route path="/admin/quan-ly-bai-viet" element={<Protected><PostAdmin /></Protected>} />
           <Route path="/admin/quan-ly-bai-viet/:id" element={<Protected><ManagePost /></Protected>} />
-          <Route path="/admin/dich-vu" element={<Protected><ScheduleAdmin /></Protected>} /> */}
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/quan-ly-san-pham/:id" element={<ManageProduct />} />
-          <Route path="/admin/them-san-pham" element={<AddProduct />} />
-          <Route path="/admin/quan-ly-bai-viet/:id" element={<ManagePost />} />
-          <Route path="/admin/them-bai-viet" element={<AddPost />} />
-          <Route path="/admin/quan-ly-dich-vu/:id" element={<ManageService />} />
-          <Route path="/admin/them-dich-vu" element={<AddService />} />
-
+          <Route path="/admin/dich-vu" element={<Protected><ScheduleAdmin /></Protected>} />
 
           {/* 404 */}
           <Route path="*" element={<h1>404 Not Found</h1>} />

@@ -4,11 +4,6 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import callerApi from '../../utils/APICaller';
-import { useEffect } from 'react';
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { toast } from 'react-toastify';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -43,80 +38,12 @@ function a11yProps(index) {
   };
 }
 
-export default function Profile() {
+export default function VerticalTabs() {
   const [value, setValue] = React.useState(0);
-  const [userInfo, setUserInfo] = React.useState({});
-  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-  const formik = useFormik({
-    initialValues: {
-      fullName: "",
-      mail: "",
-      phone: "",
-      address: "",
-    },
-    validationSchema: Yup.object({
-      fullName: Yup.string().required("Vui lòng nhập họ tên").max(50, "Họ tên không được quá 50 ký tự"),
-      mail: Yup.string().required("Vui lòng nhập email").max(50, "Email không được quá 50 ký tự"),
-      phone: Yup.string().required("Vui lòng nhập số điện thoại").matches(phoneRegExp, "Số điện thoại không hợp lệ"),
-      address: Yup.string().required("Vui lòng nhập địa chỉ").max(50, "Địa chỉ không được quá 50 ký tự"),
-    }),
-    onSubmit: (values) => {
-      callerApi("Customer/UpdateAccount", "PUT", {
-        fullName: values.fullName,
-        phone: values.phone,
-        address: values.address,
-        password: userInfo.password,
-        mail: values.mail
-      }).then((response) => {
-        if (response.status === 200) {
-          toast.success("Cập nhật thông tin thành công");
-          setInterval(() => {
-            window.location.reload();
-          }, 2000);
-        }
-      }
-      ).catch((error) => {
-        toast.error("Cập nhật thông tin thất bại");
-      });
-    },
-  });
-
-  const formik2 = useFormik({
-    initialValues: {
-      newPassword: "",
-      confirmPassword: "",
-    },
-    validationSchema: Yup.object({
-      newPassword: Yup.string().required("Vui lòng nhập mật khẩu mới").max(50, "Mật khẩu mới không được quá 50 ký tự"),
-      confirmPassword: Yup.string().required("Vui lòng nhập lại mật khẩu mới").oneOf([Yup.ref('newPassword'), null], 'Mật khẩu không khớp'),
-    }),
-    onSubmit: (values) => {
-      callerApi("Customer/ChangePassword", "PUT", {
-        newPassword: values.newPassword
-      }).then((response) => {
-        if (response.status === 200) {
-          toast.success("Cập nhật mật khẩu thành công");
-        }
-      }
-      ).catch((error) => {
-        toast.error("Cập nhật mật khẩu thất bại");
-      });
-    },
-  });
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  async function getCurrentUser() {
-    await callerApi("Customer/GetCurrentCustomer", "GET", null).then((response) => {
-        setUserInfo(response.data);
-    });
-   }
-  
-   useEffect(() => {
-    getCurrentUser();
-    }, []);
 
   return (
     <Box
@@ -142,50 +69,46 @@ export default function Profile() {
                 <div className="col-6" style={{width: '1300px'}}>
                     <div className="form-group">
                         <label htmlFor="exampleInputEmail1">Họ Tên</label>
-                        <input value={userInfo?.fullName} type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" disabled/>
+                        <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" disabled/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="exampleInputEmail1">Email</label>
-                        <input value={userInfo?.mail} type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" disabled/>
+                        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" disabled/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="exampleInputEmail1">Số Điện Thoại</label>
-                        <input value={userInfo?.phone} type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" disabled/>
+                        <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" disabled/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="exampleInputEmail1">Địa Chỉ</label>
-                        <input value={userInfo?.address}  type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" disabled/>
+                        <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" disabled/>
                     </div>
                 </div>
             </div>
         </div>
       </TabPanel>
       <TabPanel value={value} index={1} style={{backgroundColor: '#f5f5f5'}}>
-              <form onSubmit={formik.handleSubmit}>
+              <form>
                   <div>
                       <div className="introHeading">Thay Đổi Thông Tin Cá Nhân</div>
                       <div className="bottom-line2" style={{ marginTop: "25px" }}></div>
                       <div className="row">
                           <div className="col-6" style={{ width: '1300px' }}>
                               <div className="form-group">
-                                  <label>Họ Tên</label>
-                                  <input type="text" className="form-control" id="fullName" value={formik.values.fullName} onChange={formik.handleChange} />
-                                  {formik.errors.fullName ? <div style={{color: "red"}}>{formik.errors.fullName}</div> : null}
+                                  <label htmlFor="exampleInputEmail1">Họ Tên</label>
+                                  <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                               </div>
                               <div className="form-group">
-                                  <label>Email</label>
-                                  <input type="email" className="form-control" id="mail" value={formik.values.mail} onChange={formik.handleChange} />
-                                  {formik.errors.mail ? <div style={{color: "red"}}>{formik.errors.mail}</div> : null}
+                                  <label htmlFor="exampleInputEmail1">Email</label>
+                                  <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                               </div>
                               <div className="form-group">
-                                  <label>Số Điện Thoại</label>
-                                  <input type="text" className="form-control" id="phone" value={formik.values.phone} onChange={formik.handleChange} />
-                                  {formik.errors.phone ? <div style={{color: "red"}}>{formik.errors.phone}</div> : null}
+                                  <label htmlFor="exampleInputEmail1">Số Điện Thoại</label>
+                                  <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                               </div>
                               <div className="form-group">
-                                  <label>Địa Chỉ</label>
-                                  <input type="text" className="form-control" id="address" value={formik.values.address} onChange={formik.handleChange} />
-                                  {formik.errors.address ? <div style={{color: "red"}}>{formik.errors.address}</div> : null}
+                                  <label htmlFor="exampleInputEmail1">Địa Chỉ</label>
+                                  <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                               </div>
                               <div className="form-group" style={{textAlign: "center"}}>
                                   <button type="submit" className="btn btn-primary">Cập Nhật</button>
@@ -196,21 +119,23 @@ export default function Profile() {
               </form>
       </TabPanel>
       <TabPanel value={value} index={2} style={{backgroundColor: '#f5f5f5'}}>
-              <form onSubmit={formik2.handleSubmit} >
+              <form>
                   <div>
                       <div className="introHeading">Thay Đổi Mật Khẩu </div>
                       <div className="bottom-line2" style={{ marginTop: "25px" }}></div>
                       <div className="row">
                           <div className="col-6" style={{ width: '1300px' }}>
                               <div className="form-group">
-                                  <label>Mật Khẩu Mới</label>
-                                  <input type="password" className="form-control" value={formik2.values.newPassword} onChange={formik2.handleChange} id="newPassword" />
-                                  {formik.errors.newPassword ? <div style={{ color: "red" }}>{formik.errors.newPassword}</div> : null}
+                                  <label htmlFor="exampleInputEmail1">Mật Khẩu Cũ</label>
+                                  <input type="password" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                               </div>
                               <div className="form-group">
-                                  <label>Nhập Lại Mật Khẩu Mới</label>
-                                  <input type="password" className="form-control" value={formik2.values.confirmPassword} onChange={formik2.handleChange} id="confirmPassword" />
-                                  {formik.errors.confirmPassword ? <div style={{ color: "red" }}>{formik.errors.confirmPassword}</div> : null}
+                                  <label htmlFor="exampleInputEmail1">Mật Khẩu Mới</label>
+                                  <input type="password" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                              </div>
+                              <div className="form-group">
+                                  <label htmlFor="exampleInputEmail1">Nhập Lại Mật Khẩu Mới</label>
+                                  <input type="password" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                               </div>
                               <div className="form-group" style={{ textAlign: "center" }}>
                                   <button type="submit" className="btn btn-primary">Cập Nhật</button>

@@ -24,7 +24,7 @@ export default function ServiceDetail() {
         }
     ])
     function getData() {
-        axios.get(`${Config.API_URL}/Service/GetServiceByID?id=` + Serviceid.id)
+        axios.get(`${Config.API_URL2}/Service/` + Serviceid.id)
             .then(response => response.data)
             .then((data) => {
                 setService(data)
@@ -35,9 +35,7 @@ export default function ServiceDetail() {
         setSelectedTime(pickedTime);
         setBooking([{
             day: selectedDate.getDate() + "/" + (selectedDate.getMonth() + 1) + "/" + selectedDate.getFullYear() + " - " + pickedTime,
-            id: Serviceid.id,
-            oday: selectedDate,
-            otime: pickedTime
+            id: Serviceid.id
         }])
         // localStorage.setItem("BookingDate", "[{" + "day: " + selectedDate.getDate() + "/" + (selectedDate.getMonth() + 1) + "/" + selectedDate.getFullYear() + " - " + pickedTime + "," + "ID: " + Serviceid.id + "}]");
     }
@@ -64,13 +62,13 @@ export default function ServiceDetail() {
                         </div>
                         <div className="Service-info-main">
                             <div className="Service-info-title">
-                                <h1 style={{ fontWeight: "700", fontSize: "40px", lineHeight: "5px" }} className='ServiceName'>{service.serviceName}</h1>
+                                <h1 style={{ fontWeight: "700", fontSize: "40px", lineHeight: "5px" }} className='ServiceName'>{service.name}</h1>
                             </div>
                             <div className="bottom-line2" style={{marginTop: "25px"}}></div>
                             <div className="Service-add-form">
                                 <span style={{ fontSize: "30px", fontWeight: "bold" }}>Thông tin dịch vụ: </span>
                                 <div className="Service-description">
-                                    <div style={{ fontSize: "20px", width: "500px" }}>{service.desciption}</div>
+                                    <div style={{ fontSize: "20px", width: "500px" }}>{service.description}</div>
                                 </div>
                                 <div className="bottom-line2" style={{marginTop: "25px"}}></div>
                                 <div className="Service-option">
