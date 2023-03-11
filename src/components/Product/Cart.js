@@ -71,22 +71,22 @@ export default function Cart() {
                         <div className="cart-items">
                             {cart.cartItems?.map(cartItem => {
                                 return (
-                                    <div className="cart-item" key={cartItem.ProductID}>
+                                    <div className="cart-item" key={cartItem.productId}>
                                         <div className="cart-product">
-                                            <img src={cartItem.Image} alt={cartItem.ProductName} />
+                                            <img src={cartItem.image} alt={cartItem.productName} />
                                             <div>
-                                                <h3>{cartItem.ProductName}</h3>
+                                                <h3>{cartItem.productName}</h3>
                                                 <Button onClick={() => handleRemoveFromCart(cartItem)}  >Xóa</Button>
                                             </div>
                                         </div>
-                                        <div className="cart-product-price">{cartItem.Price} VND</div>
+                                        <div className="cart-product-price">{(cartItem.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
                                         <div className="cart-product-quantity">
                                             <Button onClick={() => handleDecreaseQuantity(cartItem)}>-</Button>
                                             <div className="count">{cartItem.cartQuantity}</div>
                                             <Button onClick={() => handleIncreaseQuantity(cartItem)} >+</Button>
                                         </div>
                                         <div className="cart-product-total-price">
-                                            {cartItem.Price * cartItem.cartQuantity} VND
+                                            {(cartItem.price * cartItem.cartQuantity).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}
                                         </div>
                                     </div>
                                 )
@@ -97,7 +97,7 @@ export default function Cart() {
                             <div className="cart-checkout">
                                 <div className="subtotal">
                                     <span>Tổng Tiền</span>
-                                    <span className="amount">{cart.cartTotalAmount} VND</span>
+                                    <span className="amount">{(cart.cartTotalAmount).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</span>
                                 </div>
                                 <p>Đã bao gồm VAT nếu có</p>
 

@@ -65,47 +65,43 @@ export default function BookingOrder(Bookings) {
             <div>
               <div className="titles2">
                 <h3>Mã</h3>
-                <h3 className="product-title">Ngày Đặt</h3>
-                <h3>Thời Gian Hẹn</h3>
+                <h3>Ngày Hẹn</h3>
                 <h3 className="Quantity">Giá</h3>
                 <h3>Địa Chỉ & Liên Hệ</h3>
                 <h3>Ghi Chú</h3>
-                <h3>Phương Thức Thanh Toán</h3>
                 <h3 className="total">Trạng Thái</h3>
                 <h3>Thông Tin</h3>
               </div>
               <div className="cart-items">
                 {Bookings.Bookings?.map(booking => {
                   return (
-                    <div className="cart-item2" key={booking.id}>
-                      <div>{booking.id}</div>
+                    <div className="cart-item2" key={booking.bookingId}>
+                      <div>{booking.bookingId}</div>
                       <div>
                         <div>
-                          <h5>{booking.bookingdate}</h5>
+                          <h5>{booking.bookingDate.slice(8,10)+"-"+booking.bookingDate.slice(5,7)+"-"+booking.bookingDate.slice(0,4)+" "+booking.bookingDate.slice(11,19)}</h5>
                         </div>
                       </div>
-                      <h5 className="cart-product-price">{booking.date}</h5>
                       <div className="cart-product-quantity">
-                        <div className="count">{booking.price} VND</div>
+                        <div className="count">{(booking.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
                       </div>
                       <div>
                         <div>
                           <h5 style={{ fontSize: '20px' }}>Địa chỉ: {booking.address}</h5>
                           <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {booking.phone}</h5>
-                          <h5 style={{ fontSize: '20px' }}>Email: {booking.email}</h5>
                         </div>
                       </div>
                       <div>
                         {booking.note}
                       </div>
-                      <div>
-                        {booking.paymentType}
-                      </div>
                       <div className="cart-product-total-price">
-                        {booking.status}
+                        {booking.statusId == 1 ? <div>Chờ Xác Nhận</div> :
+                          booking.statusId == 2 ? <div>Đã Xác Nhận</div> :
+                            booking.statusId == 3 ? <div>Hoàn Thành</div> :
+                                                    <div>Đã Hủy</div>}
                       </div>
                       <div>
-                        <Link to={`/lich-hen/${booking.id}`}>
+                        <Link to={`/lich-hen/${booking.bookingId}`}>
                           <Button>Chi Tiết</Button>
                         </Link>
                       </div>
@@ -117,59 +113,51 @@ export default function BookingOrder(Bookings) {
           </div>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <div className="cart-container2">
+        <div className="cart-container2">
             <div>
               <div className="titles2">
                 <h3>Mã</h3>
-                <h3 className="product-title">Ngày Đặt</h3>
-                <h3>Thời Gian Hẹn</h3>
+                <h3>Ngày Hẹn</h3>
                 <h3 className="Quantity">Giá</h3>
                 <h3>Địa Chỉ & Liên Hệ</h3>
                 <h3>Ghi Chú</h3>
-                <h3>Phương Thức Thanh Toán</h3>
                 <h3 className="total">Trạng Thái</h3>
                 <h3>Thông Tin</h3>
               </div>
               <div className="cart-items">
                 {Bookings.Bookings?.map(booking => {
-                  if (booking.status === "Chờ Xác Nhận") {
-                    return (
-                        <div className="cart-item2" key={booking.id}>
-                        <div>{booking.id}</div>
+                  if(booking.statusId == 1){
+                  return (
+                    <div className="cart-item2" key={booking.bookingId}>
+                      <div>{booking.bookingId}</div>
+                      <div>
                         <div>
-                          <div>
-                            <h5>{booking.bookingdate}</h5>
-                          </div>
-                        </div>
-                        <h5 className="cart-product-price">{booking.date}</h5>
-                        <div className="cart-product-quantity">
-                          <div className="count">{booking.price} VND</div>
-                        </div>
-                        <div>
-                          <div>
-                            <h5 style={{ fontSize: '20px' }}>Địa chỉ: {booking.address}</h5>
-                            <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {booking.phone}</h5>
-                            <h5 style={{ fontSize: '20px' }}>Email: {booking.email}</h5>
-                          </div>
-                        </div>
-                        <div>
-                          {booking.note}
-                        </div>
-                        <div>
-                          {booking.paymentType}
-                        </div>
-                        <div className="cart-product-total-price">
-                          {booking.status}
-                        </div>
-                        <div>
-                          <Link to={`/lich-hen/${booking.id}`}>
-                            <Button>Chi Tiết</Button>
-                          </Link>
+                          <h5>{booking.bookingDate.slice(8,10)+"-"+booking.bookingDate.slice(5,7)+"-"+booking.bookingDate.slice(0,4)+" "+booking.bookingDate.slice(11,19)}</h5>
                         </div>
                       </div>
-                    )
-                  }
-                })}
+                      <div className="cart-product-quantity">
+                        <div className="count">{(booking.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
+                      </div>
+                      <div>
+                        <div>
+                          <h5 style={{ fontSize: '20px' }}>Địa chỉ: {booking.address}</h5>
+                          <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {booking.phone}</h5>
+                        </div>
+                      </div>
+                      <div>
+                        {booking.note}
+                      </div>
+                      <div className="cart-product-total-price">
+                        Chờ Xác Nhận
+                      </div>
+                      <div>
+                        <Link to={`/lich-hen/${booking.bookingId}`}>
+                          <Button>Chi Tiết</Button>
+                        </Link>
+                      </div>
+                    </div>
+                  )
+                }})}
               </div>
             </div>
           </div>
@@ -179,55 +167,47 @@ export default function BookingOrder(Bookings) {
             <div>
               <div className="titles2">
                 <h3>Mã</h3>
-                <h3 className="product-title">Ngày Đặt</h3>
-                <h3>Thời Gian Hẹn</h3>
+                <h3>Ngày Hẹn</h3>
                 <h3 className="Quantity">Giá</h3>
                 <h3>Địa Chỉ & Liên Hệ</h3>
                 <h3>Ghi Chú</h3>
-                <h3>Phương Thức Thanh Toán</h3>
                 <h3 className="total">Trạng Thái</h3>
                 <h3>Thông Tin</h3>
               </div>
               <div className="cart-items">
                 {Bookings.Bookings?.map(booking => {
-                  if (booking.status === "Đã Xác Nhận") {
-                    return (
-                        <div className="cart-item2" key={booking.id}>
-                        <div>{booking.id}</div>
+                  if(booking.statusId == 2){
+                  return (
+                    <div className="cart-item2" key={booking.bookingId}>
+                      <div>{booking.bookingId}</div>
+                      <div>
                         <div>
-                          <div>
-                          <h5>{booking.bookingdate}</h5>
-                          </div>
-                        </div>
-                        <h5 className="cart-product-price">{booking.date}</h5>
-                        <div className="cart-product-quantity">
-                          <div className="count">{booking.price} VND</div>
-                        </div>
-                        <div>
-                          <div>
-                            <h5 style={{ fontSize: '20px' }}>Địa chỉ: {booking.address}</h5>
-                            <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {booking.phone}</h5>
-                            <h5 style={{ fontSize: '20px' }}>Email: {booking.email}</h5>
-                          </div>
-                        </div>
-                        <div>
-                          {booking.note}
-                        </div>
-                        <div>
-                          {booking.paymentType}
-                        </div>
-                        <div className="cart-product-total-price">
-                          {booking.status}
-                        </div>
-                        <div>
-                          <Link to={`/lich-hen/${booking.id}`}>
-                            <Button>Chi Tiết</Button>
-                          </Link>
+                          <h5>{booking.bookingDate.slice(8,10)+"-"+booking.bookingDate.slice(5,7)+"-"+booking.bookingDate.slice(0,4)+" "+booking.bookingDate.slice(11,19)}</h5>
                         </div>
                       </div>
-                    )
-                  }
-                })}
+                      <div className="cart-product-quantity">
+                        <div className="count">{(booking.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
+                      </div>
+                      <div>
+                        <div>
+                          <h5 style={{ fontSize: '20px' }}>Địa chỉ: {booking.address}</h5>
+                          <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {booking.phone}</h5>
+                        </div>
+                      </div>
+                      <div>
+                        {booking.note}
+                      </div>
+                      <div className="cart-product-total-price">
+                        Đã Xác Nhận
+                      </div>
+                      <div>
+                        <Link to={`/lich-hen/${booking.bookingId}`}>
+                          <Button>Chi Tiết</Button>
+                        </Link>
+                      </div>
+                    </div>
+                  )
+                }})}
               </div>
             </div>
           </div>
@@ -237,55 +217,47 @@ export default function BookingOrder(Bookings) {
             <div>
               <div className="titles2">
                 <h3>Mã</h3>
-                <h3 className="product-title">Ngày Đặt</h3>
-                <h3>Thời Gian Hẹn</h3>
+                <h3>Ngày Hẹn</h3>
                 <h3 className="Quantity">Giá</h3>
                 <h3>Địa Chỉ & Liên Hệ</h3>
                 <h3>Ghi Chú</h3>
-                <h3>Phương Thức Thanh Toán</h3>
                 <h3 className="total">Trạng Thái</h3>
                 <h3>Thông Tin</h3>
               </div>
               <div className="cart-items">
                 {Bookings.Bookings?.map(booking => {
-                  if (booking.status === "Hoàn Thành") {
-                    return (
-                        <div className="cart-item2" key={booking.id}>
-                        <div>{booking.id}</div>
+                  if(booking.statusId == 3){
+                  return (
+                    <div className="cart-item2" key={booking.bookingId}>
+                      <div>{booking.bookingId}</div>
+                      <div>
                         <div>
-                          <div>
-                            <h5>{booking.bookingdate}</h5>
-                          </div>
-                        </div>
-                        <h5 className="cart-product-price">{booking.date}</h5>
-                        <div className="cart-product-quantity">
-                          <div className="count">{booking.price} VND</div>
-                        </div>
-                        <div>
-                          <div>
-                            <h5 style={{ fontSize: '20px' }}>Địa chỉ: {booking.address}</h5>
-                            <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {booking.phone}</h5>
-                            <h5 style={{ fontSize: '20px' }}>Email: {booking.email}</h5>
-                          </div>
-                        </div>
-                        <div>
-                          {booking.note}
-                        </div>
-                        <div>
-                          {booking.paymentType}
-                        </div>
-                        <div className="cart-product-total-price">
-                          {booking.status}
-                        </div>
-                        <div>
-                          <Link to={`/lich-hen/${booking.id}`}>
-                            <Button>Chi Tiết</Button>
-                          </Link>
+                          <h5>{booking.bookingDate.slice(8,10)+"-"+booking.bookingDate.slice(5,7)+"-"+booking.bookingDate.slice(0,4)+" "+booking.bookingDate.slice(11,19)}</h5>
                         </div>
                       </div>
-                    )
-                  }
-                })}
+                      <div className="cart-product-quantity">
+                        <div className="count">{(booking.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
+                      </div>
+                      <div>
+                        <div>
+                          <h5 style={{ fontSize: '20px' }}>Địa chỉ: {booking.address}</h5>
+                          <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {booking.phone}</h5>
+                        </div>
+                      </div>
+                      <div>
+                        {booking.note}
+                      </div>
+                      <div className="cart-product-total-price">
+                        Hoàn Thành
+                      </div>
+                      <div>
+                        <Link to={`/lich-hen/${booking.bookingId}`}>
+                          <Button>Chi Tiết</Button>
+                        </Link>
+                      </div>
+                    </div>
+                  )
+                }})}
               </div>
             </div>
           </div>
@@ -295,55 +267,47 @@ export default function BookingOrder(Bookings) {
             <div>
               <div className="titles2">
                 <h3>Mã</h3>
-                <h3 className="product-title">Ngày Đặt</h3>
-                <h3>Thời Gian Hẹn</h3>
+                <h3>Ngày Hẹn</h3>
                 <h3 className="Quantity">Giá</h3>
                 <h3>Địa Chỉ & Liên Hệ</h3>
                 <h3>Ghi Chú</h3>
-                <h3>Phương Thức Thanh Toán</h3>
                 <h3 className="total">Trạng Thái</h3>
                 <h3>Thông Tin</h3>
               </div>
               <div className="cart-items">
                 {Bookings.Bookings?.map(booking => {
-                  if (booking.status === "Đã Hủy") {
-                    return (
-                        <div className="cart-item2" key={booking.id}>
-                        <div>{booking.id}</div>
+                  if(booking.statusId == 4){
+                  return (
+                    <div className="cart-item2" key={booking.bookingId}>
+                      <div>{booking.bookingId}</div>
+                      <div>
                         <div>
-                          <div>
-                            <h5>{booking.bookingdate}</h5>
-                          </div>
-                        </div>
-                        <h5 className="cart-product-price">{booking.date}</h5>
-                        <div className="cart-product-quantity">
-                          <div className="count">{booking.price} VND</div>
-                        </div>
-                        <div>
-                          <div>
-                            <h5 style={{ fontSize: '20px' }}>Địa chỉ: {booking.address}</h5>
-                            <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {booking.phone}</h5>
-                            <h5 style={{ fontSize: '20px' }}>Email: {booking.email}</h5>
-                          </div>
-                        </div>
-                        <div>
-                          {booking.note}
-                        </div>
-                        <div>
-                          {booking.paymentType}
-                        </div>
-                        <div className="cart-product-total-price">
-                          {booking.status}
-                        </div>
-                        <div>
-                          <Link to={`/lich-hen/${booking.id}`}>
-                            <Button>Chi Tiết</Button>
-                          </Link>
+                          <h5>{booking.bookingDate.slice(8,10)+"-"+booking.bookingDate.slice(5,7)+"-"+booking.bookingDate.slice(0,4)+" "+booking.bookingDate.slice(11,19)}</h5>
                         </div>
                       </div>
-                    )
-                  }
-                })}
+                      <div className="cart-product-quantity">
+                        <div className="count">{(booking.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
+                      </div>
+                      <div>
+                        <div>
+                          <h5 style={{ fontSize: '20px' }}>Địa chỉ: {booking.address}</h5>
+                          <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {booking.phone}</h5>
+                        </div>
+                      </div>
+                      <div>
+                        {booking.note}
+                      </div>
+                      <div className="cart-product-total-price">
+                        Đã Hủy
+                      </div>
+                      <div>
+                        <Link to={`/lich-hen/${booking.bookingId}`}>
+                          <Button>Chi Tiết</Button>
+                        </Link>
+                      </div>
+                    </div>
+                  )
+                }})}
               </div>
             </div>
           </div>

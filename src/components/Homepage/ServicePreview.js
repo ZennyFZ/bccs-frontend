@@ -13,11 +13,11 @@ export default function ServicePreview({ Services }) {
                     (<Col s={12} m={6} l={4}  >
                         <Card>
                             <img style={{ width: "300px", height: "200px" }} src={service.image} />
-                            <Link to={`chi-tiet-dich-vu/${service.id}`}>
-                                <h3 className='ProductTitle'>{service.name}</h3>
+                            <Link to={`dich-vu/${service.serviceId}`}>
+                                <h3 className='ProductTitle'>{service.serviceName}</h3>
                             </Link>
-                            <p style={{ textAlign: "center" }}>{service.price} VND</p>
-                            <Link to={`/dich-vu/${service.id}`}>
+                            <p style={{ textAlign: "center", fontWeight: "bold" }}>{(service.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
+                            <Link to={`/dich-vu/${service.serviceId}`}>
                                 <p style={{ textAlign: "center", marginTop: "10px" }}><Button>Đặt Ngay</Button></p>
                             </Link>
                         </Card>
