@@ -7,11 +7,11 @@ export default function AppRouter() {
         <Router>
             <Routes>
                 <Route path="/Admin" render={() => {
-                    return localStorage.getItem("accessToken") ? <Admin /> : redirect("/");
+                    return localStorage.getItem("Data") ? <Admin /> : redirect("/");
                 }}>
 
                 </Route>
-                <Route path="/">
+                <Route path="/dang-nhap">
                     <Login />
                 </Route>
             </Routes>

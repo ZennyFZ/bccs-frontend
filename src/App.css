@@ -658,6 +658,10 @@
 /*checkout*/
 
 /*Register*/
+.Register-main{
+  width: 100%;
+  height: 100vh;
+}
 .instructions {
   font-size: 0.75rem;
   border-radius: 0.5rem;
@@ -665,7 +669,7 @@
   color: #fff;
   padding: 0.25rem;
   position: relative;
-  bottom: -10px;
+  bottom: -5px;
 }
 
 .instructions > svg {
@@ -690,21 +694,14 @@
   color: red;
   margin-left: 0.25rem;
 }
-
-.errmsg {
-  background-color: lightpink;
-  color: firebrick;
-  font-weight: bold;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-.Register{
+.Register h4{
   text-align: center;
 }
 .Register-form{
-  max-width: 500px;
-  min-width: 300px;
-  max-height: 700px;
+  max-width: 380px;
+  min-width: 330px;
+  max-height: 650px;
+  min-height: 600px;
   width: 30%;
   height: 60%;
   margin: 100px auto;
@@ -724,7 +721,37 @@
   cursor: pointer;
   transition: opacity 0.25s ease-out;
 }
+.Register-button-space{
+  text-align: center;
+} 
+.Register{
+  position: absolute;
+  left: 35%;
+  top: 14%;
+}
+.Register-title{
+  font-size: 15px;
+  display: flex;
+  margin-top: 5px;
+}
+#confirmnote{
+  display: flex;
+  align-items: center;
+}
+#pwdnote{
+  display: flex;
+  align-items: center;
+}
+#uidnote{
+  display: flex;
+  align-items: center;
+}
+#usernote ,#phonenote{
+  display: flex;
+  align-items: center;
+}
 
+                   
 /*/////////////Register////////////////*/
 
 /*Login*/
@@ -743,7 +770,7 @@
   
 }
 .loginform form{
-  padding: 0 40px;
+  padding: 20px 40px;
   box-sizing: border-box;
 }
 .signup_link{
@@ -752,6 +779,46 @@
 }
 
 /*/////////////Login////////////////*/
+
+/*Forget*/
+.Forget-form{
+  max-width: 420px;
+  min-width: 400px;
+  max-height: 650px;
+  min-height: 300px;
+  width: 30%;
+  height: 60%;
+  margin: 100px auto;
+  background-color: #FFFFFF;
+  border-radius: 25px;
+}
+.Forget-img{
+  text-align: center;
+}
+.Forget{
+  position: absolute;
+  left: 35%;
+  top: 35%;
+}
+.Forget-main{
+    width: 100%;
+    height: 90vh;
+}
+.Forget-button{
+  border-radius: 25px;
+  width: 80%;
+  height: 40px;
+  font-size: 1.3rem;
+  color: white;
+  font-weight: 700;
+  background: rgb(34,193,195);
+  background: linear-gradient(90deg, rgba(34,193,195,1) 0%,     rgba(253,187,45,1) 100%);
+  border: 0px;
+  cursor: pointer;
+  transition: opacity 0.25s ease-out;
+  margin-top: 15px;
+}
+/*/////////////Forget////////////////*/
   @media only screen and (min-width: 600px){
     .ProductName{
       min-height: 50px;

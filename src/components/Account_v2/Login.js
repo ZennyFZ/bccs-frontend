@@ -1,91 +1,123 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import callerApi from '../../utils/APICaller_Account';
-import { Link, useNavigate } from 'react-router-dom';
-import { Button, Container } from 'react-materialize';
+import { Link} from 'react-router-dom';
+import { Button} from 'react-materialize';
 import Box from '@mui/material/Box';
-
+import { toast } from 'react-toastify';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import InfoIcon from '@mui/icons-material/Info';
+import { textAlign } from '@mui/system';
 const Login = () => {
-    const navigate = useNavigate()
-
+    const formik = useFormik({
+        initialValues: {
+          email: '',
+          password: '',
+        },
+        validationSchema: Yup.object({
+          email: Yup.string()
+            .email('Mail không hợp lệ')
+            .required('Không được để trống'),
+          password: Yup.string()
+            .required('không được để trống'),
+        }),
+        onSubmit: values => {
+            callerApi('Login', 'POST', {
+            email: values.email,
+            password: values.password,
+          }).then(res => {
+            if (res.status === 200){
+              toast.success("Đăng nhập thành công");
+              setInterval(() => {
+                checkLogin();
+              }, 2000);
+            }
+          }).catch(err => {
+            toast.error("Sai email hoặc mật khẩu");
+          })
+          console.log(values);
+        }
+      });
+    
+      function checkLogin(){
+        callerApi('GetCurrentCustomer', 'GET', null).then(res => {
+          if (res.data.roleId === 1){
+            window.location.href = "/";
+          } else if (res.data.roleId === 2){
+            window.location.href = "/admin";
+          }
+        }).catch(err => {
+          console.log(err);
+        })
+      }
+    
     const userRef = useRef();
-
-    const [mail, setmail] = useState('');
-    const [pwd, setPwd] = useState('');
-    const [errMsg, setErrMsg] = useState('');
-
     useEffect(() => {
         userRef.current.focus();
     }, [])
 
-    useEffect(() => {
-        setErrMsg('');
-    }, [mail, pwd])
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        callerApi("Login", "POST", {
-            email: mail,
-            password: pwd,
-        }).then(response => {
-            console.log(response);
-            console.log(JSON.stringify(response?.data));
-            if (response?.status === 200) {
-                localStorage.setItem("accessToken", response.accessToken)
-                console.log(response.accessToken);
-                navigate("/Admin");
-            }
-        }).catch(err => {
-            console.log(err.response.status);
-            setErrMsg(err.response.data);
-        });
-    }
     return (
         < >
             <Box
                 sx={{
                     width: 300,
-                    height: 370,
+                    minHeight: 370,
+                    maxHeight:460
                 }}
                 className='loginform'
+                
             >
-                <p className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                <h4>Login</h4>
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="email">Email:</label>
+                <h4>Đăng nhập</h4>
+                <form component="form" onSubmit={formik.handleSubmit}>
+                    <label htmlFor="email" style={{fontSize:"15px"}}>Email:</label>
                     <input
                         type="text"
-                        id="email"
                         ref={userRef}
                         autoComplete="off"
-                        onChange={(e) => setmail(e.target.value)}
-                        value={mail}
+                        placeholder="Nhập Email..."
+                        id="email"
+                        onChange={formik.handleChange}
                         required
-                    />
-
-                    <label htmlFor="password">Password:</label>
+                    /> 
+                    {formik.errors.email && formik.touched.email && (<p 
+                    style={{ color: "red",
+                             display:"flex",
+                             
+                    }}>
+                        <InfoIcon/>
+                        <div>{formik.errors.email}</div>
+                    </p>)}
+                    <label htmlFor="password" style={{fontSize:"15px"}}>Mật khẩu:</label>
                     <input
-                        type="password"
-                        id="password"
-                        onChange={(e) => setPwd(e.target.value)}
-                        value={pwd}
-                        required
+                    placeholder="Nhập Mật Khẩu..."
+                    id="password"
+                    type="password"
+                    onChange={formik.handleChange}
 
                     />
-                    
-                    <Link to={"/khoi-phuc-tai-khoan"}>Forgot Password?</Link>
+                    {formik.errors.password && formik.touched.password && (
+                    <p style={{ color: "red",
+                                display:"flex",
+                                
+                    }}>
+                        <InfoIcon/>
+                        <div>{formik.errors.password}</div>
+                    </p>)}
+                    <Link to={"/khoi-phuc-tai-khoan"}>Quên mật khẩu?</Link>
                     <Button
                         style={{
-                            backgroundColor: "blue",
+                            background:"rgb(34,193,195)",
+                            background:"linear-gradient(90deg, rgba(34,193,195,1) 0%,     rgba(253,187,45,1) 100%)",
                             width: "100%",
                             borderRadius: "25px",
                             margin:"7px 0 7px 0"
                         }}
-                    >Login</Button>
+                    >Đăng nhập</Button>
 
                     <div className='signup_link'>
-                        Need an Account?
+                        Chưa có tài khoản?
                         <span className="line">
-                            <Link to={'/dang-ky'}>Sign up</Link>
+                            <Link to={'/dang-ky'}>Đăng ký</Link>
                         </span>
                     </div>
                 </form>

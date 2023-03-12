@@ -10,7 +10,7 @@ import Cart from './components/Product/Cart';
 import Checkout from './components/Product/Checkout';
 import Login from './components/Account_v2/Login';
 import Register from './components/Account_v2/Register';
-import ResetPassword from './components/Account/ResetPassword';
+import ForgetPassword from './components/Account_v2/ForgetPassword';
 import Profile from './components/Account/Profile';
 import Post_AllPost from './components/Post/Post_AllPost';
 import PostDetail from './components/Post/PostDetail';
@@ -77,7 +77,7 @@ function App() {
           {/* Account */}
           <Route path="/dang-nhap" element={<Login />} />
           <Route path="/dang-ky" element={<Register />} />
-          <Route path="/khoi-phuc-tai-khoan" element={<ResetPassword />} />
+          <Route path="/khoi-phuc-tai-khoan" element={<ForgetPassword />} />
           <Route path="/profile" element={<Profile />} />
 
           {/* Post */}
