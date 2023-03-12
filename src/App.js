@@ -86,7 +86,7 @@ function App() {
           {/* Schedule */}
           <Route path="/dich-vu" element={<Main_service />} />
           <Route path="/dich-vu/:id" element={<ServiceDetail />} />
-          <Route path="/at-lich" element={<Booking />} />
+          <Route path="/dat-lich" element={<Booking />} />
           <Route path="/lich-hen" element={<Main_Booking />} />
           <Route path="/lich-hen/:id" element={<BookingOrderDetail />} />
 

@@ -51,7 +51,11 @@ export default function Navigation() {
   }
 
   function logout(){
-    setUser(null);
+    callerAPI('Customer/LogOut', 'GET', null).then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    })
     window.location.href = "/";
   }
 

@@ -61,9 +61,9 @@ export default function OrderDetail() {
                                         <div>{productdetail.productName}</div>
                                     </div>
                                 </div>
-                                <div className="price">{orderdetail[index].price}</div>
+                                <div className="price">{(orderdetail[index].price)?.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
                                 <div className="Quantity">{orderdetail[index].productQuantiy}</div>
-                                <div className="total-price">{orderdetail[index].price * orderdetail[index].productQuantiy}</div>
+                                <div className="total-price">{(orderdetail[index].price * orderdetail[index].productQuantiy)?.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
                             </div>
                         ))}
                     </div>

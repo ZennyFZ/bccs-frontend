@@ -4,12 +4,14 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import Button from "@mui/material/Button";
 import { removeFromCart, decreaseQuantity, increaseQuantity, clearCart, getTotals} from "../../context/CartSlice";
 import { useEffect } from 'react';
-import { useAuth0 } from "@auth0/auth0-react";
 import { toast } from "react-toastify";
+import callerAPI from "../../utils/APICaller";
+import * as React from "react";
+
 export default function Cart() {
     const cart = useSelector(state => state.cart);
+    const [user, setUser] = React.useState(null);
     console.log(cart);
-    const {isAuthenticated} = useAuth0();
     const dispatch = useDispatch();
     const handleRemoveFromCart = (cartItem) => {
         dispatch(removeFromCart(cartItem))
@@ -26,26 +28,31 @@ export default function Cart() {
     const handleGetTotals = () => {
         dispatch(getTotals())
     }
-    const checkUser = () => {
-        if (isAuthenticated) {
-            window.location.href = "/thanh-toan";
+
+    function getCurrentUser() {
+        callerAPI('Customer/GetCurrentCustomer', 'GET', null).then(res => {
+          setUser(res.data);
+        }).catch(err => {
+          console.log(err);
+        })
+      }
+
+    function checkout(){
+        if(user === null){
+            toast.error("Bạn cần đăng nhập để thanh toán");
         }else{
-            toast.error("Bạn cần đăng nhập để thanh toán", {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: false,
-                progress: undefined,
-                theme: "light",
-            });
+            window.location.href = "/thanh-toan";
         }
     }
+
 
     useEffect(() => {
         handleGetTotals();
     }, [cart])
+
+    useEffect(() => {
+        getCurrentUser();
+    }, [])
 
     return (
         <div>
@@ -101,7 +108,7 @@ export default function Cart() {
                                 </div>
                                 <p>Đã bao gồm VAT nếu có</p>
 
-                                <Button onClick={() => checkUser()}>Mua Hàng</Button>
+                                <Button onClick={() => checkout()}>Mua Hàng</Button>
 
                                 <div className="continue-shopping">
                                         <Link to="/san-pham">

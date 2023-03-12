@@ -81,9 +81,9 @@ export default function Booking() {
                 progress: undefined,
                 theme: "light",
             });
-            // setInterval(() => {
-            //     window.location.href = "/";
-            // }, 5000);
+            setInterval(() => {
+                window.location.href = "/";
+            }, 3000);
         }
         ////////////////////////////////////
     

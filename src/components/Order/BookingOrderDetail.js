@@ -59,7 +59,7 @@ export default function BookingOrderDetail() {
                                     <h3>{servicedetail.serviceName}</h3>
                                 </div>
                             </div>
-                            <div className="cart-product-price">{servicedetail.price} VND</div>
+                            <div className="cart-product-price">{(servicedetail.price)?.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
                         </div>
                     </div>
                 </div>

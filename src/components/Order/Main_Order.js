@@ -10,7 +10,7 @@ export class Main_Order extends Component {
     }
 
     componentDidMount() {
-        callerApi("Order/GetOrder", "GET", null).then(res => {
+        callerApi("Order/GetOrderByUserId", "GET", null).then(res => {
             this.setState({
                 Orders: res.data
             });

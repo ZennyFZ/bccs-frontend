@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import InfoIcon from '@mui/icons-material/Info';
-import { textAlign } from '@mui/system';
 const Login = () => {
     const formik = useFormik({
         initialValues: {
