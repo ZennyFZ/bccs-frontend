@@ -1,14 +1,11 @@
-import { useRef, useState, useEffect} from 'react';
-import  useAuth  from "./useAuth";
+import { useRef, useState, useEffect } from 'react';
 import callerApi from '../../utils/APICaller_Account';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button, Container } from 'react-materialize';
+import Box from '@mui/material/Box';
 
 const Login = () => {
-    const { auth,setAuth } = useAuth();
-
-   const navigate = useNavigate();
-   const location = useLocation();
-   const from = location.state?.from?.pathname || "/"; 
+    const navigate = useNavigate()
 
     const userRef = useRef();
 
@@ -30,16 +27,12 @@ const Login = () => {
             email: mail,
             password: pwd,
         }).then(response => {
-            console.log(JSON.stringify(response?.status));
+            console.log(response);
             console.log(JSON.stringify(response?.data));
             if (response?.status === 200) {
-                const role = response?.data?.role;
-                console.log(response?.data?.role);
-                setAuth({ mail, pwd, role });
-                console.log(auth.role)
-                setmail('');
-                setPwd('');
-                navigate(from, { replace: true });
+                localStorage.setItem("accessToken", response.accessToken)
+                console.log(response.accessToken);
+                navigate("/Admin");
             }
         }).catch(err => {
             console.log(err.response.status);
@@ -47,41 +40,58 @@ const Login = () => {
         });
     }
     return (
-    <>
-        <div>
-            <p className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-            <h1>Sign In</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="email">Email:</label>
-                <input
-                    type="text"
-                    id="email"
-                    ref={userRef}
-                    autoComplete="off"
-                    onChange={(e) => setmail(e.target.value)}
-                    value={mail}
-                    required
-                />
+        < >
+            <Box
+                sx={{
+                    width: 300,
+                    height: 370,
+                }}
+                className='loginform'
+            >
+                <p className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                <h4>Login</h4>
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="email">Email:</label>
+                    <input
+                        type="text"
+                        id="email"
+                        ref={userRef}
+                        autoComplete="off"
+                        onChange={(e) => setmail(e.target.value)}
+                        value={mail}
+                        required
+                    />
 
-                <label htmlFor="password">Password:</label>
-                <input
-                    type="password"
-                    id="password"
-                    onChange={(e) => setPwd(e.target.value)}
-                    value={pwd}
-                    required
+                    <label htmlFor="password">Password:</label>
+                    <input
+                        type="password"
+                        id="password"
+                        onChange={(e) => setPwd(e.target.value)}
+                        value={pwd}
+                        required
 
-                />
-                <button>Sign In</button>
-            </form>
-            <p>
-                Need an Account?<br />
-                <span className="line">
-                    <Link to={'/dang-ky'}>Sign up</Link>
-                </span>
-            </p>
-        </div>
-    </>
+                    />
+                    
+                    <Link to={"/khoi-phuc-tai-khoan"}>Forgot Password?</Link>
+                    <Button
+                        style={{
+                            backgroundColor: "blue",
+                            width: "100%",
+                            borderRadius: "25px",
+                            margin:"7px 0 7px 0"
+                        }}
+                    >Login</Button>
+
+                    <div className='signup_link'>
+                        Need an Account?
+                        <span className="line">
+                            <Link to={'/dang-ky'}>Sign up</Link>
+                        </span>
+                    </div>
+                </form>
+
+            </Box>
+        </>
     )
 }
 

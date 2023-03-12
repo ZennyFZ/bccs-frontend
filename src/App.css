@@ -726,6 +726,32 @@
 }
 
 /*/////////////Register////////////////*/
+
+/*Login*/
+.loginform{
+  position: relative;
+  left: 35%;
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: 1px solid silver;
+  margin-top: 25px;
+}
+.loginform h4{
+  text-align: center;
+  border-bottom: 1px solid silver;
+  padding: 0 0 10px 0;
+  
+}
+.loginform form{
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+.signup_link{
+  text-align: center;
+
+}
+
+/*/////////////Login////////////////*/
   @media only screen and (min-width: 600px){
     .ProductName{
       min-height: 50px;
