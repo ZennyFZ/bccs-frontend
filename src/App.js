@@ -91,9 +91,9 @@ function App() {
           {/* <Route path="/admin" element={<Protected><Admin /></Protected>} />
           <Route path="/admin/quan-ly-tai-khoan" element={<Protected><AccountAdmin /></Protected>} />
           <Route path="/admin/quan-ly-tai-khoan/:id" element={<Protected><ManageAccount /></Protected>} />
-          <Route path="/admin/quan-ly-san-pham" element={<Protected><ProductAdmin /></Protected>} />
+          <Route path="/admin/quan-ly-san-pham" element={<ProductAdmin />} />
           <Route path="/admin/quan-ly-san-pham/:id" element={<Protected><ManageProduct /></Protected>} />
-          <Route path="/admin/quan-ly-bai-viet" element={<Protected><PostAdmin /></Protected>} />
+          <Route path="/admin/quan-ly-bai-viet" element={<PostAdmin />} />
           <Route path="/admin/quan-ly-bai-viet/:id" element={<Protected><ManagePost /></Protected>} />
           <Route path="/admin/dich-vu" element={<Protected><ScheduleAdmin /></Protected>} /> */}
           <Route path="/admin" element={<Admin />} />
