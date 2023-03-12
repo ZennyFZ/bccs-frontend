@@ -16,8 +16,8 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart(state, action) {
-            const itemIndex = state.cartItems.findIndex(item => item.ProductID === action.payload.ProductID);
-            if (itemIndex >= 0 && state.cartItems[itemIndex].cartQuantity < state.cartItems[itemIndex].Quantity) {
+            const itemIndex = state.cartItems.findIndex(item => item.productId === action.payload.productId);
+            if (itemIndex >= 0 && state.cartItems[itemIndex].cartQuantity < state.cartItems[itemIndex].quantity) {
                 state.cartItems[itemIndex].cartQuantity += 1;
                 toast.success("Đã thêm sản phẩm vào giỏ hàng", {
                     position: "bottom-right",
@@ -29,7 +29,7 @@ const cartSlice = createSlice({
                     progress: undefined,
                     theme: "light",
                 });
-            } else if(itemIndex >= 0 && state.cartItems[itemIndex].cartQuantity == state.cartItems[itemIndex].Quantity){
+            } else if(itemIndex >= 0 && state.cartItems[itemIndex].cartQuantity == state.cartItems[itemIndex].quantity){
                 toast.error("Số lượng sản phẩm trong kho không đủ", {
                     position: "bottom-right",
                     autoClose: 5000,
@@ -60,7 +60,7 @@ const cartSlice = createSlice({
         },
         removeFromCart(state, action) {
             const nextCartItems = state.cartItems.filter(
-                cartItem => cartItem.ProductID !== action.payload.ProductID
+                cartItem => cartItem.productId !== action.payload.productId
             )
             state.cartItems = nextCartItems;
             localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
@@ -77,14 +77,14 @@ const cartSlice = createSlice({
         },
         decreaseQuantity(state, action) {
             const itemindex = state.cartItems.findIndex(
-                cartItem => cartItem.ProductID === action.payload.ProductID
+                cartItem => cartItem.productId === action.payload.productId
             )
 
             if (state.cartItems[itemindex].cartQuantity > 1){
                 state.cartItems[itemindex].cartQuantity -= 1;
             } else if (state.cartItems[itemindex].cartQuantity === 1){
                 const nextCartItems = state.cartItems.filter(
-                    cartItem => cartItem.ProductID !== action.payload.ProductID
+                    cartItem => cartItem.productId !== action.payload.productId
                 )
                 state.cartItems = nextCartItems;
                 localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
@@ -102,12 +102,12 @@ const cartSlice = createSlice({
         },
         increaseQuantity(state, action) {
             const itemindex = state.cartItems.findIndex(
-                cartItem => cartItem.ProductID === action.payload.ProductID
+                cartItem => cartItem.productId === action.payload.productId
             )
-            if(state.cartItems[itemindex].cartQuantity >= 1 && state.cartItems[itemindex].cartQuantity < state.cartItems[itemindex].Quantity){
+            if(state.cartItems[itemindex].cartQuantity >= 1 && state.cartItems[itemindex].cartQuantity < state.cartItems[itemindex].quantity){
                 state.cartItems[itemindex].cartQuantity += 1
                 localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-            }else if(state.cartItems[itemindex].cartQuantity == state.cartItems[itemindex].Quantity){
+            }else if(state.cartItems[itemindex].cartQuantity == state.cartItems[itemindex].quantity){
                 toast.error("Số lượng sản phẩm trong kho không đủ", {
                     position: "bottom-right",
                     autoClose: 5000,
@@ -147,8 +147,8 @@ const cartSlice = createSlice({
         getTotals(state) {
             let { cartTotalQuantity, cartTotalAmount } = state.cartItems.reduce(
                 (cartTotal, cartItem) => {
-                    const { cartQuantity, Price } = cartItem;
-                    const itemTotal = cartQuantity * Price;
+                    const { cartQuantity, price } = cartItem;
+                    const itemTotal = cartQuantity * price;
 
                     cartTotal.cartTotalQuantity += cartQuantity;
                     cartTotal.cartTotalAmount += itemTotal;
