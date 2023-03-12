@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import BookingOrder from './BookingOrder';
-import callerApi from '../../utils/APICaller5';
+import callerApi from '../../utils/APICaller';
 export class Main_Booking extends Component {
     constructor(props) {
         super(props);
@@ -10,7 +10,7 @@ export class Main_Booking extends Component {
     }
 
     componentDidMount() {
-        callerApi("Booking", "GET", null).then(res => {
+        callerApi("Booking/GetBookingByUserId", "GET", null).then(res => {
             this.setState({
                 Bookings: res.data
             });

@@ -10,7 +10,7 @@ export default function BookingOrderDetail() {
     const [servicedetail, setServiceDetail] = useState([])
 
     function getBookingDetail() {
-        axios.get(`${Config.API_URL5}/BookingDetail/${bookingid.id}`)
+        axios.get(`${Config.API_URL}/Booking/GetBookingDetailByBookingId?bookingId=${bookingid.id}`)
             .then(res => {
                 setBookingDetail(res.data)
                 console.log(res.data)
@@ -19,7 +19,7 @@ export default function BookingOrderDetail() {
     }
 
     function getServiceDetail() {
-        axios.get(`${Config.API_URL2}/Service/${bookingdetail.serviceid}`)
+        axios.get(`${Config.API_URL}/Service/GetServiceByID?id=${bookingdetail[0].serviceId}`)
             .then(res => {
                 setServiceDetail(res.data)
                 console.log(res.data)
@@ -32,7 +32,7 @@ export default function BookingOrderDetail() {
     }, [])
 
     useEffect(() => {
-        if(bookingdetail && bookingdetail.serviceid){
+        if(bookingdetail && bookingdetail[0]?.serviceId){
             getServiceDetail();
         }
     }, [bookingdetail])
@@ -52,11 +52,11 @@ export default function BookingOrderDetail() {
                         <h3>Giá</h3>
                     </div>
                     <div className="cart-items4">
-                        <div className="cart-item4" key={bookingdetail.id}>
+                        <div className="cart-item4" key={bookingdetail.serviceId}>
                             <div className="cart-product4">
-                                <img src={servicedetail.image} alt={servicedetail.name} />
+                                <img src={servicedetail.image} alt={servicedetail.serviceName} />
                                 <div>
-                                    <h3>{servicedetail.name}</h3>
+                                    <h3>{servicedetail.serviceName}</h3>
                                 </div>
                             </div>
                             <div className="cart-product-price">{servicedetail.price} VND</div>

@@ -19,16 +19,15 @@ export default function ProductPreview({Products}) {
                     (<Col s={12} m={6} l={4}  >
                         <Card style={{ borderRadius: "12px" }}>
                             <div className='Product-info'>
-                                <img src={product.Image} />
+                                <img src={product.image} />
 
                                 <div className='Product-item-detail'>
-                                    <Link style={{ textAlign: "center", fontWeight: "bold", color: "black" }} to={`/san-pham/chi-tiet-san-pham/${product.ProductID}`}>
-                                        <p className='ProductName'>{product.ProductName}</p>
+                                    <Link style={{ textAlign: "center", fontWeight: "bold", color: "black" }} to={`/san-pham/chi-tiet-san-pham/${product.productId}`}>
+                                        <p className='ProductName'>{product.productName}</p>
                                     </Link>
                                     <div className='Product-item-price'>
                                         <div className='Price-money'>
-                                            <span className='label'>Giá</span>
-                                            <span className='Price'>{product.Price} VNĐ</span>
+                                            <span className='Price'>{(product.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</span>
                                         </div>
                                     </div>
                                     <div style={{ textAlign: "center", marginTop: "10px" }}>

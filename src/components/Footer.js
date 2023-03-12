@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 export default function Footer() {
+    const location = useLocation();
+    const pathName = location.pathname;
     return(
         <div className="footer">
             <div className="footer-box">
@@ -21,19 +24,19 @@ export default function Footer() {
 
             <div className="footer-box">
                 <div style={{fontWeight: "bold"}}>Các Dịch Vụ:</div>
-                <Link to="/dich-vu/tri-benh-cho-chim" style={{textDecoration: "none", color: "black"}}>
+                <Link to="/dich-vu/1" style={{textDecoration: "none", color: "black"}}>
                     <div>Trị Bệnh Cho Chim</div>
                 </Link>
-                <Link to="/dich-vu/lam-dep-cho-chim" style={{textDecoration: "none", color: "black"}}>
+                <Link to="/dich-vu/2" style={{textDecoration: "none", color: "black"}}>
                     <div>Làm Đẹp Cho Chim</div>
                 </Link>
-                <Link to="/dich-vu/ngua-benh-cho-chim" style={{textDecoration: "none", color: "black"}}>
+                <Link to="/dich-vu/3" style={{textDecoration: "none", color: "black"}}>
                     <div>Ngừa Bệnh Cho Chim</div>
                 </Link>
-                <Link to="/dich-vu/kham-suc-khoe-dinh-ki" style={{textDecoration: "none", color: "black"}}>
+                <Link to="/dich-vu/4" style={{textDecoration: "none", color: "black"}}>
                     <div>Khám Sức Khỏe Định Kì</div>
                 </Link>
-                <Link to="/dich-vu/khach-san-cho-chim" style={{textDecoration: "none", color: "black"}}>
+                <Link to="/dich-vu/5" style={{textDecoration: "none", color: "black"}}>
                     <div>Khách Sạn Cho Chim</div>
                 </Link>
             </div>

@@ -17,7 +17,7 @@ export default function ProductDetail() {
     console.log(Productid);
 
     function getData() {
-        axios.get(`${Config.API_URL}/Product/` + Productid.id)
+        axios.get(`${Config.API_URL}/Product/GetProductById?id=` + Productid.id)
             .then(response => response.data)
             .then((data) => {
               setProductList(data)
@@ -40,21 +40,21 @@ export default function ProductDetail() {
                         </Link>
                     </div>
                     <div className="Product-media">
-                        <img style={{height:"240px", width:"240px"}} src={productlist.Image} />
+                        <img style={{height:"240px", width:"240px"}} src={productlist.image} />
                     </div>
                     <div className="Product-info-main">
                         <div className="Product-info-title">
-                            <strong style={{fontWeight:"700",fontSize:"15px",lineHeight:"5px"}} className='ProductName'>{productlist.ProductName}</strong>
+                            <strong style={{fontWeight:"700",fontSize:"15px",lineHeight:"5px"}} className='ProductName'>{productlist.productName}</strong>
                         </div>
                         <div  className="Product-add-form">
                             <div className="Product-description">
                                 <span className='label' style={{fontWeight: "bold"}}>Thông tin sản phẩm: </span>
-                                <div className='Price'>{productlist.Description}</div>
+                                <div className='Price'>{productlist.description}</div>
                             </div>
                             <div  className="Price-list">
                                 <div style={{marginTop: "10px"}}>
                                     <span className='label' style={{fontWeight: "bold"}}>Giá: </span>
-                                    <span className='Price'>{productlist.Price} VND</span>
+                                    <span className='Price'>{productlist.price} VND</span>
                                 </div>
                             </div>
                             <div className="Product-option">

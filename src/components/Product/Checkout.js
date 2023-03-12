@@ -5,7 +5,7 @@ import { getTotals } from "../../context/CartSlice";
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useState } from "react";
-import APICaller3 from "../../utils/APICaller3";
+import APICaller from "../../utils/APICaller";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import {Link} from "react-router-dom";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
@@ -57,17 +57,14 @@ export default function Checkout() {
         return actions.order.capture().then((details) => {
             localStorage.setItem("paymentStatus", JSON.stringify([details]));
             var bill = JSON.parse(localStorage.getItem("billingInfo"));
-            APICaller3("order", "POST", {
-                username: bill.username,
-                email: bill.email,
-                phone: bill.phone,
-                adress: bill.adress,
+            APICaller("Order​/CreateOrder", "POST", {
                 note: bill.note,
-                TotalPrice: cart.cartTotalAmount,
-                ProductQuantity: cart.cartTotalQuantity,
-                Status: bill.Status,
-                OrderDate: CurrentTime,
-                paymentType: "online"
+                address: bill.adress,
+                phone: bill.phone,
+                fullName: bill.username,
+                amount: cart.cartTotalAmount,
+                paymentMethod: "online",
+                product: cart.cartItems
             }).then(res => {
                 console.log(res);
                 submitBillingInfo();
@@ -100,17 +97,14 @@ export default function Checkout() {
         console.log(billingInfo);
         e.preventDefault();
         if(paymentType=="cod"){
-            APICaller3("order", "POST", {
-                username: billingInfo.username,
-                email: billingInfo.email,
-                phone: billingInfo.phone,
-                adress: billingInfo.adress,
+            APICaller("Order/CreateOrder", "POST", {
                 note: billingInfo.note,
-                TotalPrice: cart.cartTotalAmount,
-                ProductQuantity: cart.cartTotalQuantity,
-                Status: billingInfo.Status,
-                OrderDate: CurrentTime,
-                paymentType: "cod"
+                address: billingInfo.adress,
+                phone: billingInfo.phone,
+                fullName: billingInfo.username,
+                amount: cart.cartTotalAmount,
+                paymentMethod: "cod",
+                product: cart.cartItems
             }).then(res => {
                 console.log(res);
             });
@@ -147,10 +141,6 @@ export default function Checkout() {
     }
 
     function submitBillingInfo() {
-        APICaller3("orderdetail", "POST", {
-            Product: cart.cartItems
-        }).then(res => {
-            console.log(res);
             localStorage.removeItem("cartItems");
             localStorage.removeItem("billingInfo");
             localStorage.removeItem("paymentStatus");
@@ -167,7 +157,6 @@ export default function Checkout() {
             setInterval(() => {
                 window.location.href = "/";
             }, 5000);
-        });
     }
     ////////////////////////////////////
 
@@ -211,19 +200,6 @@ export default function Checkout() {
                                         border: "1px solid #ccc"
                                     }}
                                         type="text" className="form-control" placeholder="Họ tên" name="username" value={billingInfo.username} onChange={handleInput} required />
-                                </div>
-                                <div className="form-group">
-                                    <input style={{
-                                        display: "block",
-                                        width: "90%",
-                                        height: "34px",
-                                        padding: "6px 12px",
-                                        fontSize: "16px",
-                                        color: "#797b7c",
-                                        backgroundColor: "#fff",
-                                        border: "1px solid #ccc"
-                                    }}
-                                        type="email" className="form-control" placeholder="Email" name="email" value={billingInfo.email} onChange={handleInput} required />
                                 </div>
                                 <div className="form-group">
                                     <input style={{
@@ -283,16 +259,16 @@ export default function Checkout() {
                                     <div >
                                         {cart.cartItems?.map(cartItem => {
                                             return (
-                                                <div className='checkout-col' key={cartItem.ProductID}>
-                                                    <span className=' checkout-text'>{cartItem.ProductName} x {cartItem.cartQuantity}</span>
-                                                    <span className=' checkout-text'>{cartItem.Price}  VND</span>
+                                                <div className='checkout-col' key={cartItem.productId}>
+                                                    <span className=' checkout-text'>{cartItem.productName} x {cartItem.cartQuantity}</span>
+                                                    <span className=' checkout-text'>{(cartItem.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})} </span>
                                                 </div>
                                             )
                                         })}
                                     </div>
                                     <div className='checkout-col'>
                                         <span style={{ fontWeight: "bold" }} className='checkout-text'>Tổng tiền</span>
-                                        <span className='checkout-text'>{cart.cartTotalAmount} VND</span>
+                                        <span className='checkout-text'>{(cart.cartTotalAmount).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</span>
                                     </div>
                                     <div>
                                         <div className="section-title">
