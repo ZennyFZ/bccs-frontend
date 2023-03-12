@@ -9,16 +9,16 @@ export default function OrderDetail() {
     const [orderdetail, setOrderDetail] = useState([])
     const [productdetail, setProductDetail] = useState([])
 
-    async function getData() {
-        await axios.get(`${Config.API_URL}/Order/GetOrderDetailByOrderId?orderId=` + orderid.id)
+    function getData() {
+        axios.get(`${Config.API_URL}/Order/GetOrderDetailByOrderId?orderId=` + orderid.id)
             .then(response => response.data)
             .then((data) => {
                 setOrderDetail(data)
             });
     }
 
-    async function getProductDetail() {
-        orderdetail.map(orderdetail => {
+    function getProductDetail() {
+         orderdetail.map(orderdetail => {
             axios.get(`${Config.API_URL}/Product/GetProductById?id=` + orderdetail.productId)
                 .then(response => response.data)
                 .then((data) => {
@@ -35,7 +35,7 @@ export default function OrderDetail() {
         if (orderdetail){
             getProductDetail();
         }
-    },[orderdetail])
+    },[JSON.stringify(orderdetail)])
 
     return (
         <div>

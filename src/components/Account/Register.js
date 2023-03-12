@@ -60,42 +60,35 @@ export default function Login() {
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
-                margin="normal"
-                required
+                multiline
                 fullWidth
                 id="email"
                 label="Nhập Email..."
-                name="email"
-                autoComplete="email"
-                autoFocus
               />
               <TextField
-                margin="normal"
-                required
+                multiline
                 fullWidth
-                name="username"
-                label="Nhập Username..."
-                type="text"
-                id="username"
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="fullname"
                 label="Nhập Họ Tên..."
-                type="text"
                 id="fullname"
               />
               <TextField
-                margin="normal"
-                required
+                multiline
                 fullWidth
-                name="password"
+                label="Nhập Họ Tên..."
+                id="fullname"
+              />
+              <TextField
+                multiline
+                fullWidth
+                label="Nhập Họ Tên..."
+                id="fullname"
+              />
+              <TextField
+                multiline
+                fullWidth
                 label="Nhập Mật Khẩu..."
                 type="password"
                 id="password"
-                autoComplete="current-password"
               />
               <Button
                 type="submit"

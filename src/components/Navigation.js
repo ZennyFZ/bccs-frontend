@@ -5,7 +5,6 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { useAuth0 } from "@auth0/auth0-react";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Button from "@mui/material/Button";
 //
@@ -18,14 +17,12 @@ import IconButton from '@mui/material/IconButton';
 import {getTotals} from "../../src/context/CartSlice";
 import {useSelector, useDispatch} from 'react-redux';
 import { useEffect } from 'react';
-import axios from "axios";
+import callerAPI from "../utils/APICaller";
 
 
 export default function Navigation() {
-  const { loginWithRedirect } = useAuth0();
-  const { logout } = useAuth0();
-    //
-    const { user } = useAuth0();
+    const [user, setUser] = React.useState(null);
+
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const handleOpenUserMenu = (event) => {
       setAnchorElUser(event.currentTarget);
@@ -37,28 +34,30 @@ export default function Navigation() {
       dispatch(getTotals())
   }
 
-
-  //
-  // const [cart2, setCart2] = React.useState([]);
-  // localStorage.setItem("cartItems", JSON.stringify(cart2));
   const cart = useSelector(state => state.cart);
   const dispatch = useDispatch();
 
-  // function getCartData() {
-  //     axios.get("https://63e4419cc04baebbcda2eb0c.mockapi.io/CartV2").then((response) => {
-  //       setCart2(response.data[0].cartItems);
-  //   }
-  //   )
-  // }
-
-  // useEffect(() => {
-  //     getCartData();
-  // }, [])
 
   useEffect(() => {
     handleGetTotals();
   }, [cart])
 
+  function getCurrentUser() {
+    callerAPI('Customer/GetCurrentCustomer', 'GET', null).then(res => {
+      setUser(res.data);
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
+  function logout(){
+    setUser(null);
+    window.location.href = "/";
+  }
+
+  useEffect(() => {
+    getCurrentUser();
+  }, [])
 
 
   return (
@@ -134,11 +133,11 @@ export default function Navigation() {
             </div> */}
             {/* Account */}
             {/* //Login */}
-            {user?.name && user?.email ? (
+            {user?.fullName && user?.mail ? (
               <div>
                 <Tooltip title="User Profile">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt={user.picture} src={user.picture} />
+                    <Avatar alt={user.fullName} src={"https://www.angrybirdsnest.com/wp-content/uploads/2012/04/Angry-Birds-Space-Avatar-Bomb-Bird.jpg"} />
                   </IconButton>
                 </Tooltip>
                 <Menu
@@ -179,15 +178,15 @@ export default function Navigation() {
                     </Typography>
                   </MenuItem>
                   <MenuItem>
-                    <Typography textAlign="center" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+                    <Typography textAlign="center" onClick={() => logout()}>
                       Đăng Xuất
                     </Typography>
                   </MenuItem>
                 </Menu>
               </div>
               ) : (
-              <Link to="" style={{ textDecoration: "none" }}>
-                <Button onClick={() => loginWithRedirect()}>
+              <Link to="/dang-nhap" style={{ textDecoration: "none" }}>
+                <Button>
                   <div className="NavItem">
                     Đăng Nhập
                   </div>
