@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Product from './Product'
-import ProductAdmin from '../Admin/Page/Product';
 import callerApi from '../../utils/APICaller';
 export class Main_product extends Component {
     constructor(props) {
@@ -23,7 +22,6 @@ export class Main_product extends Component {
         return (
             <div>
                 <Product Products={Products} />
-                <ProductAdmin Products={Products}/>
             </div>
         )
     }
