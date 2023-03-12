@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Order from './Order';
-import callerApi from '../../utils/APICaller3';
+import callerApi from '../../utils/APICaller';
 export class Main_Order extends Component {
     constructor(props) {
         super(props);
@@ -10,7 +10,7 @@ export class Main_Order extends Component {
     }
 
     componentDidMount() {
-        callerApi("order", "GET", null).then(res => {
+        callerApi("Order/GetOrder", "GET", null).then(res => {
             this.setState({
                 Orders: res.data
             });

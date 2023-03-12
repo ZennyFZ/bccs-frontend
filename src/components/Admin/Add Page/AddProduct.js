@@ -10,11 +10,9 @@ import MenuItem from '@mui/material/MenuItem';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { useParams } from "react-router-dom";
 import callerApi from '../../../utils/APICaller';
-export default function ManageProduct() {
+export default function AddProduct() {
     const [birdList, setBirdList] = React.useState([]);
-    const productid = useParams();
     const formik = useFormik({
         initialValues: {
             name: "",
@@ -35,8 +33,7 @@ export default function ManageProduct() {
             forBird: Yup.string().required("Vui lòng chọn 1 loại chim").typeError("Không được để trống"),
         }),
         onSubmit: (values) => {
-            callerApi("Product/UpdateProduct", "POST", {
-                productId: productid.id,
+            callerApi("Product/CreateProduct", "Put", {
                 productName: values.name,
                 price: values.price,
                 quantity: values.quantity,
@@ -46,10 +43,10 @@ export default function ManageProduct() {
                 image: values.image,
             }).then(res => {
                 if (res.status === 200) {
-                    toast.success("Chỉnh sửa thành công");
+                    toast.success("Thêm sản phẩm thành công");
                 }
             }).catch(err => {
-                toast.error("Chỉnh sửa thất bại");
+                toast.error("Thêm sản phẩm thất bại");
             })
             console.log(values);
         },
@@ -61,20 +58,7 @@ export default function ManageProduct() {
         })
     }
 
-    async function getProductData() {
-        await callerApi("Product/GetProductById?id="+productid.id, "GET", null).then((res) => {
-            formik.setFieldValue("name", res.data.productName);
-            formik.setFieldValue("image", res.data.image);
-            formik.setFieldValue("price", res.data.price);
-            formik.setFieldValue("category", res.data.category);
-            formik.setFieldValue("description", res.data.description);
-            formik.setFieldValue("quantity", res.data.quantity);
-            formik.setFieldValue("forBird", res.data.birdId);
-        })
-    }
-
     useEffect(() => {
-        getProductData();
         getBirdData();
     }, [])
 
@@ -86,7 +70,7 @@ export default function ManageProduct() {
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '30px', marginBottom: '30px' }}>
                 <Card style={{ width: '1000px' }}>
                     <div style={{ textAlign: "center" }}>
-                        <CardHeader title="Chỉnh Sửa Sản Phẩm" />
+                        <CardHeader title="Thêm Sản Phẩm" />
                     </div>
                     <CardContent>
                         <form onSubmit={formik.handleSubmit}>
@@ -151,7 +135,7 @@ export default function ManageProduct() {
                                 {formik.errors.forBird && formik.touched.forBird && (<p style={{color: "red"}}>{formik.errors.forBird}</p>)}
                             </div>
                             <div style={{ textAlign: "center", marginTop: "20px" }}>
-                                <Button variant="contained" color="primary" type="submit">Chỉnh Sửa</Button>
+                                <Button variant="contained" color="primary" type="submit">Thêm</Button>
                             </div>
                         </form>
                     </CardContent>

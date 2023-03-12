@@ -10,7 +10,7 @@ export class Homepage_Product extends Component {
 }
 
 componentDidMount(){
-    callerApi("Product", "GET", null).then(res => {
+    callerApi("Product/GetAllProduct/Filter?filterPrice=nothing&filterCategory=nothing", "GET", null).then(res => {
         this.setState({
             Products: res.data
         });

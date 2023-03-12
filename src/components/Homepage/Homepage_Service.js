@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import callerApi from '../../utils/APICaller2';
+import callerApi from '../../utils/APICaller';
 import ServicePreview from './ServicePreview';
 export class Homepage_Service extends Component {
   constructor(props){
@@ -10,7 +10,7 @@ export class Homepage_Service extends Component {
 }
 
 componentDidMount(){
-    callerApi("Service", "GET", null).then(res => {
+    callerApi("Service/GetAllServices", "GET", null).then(res => {
         this.setState({
             Services: res.data
         });

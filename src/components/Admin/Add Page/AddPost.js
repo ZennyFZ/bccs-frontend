@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button } from 'react-materialize';
 import { Card, CardContent, CardHeader } from '@mui/material';
 import { useFormik } from "formik";
@@ -11,15 +11,14 @@ import {useEffect} from 'react';
 import { FormControl} from '@mui/material';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { useParam } from 'react-router-dom';
-export default function ManagePost() {
+export default function AddPost() {
     const [birdList, setBirdList] = React.useState([]);
-    const postid = useParams();
+    const date = new Date();
     const formik = useFormik({
         initialValues: {
             description : "",
             author : "",
-            date : "",
+            date : date,
             birdType : "",
             image : "",
             title: ""
@@ -32,8 +31,7 @@ export default function ManagePost() {
             title: Yup.string().required("Không được để trống").max(100, "Tiêu đề không được hơn 100 ký tự").typeError("Không được để trống")
         }),
         onSubmit: (values) => {
-            callerApi("Post/UpdatePost", "POST", {
-                postId: postid.id,
+            callerApi("Post/AddPost", "PUT", {
                 description: values.description,
                 author: values.author,
                 date: values.date,
@@ -43,10 +41,10 @@ export default function ManagePost() {
                 title: values.title
             }).then(res => {
                 if (res.status === 200) {
-                    toast.success("Chỉnh sửa thành công");
+                    toast.success("Thêm bài viết thành công");
                 }
             }).catch(err => {
-                toast.error("Chỉnh sửa thất bại");
+                toast.error("Thêm bài viết thất bại");
             })
             console.log(values);
         },
@@ -58,19 +56,7 @@ export default function ManagePost() {
         })
     }
 
-    async function getPostData() {
-        await callerApi("Post/GetPostById?id="+postid.id, "GET", null).then((res) => {
-            formik.setFieldValue("description", res.data.description);
-            formik.setFieldValue("author", res.data.author);
-            formik.setFieldValue("date", res.data.date);
-            formik.setFieldValue("birdType", res.data.birdType);
-            formik.setFieldValue("image", res.data.image);
-            formik.setFieldValue("title", res.data.title);
-        })
-    }
-
     useEffect(() => {
-        getPostData();
         getBirdData();
     }, [])
 
@@ -82,7 +68,7 @@ export default function ManagePost() {
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '30px', marginBottom: '30px' }}>
                 <Card style={{ width: '1000px' }}>
                     <div style={{ textAlign: "center" }}>
-                        <CardHeader title="Chỉnh Sửa Bài Viết" />
+                        <CardHeader title="Thêm Bài Viết" />
                     </div>
                     <CardContent>
                         <form onSubmit={formik.handleSubmit}>
@@ -125,7 +111,7 @@ export default function ManagePost() {
                                 {formik.errors.description && formik.touched.description && (<p style={{color: "red"}}>{formik.errors.description}</p>)}
                             </div>
                             <div style={{ textAlign: "center", marginTop: "20px" }}>
-                                <Button variant="contained" color="primary" type="submit">Chỉnh Sửa</Button>
+                                <Button variant="contained" color="primary" type="submit">Thêm</Button>
                             </div>
                         </form>
                     </CardContent>

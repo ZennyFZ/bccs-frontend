@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Service from './Service';
-import callerApi from '../../utils/APICaller2';
+import callerApi from '../../utils/APICaller';
 export class Main_service extends Component {
     constructor(props) {
         super(props);
@@ -10,7 +10,7 @@ export class Main_service extends Component {
     }
 
     componentDidMount() {
-        callerApi("Service", "GET", null).then(res => {
+        callerApi("Service/GetAllServices", "GET", null).then(res => {
             this.setState({
                 Services: res.data
             });
