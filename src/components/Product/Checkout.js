@@ -57,7 +57,7 @@ export default function Checkout() {
         return actions.order.capture().then((details) => {
             localStorage.setItem("paymentStatus", JSON.stringify([details]));
             var bill = JSON.parse(localStorage.getItem("billingInfo"));
-            APICaller("Order​/CreateOrder", "POST", {
+            APICaller("Order/CreateOrder", "POST", {
                 note: bill.note,
                 address: bill.adress,
                 phone: bill.phone,
@@ -154,9 +154,9 @@ export default function Checkout() {
                 progress: undefined,
                 theme: "light",
             });
-            setInterval(() => {
-                window.location.href = "/";
-            }, 5000);
+            // setInterval(() => {
+            //     window.location.href = "/";
+            // }, 5000);
     }
     ////////////////////////////////////
 
@@ -252,16 +252,15 @@ export default function Checkout() {
                                 <div className='Product-item-price'>
                                     <div className='Price-money'>
                                         <span className='checkout-text'>Sản Phẩm</span>
-                                        <span className="space"></span>
-                                        <span className="space"></span>
-                                        <span className='checkout-text'>Giá Tiền</span>
+                                        <span className="space" style={{marginLeft: "450px"}}></span>
+                                        <span className='checkout-text'>Thành Tiền</span>
                                     </div>
                                     <div >
                                         {cart.cartItems?.map(cartItem => {
                                             return (
                                                 <div className='checkout-col' key={cartItem.productId}>
                                                     <span className=' checkout-text'>{cartItem.productName} x {cartItem.cartQuantity}</span>
-                                                    <span className=' checkout-text'>{(cartItem.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})} </span>
+                                                    <span className=' checkout-text'>{(cartItem.price * cartItem.cartQuantity).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})} </span>
                                                 </div>
                                             )
                                         })}

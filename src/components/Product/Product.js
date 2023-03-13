@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { Container, Row, Col, Card, Button, Select } from 'react-materialize'
-
 import FormControl from '@mui/material/FormControl';
 import { addToCart } from '../../context/CartSlice'
 import { useDispatch } from 'react-redux'
@@ -9,16 +8,22 @@ import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function Product({ Products }) {
     const [productList, setProductList] = useState([]);
     const dispatch = useDispatch();
     const [loading, setloading] = useState(false);
+    const navigate = useNavigate();
     useEffect(() => {
         setTimeout(setloading, 800, true);
     }, [Products])
     const handleAddToCart = (product) => {
         dispatch(addToCart(product))
+    }
+    const handleAddToCart2 = (product) => {
+        dispatch(addToCart(product))
+        navigate("/gio-hang");
     }
     const [search, setSearch] = useState("");
     console.log(search);
@@ -122,8 +127,9 @@ export default function Product({ Products }) {
                                             <span className='Price'>{(product.price).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
                                         </div>
                                     </div>
-                                    <div style={{ textAlign: "center", marginTop: "10px" }}>
-                                        <Button onClick={() => { handleAddToCart(product) }} className='btn btn-primary'>Thêm vào giỏ hàng</Button>
+                                    <div style={{display: "flex"}}>
+                                        <Button onClick={() => { handleAddToCart(product) }} style={{  width: "160px", fontSize: "10px", marginTop: "10px" }}  className='btn btn-primary'>Thêm vào giỏ hàng</Button>
+                                        <Button onClick={() => { handleAddToCart2(product) }} style={{ marginLeft: "5px", width: "160px", fontSize: "10px", marginTop: "10px" }} className='btn btn-primary'>Mua ngay</Button>
                                     </div>
                                 </div>
                             </div>
