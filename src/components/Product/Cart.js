@@ -7,10 +7,12 @@ import { useEffect } from 'react';
 import { toast } from "react-toastify";
 import callerAPI from "../../utils/APICaller";
 import * as React from "react";
+import { useNavigate } from 'react-router-dom';
 
 export default function Cart() {
     const cart = useSelector(state => state.cart);
     const [user, setUser] = React.useState(null);
+    const navigate = useNavigate();
     console.log(cart);
     const dispatch = useDispatch();
     const handleRemoveFromCart = (cartItem) => {
@@ -40,6 +42,7 @@ export default function Cart() {
     function checkout(){
         if(user === null){
             toast.error("Bạn cần đăng nhập để thanh toán");
+            navigate("/dang-nhap");
         }else{
             window.location.href = "/thanh-toan";
         }

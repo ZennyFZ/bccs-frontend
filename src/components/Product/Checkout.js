@@ -14,9 +14,8 @@ import { toast } from "react-toastify";
 import ErrorIcon from '@mui/icons-material/Error';
 import BeenhereIcon from '@mui/icons-material/Beenhere';
 import InfoIcon from '@mui/icons-material/Info';
+import { useNavigate } from "react-router-dom";
 
-// import { useAuth0 } from "@auth0/auth0-react";
-// import { useEffect } from "react";
 export default function Checkout() {
     //thông tin product từ cart    
     const cart = useSelector(state => state.cart);
@@ -25,6 +24,7 @@ export default function Checkout() {
     const handleGetTotals = () => {
         dispatchh(getTotals())
     }
+    const navigate = useNavigate();
     useEffect(() => {
         handleGetTotals();
     }, [cart])
@@ -62,18 +62,31 @@ export default function Checkout() {
         return actions.order.capture().then((details) => {
             localStorage.setItem("paymentStatus", JSON.stringify([details]));
             var bill = JSON.parse(localStorage.getItem("billingInfo"));
-            APICaller("Order/CreateOrder", "POST", {
-                note: bill.note,
-                address: bill.address,
-                phone: bill.phone,
-                fullName: bill.fullName,
-                amount: cart.cartTotalAmount,
-                paymentMethod: "online",
-                product: cart.cartItems
-            }).then(res => {
-                console.log(res);
-                submitBillingInfo();
-            });
+            if (details.status === "COMPLETED") {
+                APICaller("Order/CreateOrder", "POST", {
+                    note: bill.note,
+                    address: bill.address,
+                    phone: bill.phone,
+                    fullName: bill.fullName,
+                    amount: cart.cartTotalAmount,
+                    paymentMethod: "online",
+                    product: cart.cartItems
+                }).then(res => {
+                    console.log(res);
+                    console.log(details.status)
+                    submitBillingInfo();
+                });
+            }else{
+                toast.error("Thanh toán thất bại", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
         });
     }
 
@@ -106,13 +119,14 @@ export default function Checkout() {
         callerAPI('Customer/GetCurrentCustomer', 'GET', null).then(res => {
             setBillingInfo(res.data);
         }).catch(err => {
-          console.log(err);
+            navigate('/dang-nhap');
         })
       }
 
       useEffect(() => {
         getCurrentUser();
       }, [])
+
     
     useEffect(() => {
         setValidUser(USER_REGEX.test(billingInfo.fullName));
@@ -183,9 +197,9 @@ export default function Checkout() {
     }
 
     function submitBillingInfo() {
-        localStorage.removeItem("cartItems");
         localStorage.removeItem("billingInfo");
         localStorage.removeItem("paymentStatus");
+        localStorage.removeItem("cartItems");
         toast.success("Đặt hàng thành công", {
             position: "bottom-right",
             autoClose: 2000,
@@ -196,23 +210,11 @@ export default function Checkout() {
             progress: undefined,
             theme: "light",
         });
-        // setInterval(() => {
-        //     window.location.href = "/";
-        // }, 5000);
+        setInterval(() => {
+            window.location.href = "/";
+        }, 5000);
     }
     ////////////////////////////////////
-
-    // const {isAuthenticated} = useAuth0();
-    // const checkUser = () => {
-    //     if (isAuthenticated==false) {
-    //         window.location.href = "http://localhost:3000/";
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     checkUser();
-    // }, [])
-    // Đang cải thiện, không được uncomment
 
     return (
         <div>

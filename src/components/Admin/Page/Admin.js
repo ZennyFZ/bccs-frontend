@@ -26,7 +26,8 @@ import ArticleIcon from '@mui/icons-material/Article';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import PaidIcon from '@mui/icons-material/Paid';
+import GigaChart from '../GigaChart';
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
     let options = [...document.querySelectorAll("#selectBox option:checked")].map(elemento => elemento.value)
@@ -71,7 +72,35 @@ export default function Admin() {
     const [status, setStatus] = React.useState('');
     const [birds, setBirds] = React.useState([]);
     const [search, setSearch] = useState("");
-    let totalMoney
+    const [serviceSale, setServiceSale] = useState("");
+    const [productSale, setProductSale] = useState("");
+    const [revenue, setRevenue] = useState("");
+    const [categorySale, setCategorySale] = useState([]);
+    const [mostSoldProduct, setMostSoldProduct] = useState("");
+    const [chartData, setChartData] = useState({
+        labels: [],
+        datasets: [
+            {
+                label: "",
+                data: [],
+                backgroundColor: [],
+                borderColor: [],
+                borderWidth: 0,
+            },
+        ],
+    });
+    const [chartData2, setChartData2] = useState({
+        labels: [],
+        datasets: [
+            {
+                label: "",
+                data: [],
+                backgroundColor: [],
+                borderColor: [],
+                borderWidth: 0,
+            },
+        ],
+    });
 
 
 
@@ -111,7 +140,42 @@ export default function Admin() {
         });
     }
 
+    async function getServiceSale(){
+        await callerApi("Sale/CaculateServiceSaleInCurrentMonth", "GET", null).then(res => {
+            setServiceSale(res.data);
+        })
+    }
+
+    async function getProductSale(){
+        await callerApi("Sale/CaculateProductSaleInCurrentMonth", "GET", null).then(res => {
+            setProductSale(res.data);
+        })
+    }
+
+    async function getRevenue(){
+        await callerApi("Sale/Revenue", "GET", null).then(res => {
+            setRevenue(res.data);
+        })
+    }
+
+    async function getCategorySale(){
+        await callerApi("Sale/Category", "GET", null).then(res => {
+            setCategorySale(res.data);
+        })
+    }
+
+    async function getMostSoldProduct(){
+        await callerApi("Sale/orders/most-sold-product", "GET", null).then(res => {
+            setMostSoldProduct(res.data);
+        })
+    }
+
     useEffect(() => {
+        getMostSoldProduct();
+        getCategorySale();
+        getRevenue();
+        getProductSale();
+        getServiceSale();
         getBirds();
         getBookings();
         getOrders();
@@ -119,6 +183,35 @@ export default function Admin() {
         getServices();
         getProducts();
     }, [])
+
+    useEffect(() => {
+        if(categorySale){
+            setChartData({
+                labels: ["Thức Ăn", "Thuốc"],
+                datasets: [
+                    {
+                        label: "Số lượng bán ra",
+                        data: [categorySale.foodQuantity, categorySale.medicineQuantity],
+                        backgroundColor: ["#3e95cd", "#8e5ea2"],
+                        borderColor: ["#3e95cd", "#8e5ea2"],
+                        borderWidth: 1,
+                    },
+                ],
+            });
+            setChartData2({
+                labels: ["Thức Ăn", "Thuốc"],
+                datasets: [
+                    {
+                        label: "Doanh thu thu được",
+                        data: [categorySale.foodAmount, categorySale.medicineAmount],
+                        backgroundColor: ["#3e95cd", "#8e5ea2"],
+                        borderColor: ["#3e95cd", "#8e5ea2"],
+                        borderWidth: 1,
+                    },
+                ],
+            });
+        }
+    }, [categorySale])
 
     function deleteProduct(id) {
         callerApi("Product/DeteleProduct?proId=" + id, "DELETE", null).then(res => {
@@ -201,18 +294,18 @@ export default function Admin() {
                 aria-label="Vertical tabs example"
                 sx={{ borderRight: 1, borderColor: 'divider', backgroundColor: "#f5f5f5" }}
             >
-                <Tab icon={<BarChartIcon style={{color: "red"}} />} iconPosition="start" label="Bảng Điều Khiển" {...a11yProps(0)} />
-                <Tab icon={<InventoryIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Sản Phẩm" {...a11yProps(1)} />
-                <Tab icon={<HomeIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Dịch Vụ" {...a11yProps(2)} />
-                <Tab icon={<ArticleIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Bài Viết" {...a11yProps(3)} />
-                <Tab icon={<ShoppingCartIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Đơn Hàng" {...a11yProps(4)} />
-                <Tab icon={<CalendarMonthIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Đặt Lịch" {...a11yProps(5)} />
+                <Tab style={{backgroundColor: "white"}} icon={<BarChartIcon style={{color: "red"}} />} iconPosition="start" label="Bảng Điều Khiển" {...a11yProps(0)} />
+                <Tab style={{backgroundColor: "white"}} icon={<InventoryIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Sản Phẩm" {...a11yProps(1)} />
+                <Tab style={{backgroundColor: "white"}} icon={<HomeIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Dịch Vụ" {...a11yProps(2)} />
+                <Tab style={{backgroundColor: "white"}} icon={<ArticleIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Bài Viết" {...a11yProps(3)} />
+                <Tab style={{backgroundColor: "white"}} icon={<ShoppingCartIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Đơn Hàng" {...a11yProps(4)} />
+                <Tab style={{backgroundColor: "white"}} icon={<CalendarMonthIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Đặt Lịch" {...a11yProps(5)} />
             </Tabs>
             <TabPanel value={value} index={0} style={{ marginBottm: "10px", backgroundColor: '#f5f5f5' }}>
                 <div>
                     <div className="introHeading">Tổng Quan</div>
                     <div className="bottom-line2" style={{ marginTop: "25px" }}></div>
-                    <Grid container spacing={2} style={{width: "1300px"}}>
+                    <Grid container spacing={2} style={{width: "1200px"}}>
                         <Grid item xs={12} sm={6} md={3}>
                         <Container>
                             <Card sx={{ minWidth: 260 }} style={{ backgroundColor: "#fff" }}>
@@ -305,7 +398,73 @@ export default function Admin() {
                         </Grid>
                     </Grid>
                     <div>
-                        
+                    </div>
+
+                    <div>
+                        <div className="introHeading">Tổng Doanh Thu Tháng Này</div>
+                        <div className="bottom-line2" style={{ marginTop: "25px" }}></div>
+                        <Grid container spacing={2} style={{width: "1200px"}}>
+                            <Grid item xs={12} sm={6} md={3}>
+                                <Container>
+                                    <Card sx={{ minWidth: 260, marginLeft: 20 }} style={{ backgroundColor: "#fff" }}>
+                                        <CardContent>
+                                            <Typography style={{ fontSize: 19, color: "#8898aa" }} color="text.secondary" gutterBottom>
+                                                Doanh Số Sản Phẩm
+                                                <PaidIcon style={{ fontSize: 25, marginLeft: "20px", color: "#f5365c" }} />
+                                            </Typography>
+                                            <Typography sx={{ fontSize: 18, fontWeight: "bold" }} color="text.secondary">
+                                                {(productSale.total)?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Container>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3}>
+                                <Container>
+                                    <Card sx={{ minWidth: 260, marginLeft: 20 }} style={{ backgroundColor: "#fff" }}>
+                                        <CardContent>
+                                            <Typography style={{ fontSize: 19, color: "#8898aa" }} color="text.secondary" gutterBottom>
+                                                Doanh Số Dich Vụ
+                                                <PaidIcon style={{ fontSize: 25, marginLeft: "20px", color: "#f5365c" }} />
+                                            </Typography>
+                                            <Typography sx={{ fontSize: 18, fontWeight: "bold" }} color="text.secondary">
+                                                {(serviceSale.total)?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Container>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3}>
+                                <Container>
+                                    <Card sx={{ minWidth: 260, marginLeft: 20 }} style={{ backgroundColor: "#fff" }}>
+                                        <CardContent>
+                                            <Typography style={{ fontSize: 19, color: "#8898aa" }} color="text.secondary" gutterBottom>
+                                                Tổng Doanh Số
+                                                <PaidIcon style={{ fontSize: 25, marginLeft: "20px", color: "#f5365c" }} />
+                                            </Typography>
+                                            <Typography sx={{ fontSize: 18, fontWeight: "bold" }} color="text.secondary">
+                                                {revenue.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Container>
+                            </Grid>
+                        </Grid>
+                    </div>
+
+                    <div style={{width: "1200px"}}>
+                        <div className="introHeading">Hiệu Suất Bán Hàng Tháng Này</div>
+                        <div className="bottom-line2" style={{ marginTop: "25px" }}></div>
+                        <div style={{display: "flex"}}>
+                        <div style={{width: "680px", height: "450px"}}>
+                            <GigaChart chartData={chartData} />
+                            <div style={{textAlign: "center"}}>Số Lượng</div>
+                        </div>
+                        <div style={{width: "600px", height: "450px"}}>
+                            <GigaChart chartData={chartData2} />
+                            <div style={{textAlign: "center"}}>Doanh Thu</div>
+                        </div>
+                        </div>
                     </div>
 
   
@@ -397,7 +556,7 @@ export default function Admin() {
                 <div>
                     <div className="introHeading">Quản Lý Sản Phẩm</div>
                     <div className="bottom-line2" style={{ marginTop: "25px" }}></div>
-                    <div className="row" style={{ width: '1300px' }}>
+                    <div className="row" style={{ width: '1200px' }}>
                         <Link to="/admin/them-san-pham">
                             <Button variant="contained" style={{ float: "left" }}>
                                 <AddIcon />
@@ -450,7 +609,7 @@ export default function Admin() {
                 <div>
                     <div className="introHeading">Quản Lý Dịch Vụ</div>
                     <div className="bottom-line2" style={{ marginTop: "25px" }}></div>
-                    <div className="row" style={{ width: '1300px' }}>
+                    <div className="row" style={{ width: '1200px' }}>
                         <Link to="/admin/them-dich-vu">
                             <Button variant="contained" style={{ float: "left" }}>
                                 <AddIcon />
@@ -499,7 +658,7 @@ export default function Admin() {
                 <div>
                     <div className="introHeading">Quản Lý Bài Viết</div>
                     <div className="bottom-line2" style={{ marginTop: "25px" }}></div>
-                    <div className="row" style={{ width: '1300px' }}>
+                    <div className="row" style={{ width: '1200px' }}>
                         <Link to="/admin/them-bai-viet">
                             <Button variant="contained" style={{ float: "left" }}>
                                 <AddIcon />
@@ -526,7 +685,7 @@ export default function Admin() {
                                         <TableCell>
                                             <img style={{ width: "200px", height: "200px" }} src={post.image} alt={post.title} width="100px" />
                                         </TableCell>
-                                        <TableCell>{post.title}</TableCell>
+                                        <TableCell><div style={{width: "150px"}}>{post.title}</div></TableCell>
                                         <TableCell>{(post.author).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</TableCell>
                                         <TableCell><div style={{ width: "105px" }}>{post.date.slice(8, 10) + "/" + post.date.slice(5, 7) + "/" + post.date.slice(0, 4) + " " + post.date.slice(11, 16)}</div></TableCell>
                                         <TableCell>
@@ -534,7 +693,7 @@ export default function Admin() {
                                                 bird.birdId === post.birdType ? <div>{bird.birdName}</div> : null
                                             ))}
                                         </TableCell>
-                                        <TableCell><div className="PostDescription" style={{ width: "500px" }} >{post.description}</div></TableCell>
+                                        <TableCell><div className="PostDescription" style={{ width: "350px" }} >{post.description}</div></TableCell>
                                         <TableCell>
                                             <Link to={`/admin/quan-ly-bai-viet/${post.postId}`}>
                                                 <Button variant="contained" color="primary">
@@ -557,7 +716,7 @@ export default function Admin() {
                 <div>
                     <div className="introHeading">Quản Lý Đơn Hàng</div>
                     <div className="bottom-line2" style={{ marginTop: "25px" }}></div>
-                    <div className="row" style={{ width: '1300px' }}>
+                    <div className="row" style={{ width: '1200px' }}>
                         <Table>
                             <TableHead>
                                 <TableRow>
@@ -603,7 +762,7 @@ export default function Admin() {
                 <div>
                     <div className="introHeading">Quản Lý Đặt Lịch</div>
                     <div className="bottom-line2" style={{ marginTop: "25px" }}></div>
-                    <div className="row" style={{ width: '1300px' }}>
+                    <div className="row" style={{ width: '1200px' }}>
                         <Table>
                             <TableHead>
                                 <TableRow>

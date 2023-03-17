@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import InfoIcon from '@mui/icons-material/Info';
+import { Grid } from '@mui/material';
 const Login = () => {
     const formik = useFormik({
         initialValues: {
@@ -56,12 +57,20 @@ const Login = () => {
     }, [])
 
     return (
-        < >
+      <Grid container component="main" sx={{
+        height: '100vh', backgroundImage: 'url(https://indianaaudubon.org/wp-content/uploads/2016/02/colourful-bird-high-definition-wallpaper-for-desktop-background-download-free.jpg)',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: (t) =>
+          t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }} >
+        <>
             <Box
                 sx={{
                     width: 300,
                     minHeight: 370,
-                    maxHeight:460
+                    maxHeight:460,
                 }}
                 className='loginform'
                 
@@ -123,6 +132,7 @@ const Login = () => {
 
             </Box>
         </>
+        </Grid>
     )
 }
 

@@ -61,6 +61,10 @@ export default function ProductDetail() {
                                 <div style={{marginTop: "10px"}}>
                                     <span className='label' style={{fontWeight: "bold"}}>Giá: </span>
                                     <span className='Price'>{(productlist.price)?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
+                                    <span style={{marginLeft: "20px"}}>
+                                    <span className='label' style={{fontWeight: "bold"}}>Số lượng: </span>
+                                    <span className='Price'>{productlist.quantity}</span>
+                                    </span>
                                 </div>
                             </div>
                             <div className="Product-option">
