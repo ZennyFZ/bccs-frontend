@@ -12,10 +12,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect, useState } from "react";
 import callerApi from '../../../utils/APICaller';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import { toast } from 'react-toastify';
 import { Container, Card, CardContent, CardActions } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -28,7 +24,48 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import PaidIcon from '@mui/icons-material/Paid';
 import GigaChart from '../GigaChart';
+
 function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+    let options = [...document.querySelectorAll("#selectBox option:checked")].map(elemento => elemento.value)
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`vertical-tabpanel-${index}`}
+            aria-labelledby={`vertical-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box sx={{ p: 5 }}>
+                    <Typography>{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
+}
+
+function TabPanel2(props){
+    const { children, value, index, ...other } = props;
+    let options = [...document.querySelectorAll("#selectBox option:checked")].map(elemento => elemento.value)
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`vertical-tabpanel-${index}`}
+            aria-labelledby={`vertical-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box sx={{ p: 5 }}>
+                    <Typography>{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
+}
+
+function TabPanel3(props){
     const { children, value, index, ...other } = props;
     let options = [...document.querySelectorAll("#selectBox option:checked")].map(elemento => elemento.value)
     return (
@@ -55,7 +92,33 @@ TabPanel.propTypes = {
     value: PropTypes.number.isRequired,
 };
 
+TabPanel2.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+};
+
+TabPanel3.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+};
+
 function a11yProps(index) {
+    return {
+        id: `vertical-tab-${index}`,
+        'aria-controls': `vertical-tabpanel-${index}`,
+    };
+}
+
+function a11yProps2(index) {
+    return {
+        id: `vertical-tab-${index}`,
+        'aria-controls': `vertical-tabpanel-${index}`,
+    };
+}
+
+function a11yProps3(index) {
     return {
         id: `vertical-tab-${index}`,
         'aria-controls': `vertical-tabpanel-${index}`,
@@ -64,6 +127,8 @@ function a11yProps(index) {
 
 export default function Admin() {
     const [value, setValue] = React.useState(0);
+    const [value2, setValue2] = React.useState(0);
+    const [value3, setValue3] = React.useState(0);
     const [products, setProducts] = useState([]);
     const [services, setServices] = useState([]);
     const [posts, setPosts] = useState([]);
@@ -71,7 +136,6 @@ export default function Admin() {
     const [bookings, setBookings] = useState([]);
     const [status, setStatus] = React.useState('');
     const [birds, setBirds] = React.useState([]);
-    const [search, setSearch] = useState("");
     const [serviceSale, setServiceSale] = useState("");
     const [productSale, setProductSale] = useState("");
     const [revenue, setRevenue] = useState("");
@@ -282,6 +346,14 @@ export default function Admin() {
         setValue(newValue);
     };
 
+    const handleChange2 = (event, newValue) => {
+        setValue2(newValue);
+    };
+
+    const handleChange3 = (event, newValue) => {
+        setValue3(newValue);
+    };
+
     return (
         <Box
             sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex' }}
@@ -473,13 +545,13 @@ export default function Admin() {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell>ID</TableCell>
-                                <TableCell>Tên Khách Hàng</TableCell>
-                                <TableCell>Địa Chỉ</TableCell>
-                                <TableCell>Số Điện Thoại</TableCell>
-                                <TableCell>Ngày Đặt Hàng</TableCell>
-                                <TableCell>Trạng Thái</TableCell>
-                                <TableCell>Chi Tiết</TableCell>
+                                <TableCell sx={{fontWeight: "bold"}}>ID</TableCell>
+                                <TableCell sx={{fontWeight: "bold"}}>Tên Khách Hàng</TableCell>
+                                <TableCell sx={{fontWeight: "bold"}}>Địa Chỉ</TableCell>
+                                <TableCell sx={{fontWeight: "bold"}}>Số Điện Thoại</TableCell>
+                                <TableCell sx={{fontWeight: "bold"}}>Ngày Đặt Hàng</TableCell>
+                                <TableCell sx={{fontWeight: "bold"}}>Trạng Thái</TableCell>
+                                <TableCell sx={{fontWeight: "bold"}}>Chi Tiết</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -515,13 +587,13 @@ export default function Admin() {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell>ID</TableCell>
-                                <TableCell>Tên Khách Hàng</TableCell>
-                                <TableCell>Địa Chỉ</TableCell>
-                                <TableCell>Số Điện Thoại</TableCell>
-                                <TableCell>Ngày Đặt Hẹn</TableCell>
-                                <TableCell>Trạng Thái</TableCell>
-                                <TableCell>Chi Tiết</TableCell>
+                                <TableCell sx={{fontWeight: "bold"}}>ID</TableCell>
+                                <TableCell sx={{fontWeight: "bold"}}>Tên Khách Hàng</TableCell>
+                                <TableCell sx={{fontWeight: "bold"}}>Địa Chỉ</TableCell>
+                                <TableCell sx={{fontWeight: "bold"}}>Số Điện Thoại</TableCell>
+                                <TableCell sx={{fontWeight: "bold"}}>Ngày Đặt Hẹn</TableCell>
+                                <TableCell sx={{fontWeight: "bold"}}>Trạng Thái</TableCell>
+                                <TableCell sx={{fontWeight: "bold"}}>Chi Tiết</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -539,7 +611,7 @@ export default function Admin() {
                                                     <div>Đã Hủy</div>}
                                     </TableCell>
                                     <TableCell>
-                                        <Link to={`/admin/lich-hen/${booking.id}`}>
+                                        <Link to={`/admin/lich-hen/${booking.bookingId}`}>
                                             <Button variant="contained" style={{ backgroundColor: "#f5365c", color: "#fff" }}>
                                                 Chi Tiết
                                             </Button>
@@ -566,14 +638,14 @@ export default function Admin() {
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>ID</TableCell>
-                                    <TableCell>Hình Ảnh</TableCell>
-                                    <TableCell>Tên Sản Phẩm</TableCell>
-                                    <TableCell>Giá</TableCell>
-                                    <TableCell>Số Lượng</TableCell>
-                                    <TableCell>Mô Tả</TableCell>
-                                    <TableCell>Mục</TableCell>
-                                    <TableCell>Quản Lý</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>ID</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>Hình Ảnh</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>Tên Sản Phẩm</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>Giá</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>Số Lượng</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>Mô Tả</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>Mục</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>Quản Lý</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -619,12 +691,12 @@ export default function Admin() {
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>ID</TableCell>
-                                    <TableCell>Hình Ảnh</TableCell>
-                                    <TableCell>Tên Dịch Vụ</TableCell>
-                                    <TableCell>Giá</TableCell>
-                                    <TableCell>Mô Tả</TableCell>
-                                    <TableCell>Quản Lý</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>ID</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>Hình Ảnh</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>Tên Dịch Vụ</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>Giá</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>Mô Tả</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>Quản Lý</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -668,14 +740,14 @@ export default function Admin() {
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>ID</TableCell>
-                                    <TableCell>Hình Ảnh</TableCell>
-                                    <TableCell>Tiêu Đề</TableCell>
-                                    <TableCell>Tác Giả</TableCell>
-                                    <TableCell>Ngày Đăng</TableCell>
-                                    <TableCell>Mục Chim</TableCell>
-                                    <TableCell>Mô Tả</TableCell>
-                                    <TableCell>Quản Lý</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>ID</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>Hình Ảnh</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>Tiêu Đề</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>Tác Giả</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>Ngày Đăng</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>Mục Chim</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>Mô Tả</TableCell>
+                                    <TableCell sx={{fontWeight: "bold"}}>Quản Lý</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -717,44 +789,233 @@ export default function Admin() {
                     <div className="introHeading">Quản Lý Đơn Hàng</div>
                     <div className="bottom-line2" style={{ marginTop: "25px" }}></div>
                     <div className="row" style={{ width: '1200px' }}>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>ID</TableCell>
-                                    <TableCell>Khách Hàng</TableCell>
-                                    <TableCell>Ngày Đặt</TableCell>
-                                    <TableCell>Trạng Thái</TableCell>
-                                    <TableCell>Quản Lý</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {orders?.map((order) => (
-                                    order.statusId == 1 && (
+                        <Box sx={{ borderBottom: 1, borderColor: 'divider', display: "flex", justifyContent: "center", alignContent: "center" }} >
+                            <Tabs
+                                value={value2}
+                                onChange={handleChange2}
+                                aria-label="Vertical tabs example"
+                                sx={{ borderRight: 1, borderColor: 'divider', backgroundColor: "#f5f5f5" }}
+                            >
+                                <Tab label="Tất Cả Đơn Hàng" {...a11yProps2(0)} />
+                                <Tab label="Chờ Xác Nhận" {...a11yProps2(1)} />
+                                <Tab label="Đã Xác Nhận" {...a11yProps2(2)} />
+                                <Tab label="Hoàn Thành" {...a11yProps2(3)} />
+                                <Tab label="Đã Hủy" {...a11yProps2(4)} />
+                            </Tabs>
+                        </Box>
+                        <TabPanel2 value={value2} index={0} style={{ backgroundColor: '#f5f5f5' }}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell sx={{fontWeight: "bold"}}>ID</TableCell>
+                                        <TableCell sx={{fontWeight: "bold"}}>Tên Khách Hàng</TableCell>
+                                        <TableCell sx={{fontWeight: "bold"}}>Địa Chỉ</TableCell>
+                                        <TableCell sx={{fontWeight: "bold"}}>Số Điện Thoại</TableCell>
+                                        <TableCell sx={{fontWeight: "bold"}}>Ngày Đặt Hàng</TableCell>
+                                        <TableCell sx={{fontWeight: "bold"}}>Trạng Thái</TableCell>
+                                        <TableCell sx={{fontWeight: "bold"}}>Chi Tiết</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {orders.map((order) => (
                                         <TableRow key={order.orderId}>
                                             <TableCell>{order.orderId}</TableCell>
                                             <TableCell>{order.fullName}</TableCell>
-                                            <TableCell><div style={{ width: "105px" }}>{order.orderDate.slice(8, 10) + "/" + order.orderDate.slice(5, 7) + "/" + order.orderDate.slice(0, 4) + " " + order.orderDate.slice(11, 16)}</div></TableCell>
-                                            <TableCell>Chờ Xác Nhận</TableCell>
+                                            <TableCell>{order.address}</TableCell>
+                                            <TableCell>{order.phone}</TableCell>
+                                            <TableCell>{order.orderDate.slice(8, 10) + "/" + order.orderDate.slice(5, 7) + "/" + order.orderDate.slice(0, 4) + " " + order.orderDate.slice(11, 16)}</TableCell>
                                             <TableCell>
-                                                <FormControl fullWidth >
-                                                    <InputLabel id="demo-simple-select-outlined-label">Trạng Thái</InputLabel>
-                                                    <Select
-                                                        labelId="demo-simple-select-outlined-label"
-                                                        id="demo-simple-select-outlined"
-                                                        onChange={(e) => handleChangeStatus(e, order.orderId)}
-                                                        label="Trạng Thái"
-                                                    >
-                                                        <MenuItem value={2}>Đã Xác Nhận</MenuItem>
-                                                        <MenuItem value={3}>Hoàn Thành</MenuItem>
-                                                        <MenuItem value={4}>Đã Hủy</MenuItem>
-                                                    </Select>
-                                                </FormControl>
+                                                <div>
+                                                    {order.statusId == 1 ? <div>Chờ Xác Nhận</div> :
+                                                        order.statusId == 2 ? <div>Đã Xác Nhận</div> :
+                                                            order.statusId == 3 ? <div>Hoàn Thành</div> :
+                                                                <div>Đã Hủy</div>}
+                                                </div>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Link to={`/admin/don-hang/${order.orderId}`}>
+                                                    <Button variant="contained" style={{ backgroundColor: "#f5365c", color: "#fff" }}>
+                                                        Chi Tiết
+                                                    </Button>
+                                                </Link>
                                             </TableCell>
                                         </TableRow>
-                                    )
-                                ))}
-                            </TableBody>
-                        </Table>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TabPanel2>
+                        <TabPanel2 value={value2} index={1} style={{ backgroundColor: '#f5f5f5' }}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell sx={{ fontWeight: "bold" }}>ID</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Tên Khách Hàng</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Địa Chỉ</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Số Điện Thoại</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Ngày Đặt Hàng</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Trạng Thái</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Chi Tiết</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {orders.map((order) => (
+                                        order.statusId === 1 && (
+                                            <TableRow key={order.orderId}>
+                                                <TableCell>{order.orderId}</TableCell>
+                                                <TableCell>{order.fullName}</TableCell>
+                                                <TableCell>{order.address}</TableCell>
+                                                <TableCell>{order.phone}</TableCell>
+                                                <TableCell>{order.orderDate.slice(8, 10) + "/" + order.orderDate.slice(5, 7) + "/" + order.orderDate.slice(0, 4) + " " + order.orderDate.slice(11, 16)}</TableCell>
+                                                <TableCell>
+                                                    <div>
+                                                        {order.statusId == 1 ? <div>Chờ Xác Nhận</div> :
+                                                            order.statusId == 2 ? <div>Đã Xác Nhận</div> :
+                                                                order.statusId == 3 ? <div>Hoàn Thành</div> :
+                                                                    <div>Đã Hủy</div>}
+                                                    </div>
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Link to={`/admin/don-hang/${order.orderId}`}>
+                                                        <Button variant="contained" style={{ backgroundColor: "#f5365c", color: "#fff" }}>
+                                                            Chi Tiết
+                                                        </Button>
+                                                    </Link>
+                                                </TableCell>
+                                            </TableRow>
+                                        )
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TabPanel2>
+                        <TabPanel2 value={value2} index={2} style={{ backgroundColor: '#f5f5f5' }}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell sx={{ fontWeight: "bold" }}>ID</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Tên Khách Hàng</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Địa Chỉ</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Số Điện Thoại</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Ngày Đặt Hàng</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Trạng Thái</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Chi Tiết</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {orders.map((order) => (
+                                        order.statusId === 2 && (
+                                            <TableRow key={order.orderId}>
+                                                <TableCell>{order.orderId}</TableCell>
+                                                <TableCell>{order.fullName}</TableCell>
+                                                <TableCell>{order.address}</TableCell>
+                                                <TableCell>{order.phone}</TableCell>
+                                                <TableCell>{order.orderDate.slice(8, 10) + "/" + order.orderDate.slice(5, 7) + "/" + order.orderDate.slice(0, 4) + " " + order.orderDate.slice(11, 16)}</TableCell>
+                                                <TableCell>
+                                                    <div>
+                                                        {order.statusId == 1 ? <div>Chờ Xác Nhận</div> :
+                                                            order.statusId == 2 ? <div>Đã Xác Nhận</div> :
+                                                                order.statusId == 3 ? <div>Hoàn Thành</div> :
+                                                                    <div>Đã Hủy</div>}
+                                                    </div>
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Link to={`/admin/don-hang/${order.orderId}`}>
+                                                        <Button variant="contained" style={{ backgroundColor: "#f5365c", color: "#fff" }}>
+                                                            Chi Tiết
+                                                        </Button>
+                                                    </Link>
+                                                </TableCell>
+                                            </TableRow>
+                                        )
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TabPanel2>
+                        <TabPanel2 value={value2} index={3} style={{ backgroundColor: '#f5f5f5' }}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell sx={{ fontWeight: "bold" }}>ID</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Tên Khách Hàng</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Địa Chỉ</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Số Điện Thoại</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Ngày Đặt Hàng</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Trạng Thái</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Chi Tiết</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {orders.map((order) => (
+                                        order.statusId === 3 && (
+                                            <TableRow key={order.orderId}>
+                                                <TableCell>{order.orderId}</TableCell>
+                                                <TableCell>{order.fullName}</TableCell>
+                                                <TableCell>{order.address}</TableCell>
+                                                <TableCell>{order.phone}</TableCell>
+                                                <TableCell>{order.orderDate.slice(8, 10) + "/" + order.orderDate.slice(5, 7) + "/" + order.orderDate.slice(0, 4) + " " + order.orderDate.slice(11, 16)}</TableCell>
+                                                <TableCell>
+                                                    <div>
+                                                        {order.statusId == 1 ? <div>Chờ Xác Nhận</div> :
+                                                            order.statusId == 2 ? <div>Đã Xác Nhận</div> :
+                                                                order.statusId == 3 ? <div>Hoàn Thành</div> :
+                                                                    <div>Đã Hủy</div>}
+                                                    </div>
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Link to={`/admin/don-hang/${order.orderId}`}>
+                                                        <Button variant="contained" style={{ backgroundColor: "#f5365c", color: "#fff" }}>
+                                                            Chi Tiết
+                                                        </Button>
+                                                    </Link>
+                                                </TableCell>
+                                            </TableRow>
+                                        )
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TabPanel2>
+                        <TabPanel2 value={value2} index={4} style={{ backgroundColor: '#f5f5f5' }}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell sx={{ fontWeight: "bold" }}>ID</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Tên Khách Hàng</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Địa Chỉ</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Số Điện Thoại</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Ngày Đặt Hàng</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Trạng Thái</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Chi Tiết</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {orders.map((order) => (
+                                        order.statusId === 4 && (
+                                            <TableRow key={order.orderId}>
+                                                <TableCell>{order.orderId}</TableCell>
+                                                <TableCell>{order.fullName}</TableCell>
+                                                <TableCell>{order.address}</TableCell>
+                                                <TableCell>{order.phone}</TableCell>
+                                                <TableCell>{order.orderDate.slice(8, 10) + "/" + order.orderDate.slice(5, 7) + "/" + order.orderDate.slice(0, 4) + " " + order.orderDate.slice(11, 16)}</TableCell>
+                                                <TableCell>
+                                                    <div>
+                                                        {order.statusId == 1 ? <div>Chờ Xác Nhận</div> :
+                                                            order.statusId == 2 ? <div>Đã Xác Nhận</div> :
+                                                                order.statusId == 3 ? <div>Hoàn Thành</div> :
+                                                                    <div>Đã Hủy</div>}
+                                                    </div>
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Link to={`/admin/don-hang/${order.orderId}`}>
+                                                        <Button variant="contained" style={{ backgroundColor: "#f5365c", color: "#fff" }}>
+                                                            Chi Tiết
+                                                        </Button>
+                                                    </Link>
+                                                </TableCell>
+                                            </TableRow>
+                                        )
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TabPanel2>
                     </div>
                 </div>
             </TabPanel>
@@ -763,44 +1024,223 @@ export default function Admin() {
                     <div className="introHeading">Quản Lý Đặt Lịch</div>
                     <div className="bottom-line2" style={{ marginTop: "25px" }}></div>
                     <div className="row" style={{ width: '1200px' }}>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>ID</TableCell>
-                                    <TableCell>Khách Hàng</TableCell>
-                                    <TableCell>Ngày Đặt</TableCell>
-                                    <TableCell>Trạng Thái</TableCell>
-                                    <TableCell>Quản Lý</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {bookings?.map((booking) => (
-                                    booking.statusId == 1 && (
+                        <Box sx={{ borderBottom: 1, borderColor: 'divider', display: "flex", justifyContent: "center", alignContent: "center" }} >
+                            <Tabs
+                                value={value3}
+                                onChange={handleChange3}
+                                aria-label="Vertical tabs example"
+                                sx={{ borderRight: 1, borderColor: 'divider', backgroundColor: "#f5f5f5" }}
+                            >
+                                <Tab label="Tất Cả Lịch Hẹn" {...a11yProps3(0)} />
+                                <Tab label="Chờ Xác Nhận" {...a11yProps3(1)} />
+                                <Tab label="Đã Xác Nhận" {...a11yProps3(2)} />
+                                <Tab label="Hoàn Thành" {...a11yProps3(3)} />
+                                <Tab label="Đã Hủy" {...a11yProps3(4)} />
+                            </Tabs>
+                        </Box>
+                        <TabPanel3 value={value3} index={0} style={{ backgroundColor: '#f5f5f5' }}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell sx={{fontWeight: "bold"}}>ID</TableCell>
+                                        <TableCell sx={{fontWeight: "bold"}}>Tên Khách Hàng</TableCell>
+                                        <TableCell sx={{fontWeight: "bold"}}>Địa Chỉ</TableCell>
+                                        <TableCell sx={{fontWeight: "bold"}}>Số Điện Thoại</TableCell>
+                                        <TableCell sx={{fontWeight: "bold"}}>Ngày Đặt Hàng</TableCell>
+                                        <TableCell sx={{fontWeight: "bold"}}>Trạng Thái</TableCell>
+                                        <TableCell sx={{fontWeight: "bold"}}>Chi Tiết</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {bookings.map((booking) => (
                                         <TableRow key={booking.bookingId}>
                                             <TableCell>{booking.bookingId}</TableCell>
                                             <TableCell>{booking.fullName}</TableCell>
-                                            <TableCell><div style={{ width: "105px" }}>{booking.bookingDate.slice(8, 10) + "/" + booking.bookingDate.slice(5, 7) + "/" + booking.bookingDate.slice(0, 4) + " " + booking.bookingDate.slice(11, 16)}</div></TableCell>
-                                            <TableCell>Chờ Xác Nhận</TableCell>
+                                            <TableCell>{booking.address}</TableCell>
+                                            <TableCell>{booking.phone}</TableCell>
+                                            <TableCell>{booking.bookingDate.slice(8, 10) + "-" + booking.bookingDate.slice(5, 7) + "-" + booking.bookingDate.slice(0, 4) + " " + booking.bookingDate.slice(11, 19)}</TableCell>
                                             <TableCell>
-                                                <FormControl fullWidth >
-                                                    <InputLabel id="demo-simple-select-outlined-label">Trạng Thái</InputLabel>
-                                                    <Select
-                                                        labelId="demo-simple-select-outlined-label"
-                                                        id="demo-simple-select-outlined"
-                                                        onChange={(e) => handleChangeStatusBooking(e, booking.bookingId)}
-                                                        label="Trạng Thái"
-                                                    >
-                                                        <MenuItem value={2}>Đã Xác Nhận</MenuItem>
-                                                        <MenuItem value={3}>Hoàn Thành</MenuItem>
-                                                        <MenuItem value={4}>Đã Hủy</MenuItem>
-                                                    </Select>
-                                                </FormControl>
+                                                {booking.statusId == 1 ? <div>Chờ Xác Nhận</div> :
+                                                    booking.statusId == 2 ? <div>Đã Xác Nhận</div> :
+                                                        booking.statusId == 3 ? <div>Hoàn Thành</div> :
+                                                            <div>Đã Hủy</div>}
+                                            </TableCell>
+                                            <TableCell>
+                                                <Link to={`/admin/lich-hen/${booking.bookingId}`}>
+                                                    <Button variant="contained" style={{ backgroundColor: "#f5365c", color: "#fff" }}>
+                                                        Chi Tiết
+                                                    </Button>
+                                                </Link>
                                             </TableCell>
                                         </TableRow>
-                                    )
-                                ))}
-                            </TableBody>
-                        </Table>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TabPanel3>
+                        <TabPanel3 value={value3} index={1} style={{ backgroundColor: '#f5f5f5' }}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell sx={{fontWeight: "bold"}}>ID</TableCell>
+                                        <TableCell sx={{fontWeight: "bold"}}>Tên Khách Hàng</TableCell>
+                                        <TableCell sx={{fontWeight: "bold"}}>Địa Chỉ</TableCell>
+                                        <TableCell sx={{fontWeight: "bold"}}>Số Điện Thoại</TableCell>
+                                        <TableCell sx={{fontWeight: "bold"}}>Ngày Đặt Hàng</TableCell>
+                                        <TableCell sx={{fontWeight: "bold"}}>Trạng Thái</TableCell>
+                                        <TableCell sx={{fontWeight: "bold"}}>Chi Tiết</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {bookings.map((booking) => (
+                                        booking.statusId === 1 && (
+                                        <TableRow key={booking.bookingId}>
+                                            <TableCell>{booking.bookingId}</TableCell>
+                                            <TableCell>{booking.fullName}</TableCell>
+                                            <TableCell>{booking.address}</TableCell>
+                                            <TableCell>{booking.phone}</TableCell>
+                                            <TableCell>{booking.bookingDate.slice(8, 10) + "-" + booking.bookingDate.slice(5, 7) + "-" + booking.bookingDate.slice(0, 4) + " " + booking.bookingDate.slice(11, 19)}</TableCell>
+                                            <TableCell>
+                                                {booking.statusId == 1 ? <div>Chờ Xác Nhận</div> :
+                                                    booking.statusId == 2 ? <div>Đã Xác Nhận</div> :
+                                                        booking.statusId == 3 ? <div>Hoàn Thành</div> :
+                                                            <div>Đã Hủy</div>}
+                                            </TableCell>
+                                            <TableCell>
+                                                <Link to={`/admin/lich-hen/${booking.bookingId}`}>
+                                                    <Button variant="contained" style={{ backgroundColor: "#f5365c", color: "#fff" }}>
+                                                        Chi Tiết
+                                                    </Button>
+                                                </Link>
+                                            </TableCell>
+                                        </TableRow>
+                                        )
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TabPanel3>
+                        <TabPanel3 value={value3} index={2} style={{ backgroundColor: '#f5f5f5' }}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell sx={{ fontWeight: "bold" }}>ID</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Tên Khách Hàng</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Địa Chỉ</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Số Điện Thoại</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Ngày Đặt Hàng</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Trạng Thái</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Chi Tiết</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {bookings.map((booking) => (
+                                        booking.statusId === 2 && (
+                                            <TableRow key={booking.bookingId}>
+                                                <TableCell>{booking.bookingId}</TableCell>
+                                                <TableCell>{booking.fullName}</TableCell>
+                                                <TableCell>{booking.address}</TableCell>
+                                                <TableCell>{booking.phone}</TableCell>
+                                                <TableCell>{booking.bookingDate.slice(8, 10) + "-" + booking.bookingDate.slice(5, 7) + "-" + booking.bookingDate.slice(0, 4) + " " + booking.bookingDate.slice(11, 19)}</TableCell>
+                                                <TableCell>
+                                                    {booking.statusId == 1 ? <div>Chờ Xác Nhận</div> :
+                                                        booking.statusId == 2 ? <div>Đã Xác Nhận</div> :
+                                                            booking.statusId == 3 ? <div>Hoàn Thành</div> :
+                                                                <div>Đã Hủy</div>}
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Link to={`/admin/lich-hen/${booking.bookingId}`}>
+                                                        <Button variant="contained" style={{ backgroundColor: "#f5365c", color: "#fff" }}>
+                                                            Chi Tiết
+                                                        </Button>
+                                                    </Link>
+                                                </TableCell>
+                                            </TableRow>
+                                        )
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TabPanel3>
+                        <TabPanel3 value={value3} index={3} style={{ backgroundColor: '#f5f5f5' }}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell sx={{ fontWeight: "bold" }}>ID</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Tên Khách Hàng</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Địa Chỉ</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Số Điện Thoại</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Ngày Đặt Hàng</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Trạng Thái</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Chi Tiết</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {bookings.map((booking) => (
+                                        booking.statusId === 3 && (
+                                            <TableRow key={booking.bookingId}>
+                                                <TableCell>{booking.bookingId}</TableCell>
+                                                <TableCell>{booking.fullName}</TableCell>
+                                                <TableCell>{booking.address}</TableCell>
+                                                <TableCell>{booking.phone}</TableCell>
+                                                <TableCell>{booking.bookingDate.slice(8, 10) + "-" + booking.bookingDate.slice(5, 7) + "-" + booking.bookingDate.slice(0, 4) + " " + booking.bookingDate.slice(11, 19)}</TableCell>
+                                                <TableCell>
+                                                    {booking.statusId == 1 ? <div>Chờ Xác Nhận</div> :
+                                                        booking.statusId == 2 ? <div>Đã Xác Nhận</div> :
+                                                            booking.statusId == 3 ? <div>Hoàn Thành</div> :
+                                                                <div>Đã Hủy</div>}
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Link to={`/admin/lich-hen/${booking.id}`}>
+                                                        <Button variant="contained" style={{ backgroundColor: "#f5365c", color: "#fff" }}>
+                                                            Chi Tiết
+                                                        </Button>
+                                                    </Link>
+                                                </TableCell>
+                                            </TableRow>
+                                        )
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TabPanel3>
+                        <TabPanel3 value={value3} index={4} style={{ backgroundColor: '#f5f5f5' }}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell sx={{ fontWeight: "bold" }}>ID</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Tên Khách Hàng</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Địa Chỉ</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Số Điện Thoại</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Ngày Đặt Hàng</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Trạng Thái</TableCell>
+                                        <TableCell sx={{ fontWeight: "bold" }}>Chi Tiết</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {bookings.map((booking) => (
+                                        booking.statusId === 4 && (
+                                            <TableRow key={booking.bookingId}>
+                                                <TableCell>{booking.bookingId}</TableCell>
+                                                <TableCell>{booking.fullName}</TableCell>
+                                                <TableCell>{booking.address}</TableCell>
+                                                <TableCell>{booking.phone}</TableCell>
+                                                <TableCell>{booking.bookingDate.slice(8, 10) + "-" + booking.bookingDate.slice(5, 7) + "-" + booking.bookingDate.slice(0, 4) + " " + booking.bookingDate.slice(11, 19)}</TableCell>
+                                                <TableCell>
+                                                    {booking.statusId == 1 ? <div>Chờ Xác Nhận</div> :
+                                                        booking.statusId == 2 ? <div>Đã Xác Nhận</div> :
+                                                            booking.statusId == 3 ? <div>Hoàn Thành</div> :
+                                                                <div>Đã Hủy</div>}
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Link to={`/admin/lich-hen/${booking.bookingId}`}>
+                                                        <Button variant="contained" style={{ backgroundColor: "#f5365c", color: "#fff" }}>
+                                                            Chi Tiết
+                                                        </Button>
+                                                    </Link>
+                                                </TableCell>
+                                            </TableRow>
+                                        )
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TabPanel3>
                     </div>
                 </div>
             </TabPanel>

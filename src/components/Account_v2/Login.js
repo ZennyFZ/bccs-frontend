@@ -8,6 +8,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import InfoIcon from '@mui/icons-material/Info';
 import { Grid } from '@mui/material';
+import './Account.css'
 const Login = () => {
     const formik = useFormik({
         initialValues: {
