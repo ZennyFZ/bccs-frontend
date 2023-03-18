@@ -73,7 +73,7 @@ export default function Navigation() {
             {/* Logo */}
             <Link to="/">
               <img
-                src="assets/images/logo.png"
+                src={"https://cdn.discordapp.com/attachments/1074987128984973365/1075688774006218752/logo.png"}
                 alt="logo"
                 width="50"
                 height="50"

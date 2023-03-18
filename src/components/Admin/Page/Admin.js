@@ -27,7 +27,6 @@ import GigaChart from '../GigaChart';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-    let options = [...document.querySelectorAll("#selectBox option:checked")].map(elemento => elemento.value)
     return (
         <div
             role="tabpanel"
@@ -126,9 +125,9 @@ function a11yProps3(index) {
 }
 
 export default function Admin() {
-    const [value, setValue] = React.useState(0);
-    const [value2, setValue2] = React.useState(0);
-    const [value3, setValue3] = React.useState(0);
+    const [value, setValue] = React.useState((localStorage.getItem("tabValue"))? JSON.parse(localStorage.getItem("tabValue")) : 0);
+    const [value2, setValue2] = React.useState((localStorage.getItem("tabValue2"))? JSON.parse(localStorage.getItem("tabValue2")) : 0);
+    const [value3, setValue3] = React.useState((localStorage.getItem("tabValue3"))? JSON.parse(localStorage.getItem("tabValue3")) : 0);
     const [products, setProducts] = useState([]);
     const [services, setServices] = useState([]);
     const [posts, setPosts] = useState([]);
@@ -235,6 +234,7 @@ export default function Admin() {
     }
 
     useEffect(() => {
+        
         getMostSoldProduct();
         getCategorySale();
         getRevenue();
@@ -354,6 +354,18 @@ export default function Admin() {
         setValue3(newValue);
     };
 
+    function setTabValue(value) {
+        localStorage.setItem("tabValue", value);
+    }
+
+    function setTabValue2(value) {
+        localStorage.setItem("tabValue2", value);
+    }
+
+    function setTabValue3(value) {
+        localStorage.setItem("tabValue3", value);
+    }
+
     return (
         <Box
             sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex' }}
@@ -366,12 +378,12 @@ export default function Admin() {
                 aria-label="Vertical tabs example"
                 sx={{ borderRight: 1, borderColor: 'divider', backgroundColor: "#f5f5f5" }}
             >
-                <Tab style={{backgroundColor: "white"}} icon={<BarChartIcon style={{color: "red"}} />} iconPosition="start" label="Bảng Điều Khiển" {...a11yProps(0)} />
-                <Tab style={{backgroundColor: "white"}} icon={<InventoryIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Sản Phẩm" {...a11yProps(1)} />
-                <Tab style={{backgroundColor: "white"}} icon={<HomeIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Dịch Vụ" {...a11yProps(2)} />
-                <Tab style={{backgroundColor: "white"}} icon={<ArticleIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Bài Viết" {...a11yProps(3)} />
-                <Tab style={{backgroundColor: "white"}} icon={<ShoppingCartIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Đơn Hàng" {...a11yProps(4)} />
-                <Tab style={{backgroundColor: "white"}} icon={<CalendarMonthIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Đặt Lịch" {...a11yProps(5)} />
+                <Tab onClick={()=> setTabValue(0)} style={{backgroundColor: "white"}} icon={<BarChartIcon style={{color: "red"}} />} iconPosition="start" label="Bảng Điều Khiển" {...a11yProps(0)} />
+                <Tab onClick={()=> setTabValue(1)} style={{backgroundColor: "white"}} icon={<InventoryIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Sản Phẩm" {...a11yProps(1)} />
+                <Tab onClick={()=> setTabValue(2)} style={{backgroundColor: "white"}} icon={<HomeIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Dịch Vụ" {...a11yProps(2)} />
+                <Tab onClick={()=> setTabValue(3)} style={{backgroundColor: "white"}} icon={<ArticleIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Bài Viết" {...a11yProps(3)} />
+                <Tab onClick={()=> setTabValue(4)} style={{backgroundColor: "white"}} icon={<ShoppingCartIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Đơn Hàng" {...a11yProps(4)} />
+                <Tab onClick={()=> setTabValue(5)} style={{backgroundColor: "white"}} icon={<CalendarMonthIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Đặt Lịch" {...a11yProps(5)} />
             </Tabs>
             <TabPanel value={value} index={0} style={{ marginBottm: "10px", backgroundColor: '#f5f5f5' }}>
                 <div>
@@ -796,11 +808,11 @@ export default function Admin() {
                                 aria-label="Vertical tabs example"
                                 sx={{ borderRight: 1, borderColor: 'divider', backgroundColor: "#f5f5f5" }}
                             >
-                                <Tab label="Tất Cả Đơn Hàng" {...a11yProps2(0)} />
-                                <Tab label="Chờ Xác Nhận" {...a11yProps2(1)} />
-                                <Tab label="Đã Xác Nhận" {...a11yProps2(2)} />
-                                <Tab label="Hoàn Thành" {...a11yProps2(3)} />
-                                <Tab label="Đã Hủy" {...a11yProps2(4)} />
+                                <Tab onClick={() => setTabValue2(0)} label="Tất Cả Đơn Hàng" {...a11yProps2(0)} />
+                                <Tab onClick={() => setTabValue2(1)} label="Chờ Xác Nhận" {...a11yProps2(1)} />
+                                <Tab onClick={() => setTabValue2(2)} label="Đã Xác Nhận" {...a11yProps2(2)} />
+                                <Tab onClick={() => setTabValue2(3)} label="Hoàn Thành" {...a11yProps2(3)} />
+                                <Tab onClick={() => setTabValue2(4)} label="Đã Hủy" {...a11yProps2(4)} />
                             </Tabs>
                         </Box>
                         <TabPanel2 value={value2} index={0} style={{ backgroundColor: '#f5f5f5' }}>
@@ -1031,11 +1043,11 @@ export default function Admin() {
                                 aria-label="Vertical tabs example"
                                 sx={{ borderRight: 1, borderColor: 'divider', backgroundColor: "#f5f5f5" }}
                             >
-                                <Tab label="Tất Cả Lịch Hẹn" {...a11yProps3(0)} />
-                                <Tab label="Chờ Xác Nhận" {...a11yProps3(1)} />
-                                <Tab label="Đã Xác Nhận" {...a11yProps3(2)} />
-                                <Tab label="Hoàn Thành" {...a11yProps3(3)} />
-                                <Tab label="Đã Hủy" {...a11yProps3(4)} />
+                                <Tab onClick={() => setTabValue3(0)} label="Tất Cả Lịch Hẹn" {...a11yProps3(0)} />
+                                <Tab onClick={() => setTabValue3(1)} label="Chờ Xác Nhận" {...a11yProps3(1)} />
+                                <Tab onClick={() => setTabValue3(2)} label="Đã Xác Nhận" {...a11yProps3(2)} />
+                                <Tab onClick={() => setTabValue3(3)} label="Hoàn Thành" {...a11yProps3(3)} />
+                                <Tab onClick={() => setTabValue3(4)} label="Đã Hủy" {...a11yProps3(4)} />
                             </Tabs>
                         </Box>
                         <TabPanel3 value={value3} index={0} style={{ backgroundColor: '#f5f5f5' }}>
