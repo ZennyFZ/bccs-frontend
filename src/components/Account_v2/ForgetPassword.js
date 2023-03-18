@@ -6,6 +6,8 @@ import ErrorIcon from '@mui/icons-material/Error';
 import { Card } from "react-materialize";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import './Account.css'
+import { Grid } from "@mui/material";
 const EMAIL_REGEX = /^[a-z][a-z0-9_\.]{1,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/;
 const ForgetPassword = () => {
     const userRef = useRef();
@@ -56,6 +58,14 @@ const ForgetPassword = () => {
     }
 
     return (
+        <Grid container component="main" sx={{
+            height: '100vh', backgroundImage: 'url(https://indianaaudubon.org/wp-content/uploads/2016/02/colourful-bird-high-definition-wallpaper-for-desktop-background-download-free.jpg)',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: (t) =>
+              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }} >
         <div className="Forget-main">
             <div className="Forget">
                 <Card className="Forget-form">
@@ -116,6 +126,7 @@ const ForgetPassword = () => {
                 </Card>
             </div>
         </div>
+        </Grid>
     )
 }
 

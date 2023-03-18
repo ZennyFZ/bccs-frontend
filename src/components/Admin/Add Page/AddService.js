@@ -33,7 +33,11 @@ export default function AddService() {
                     toast.success("Thêm dịch vụ thành công");
                 }
             }).catch(err => {
-                toast.error("Thêm dịch vụ thất bại");
+                if (err.response.data === "Service already existed") {
+                    toast.error("Dịch vụ đã tồn tại");
+                }else{
+                    toast.error("Thêm dịch vụ thất bại");
+                }
             })
             console.log(values);
         },

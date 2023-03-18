@@ -9,6 +9,9 @@ import { useEffect } from 'react';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from 'react-toastify';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import PasswordIcon from '@mui/icons-material/Password';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -111,6 +114,10 @@ export default function Profile() {
   async function getCurrentUser() {
     await callerApi("Customer/GetCurrentCustomer", "GET", null).then((response) => {
         setUserInfo(response.data);
+        formik.setFieldValue("fullName", response.data.fullName);
+        formik.setFieldValue("mail", response.data.mail);
+        formik.setFieldValue("phone", response.data.phone);
+        formik.setFieldValue("address", response.data.address);
     });
    }
   
@@ -130,9 +137,9 @@ export default function Profile() {
         aria-label="Vertical tabs example"
         sx={{ borderRight: 1, borderColor: 'divider', backgroundColor: "#f5f5f5" }}
       >
-        <Tab label="Thông Tin Tài Khoản" {...a11yProps(0)} />
-        <Tab label="Thay Đổi Thông Tin Cá Nhân" {...a11yProps(1)} />
-        <Tab label="Thay Đổi Mật Khẩu" {...a11yProps(2)} />
+        <Tab style={{backgroundColor: "white"}} icon={<AccountCircleIcon style={{color: "blue"}}/>} iconPosition={"start"} label="Thông Tin Tài Khoản" {...a11yProps(0)} />
+        <Tab style={{backgroundColor: "white"}} icon={<ManageAccountsIcon style={{color: "red"}}/>} iconPosition={"start"} label="Thay Đổi Thông Tin Cá Nhân" {...a11yProps(1)} />
+        <Tab style={{backgroundColor: "white"}} icon={<PasswordIcon style={{color: "green"}}/>} iconPosition={"start"} label="Thay Đổi Mật Khẩu" {...a11yProps(2)} />
       </Tabs>
       <TabPanel value={value} index={0} style={{marginBottm: "10px", backgroundColor: '#f5f5f5'}}>
         <div>

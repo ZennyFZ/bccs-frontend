@@ -73,6 +73,9 @@ export default function Booking() {
         const v4 = PHONE_REGEX.test(scheduleInfo.phone);
         if (!v3 || !v4) {
             return;
+            setInterval(() => {
+                window.location.href = "/";
+            }, 3000);
         }
         console.log(scheduleInfo);
         localStorage.setItem("scheduleInfo", JSON.stringify(scheduleInfo));

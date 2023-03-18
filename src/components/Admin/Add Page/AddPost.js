@@ -44,7 +44,11 @@ export default function AddPost() {
                     toast.success("Thêm bài viết thành công");
                 }
             }).catch(err => {
-                toast.error("Thêm bài viết thất bại");
+                if (err.response.data === "Post already existed") {
+                    toast.error("Bài viết đã tồn tại");
+                }else{
+                    toast.error("Thêm bài viết thất bại");
+                }
             })
             console.log(values);
         },

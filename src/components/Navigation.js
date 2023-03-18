@@ -51,7 +51,11 @@ export default function Navigation() {
   }
 
   function logout(){
-    setUser(null);
+    callerAPI('Customer/LogOut', 'GET', null).then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    })
     window.location.href = "/";
   }
 
@@ -69,7 +73,7 @@ export default function Navigation() {
             {/* Logo */}
             <Link to="/">
               <img
-                src="assets/images/logo.png"
+                src={"https://cdn.discordapp.com/attachments/1074987128984973365/1075688774006218752/logo.png"}
                 alt="logo"
                 width="50"
                 height="50"

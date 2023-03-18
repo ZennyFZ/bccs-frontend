@@ -7,12 +7,18 @@ import { addToCart } from '../../context/CartSlice'
 import { useDispatch } from 'react-redux'
 import { Link } from "react-router-dom"
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import { useNavigate } from "react-router-dom";
 export default function ProductDetail() {
     const Productid = useParams();
     const [productlist, setProductList] = useState([])
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleAddToCart = (product) => {
         dispatch(addToCart(product))
+    }
+    const handleAddToCart2 = (product) => {
+        dispatch(addToCart(product))
+        navigate("/gio-hang");
     }
     console.log(Productid);
 
@@ -54,12 +60,17 @@ export default function ProductDetail() {
                             <div  className="Price-list">
                                 <div style={{marginTop: "10px"}}>
                                     <span className='label' style={{fontWeight: "bold"}}>Giá: </span>
-                                    <span className='Price'>{productlist.price} VND</span>
+                                    <span className='Price'>{(productlist.price)?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
+                                    <span style={{marginLeft: "20px"}}>
+                                    <span className='label' style={{fontWeight: "bold"}}>Số lượng: </span>
+                                    <span className='Price'>{productlist.quantity}</span>
+                                    </span>
                                 </div>
                             </div>
                             <div className="Product-option">
-                                    <div>
-                                        <Button onClick={() => { handleAddToCart(productlist) }}>Mua ngay</Button>
+                            <div style={{display: "flex"}}>
+                                        <Button onClick={() => { handleAddToCart(productlist) }} style={{  width: "160px", fontSize: "10px", marginTop: "10px" }}  className='btn btn-primary'>Thêm vào giỏ hàng</Button>
+                                        <Button onClick={() => { handleAddToCart2(productlist) }} style={{ marginLeft: "5px", width: "160px", fontSize: "10px", marginTop: "10px" }} className='btn btn-primary'>Mua ngay</Button>
                                     </div>
                             </div>
                         </div>

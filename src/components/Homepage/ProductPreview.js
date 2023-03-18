@@ -2,10 +2,16 @@ import { Link } from 'react-router-dom'
 import { Container,Row,Col,Card,Button } from 'react-materialize'
 import { addToCart } from '../../context/CartSlice'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 export default function ProductPreview({Products}) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const handleAddToCart = (product) => {
         dispatch(addToCart(product))
+    }
+    const handleAddToCart2 = (product) => {
+        dispatch(addToCart(product))
+        navigate("/gio-hang");
     }
     return (
         <div style={{font: "marope"}}>
@@ -30,9 +36,11 @@ export default function ProductPreview({Products}) {
                                             <span className='Price'>{(product.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</span>
                                         </div>
                                     </div>
-                                    <div style={{ textAlign: "center", marginTop: "10px" }}>
-                                        <Button onClick={() => { handleAddToCart(product) }} className='btn btn-primary'>Thêm vào giỏ hàng</Button>
+                                    <div style={{display: "flex"}}>
+                                        <Button onClick={() => { handleAddToCart(product) }} style={{  width: "160px", fontSize: "10px", marginTop: "10px" }}  className='btn btn-primary'>Thêm vào giỏ hàng</Button>
+                                        <Button onClick={() => { handleAddToCart2(product) }} style={{ marginLeft: "5px", width: "160px", fontSize: "10px", marginTop: "10px" }} className='btn btn-primary'>Mua ngay</Button>
                                     </div>
+
                                 </div>
                             </div>
                         </Card>

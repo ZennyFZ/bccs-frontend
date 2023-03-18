@@ -6,12 +6,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useState } from "react";
 import APICaller from "../../utils/APICaller";
+import callerAPI from "../../utils/APICaller";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { toast } from "react-toastify";
-// import { useAuth0 } from "@auth0/auth0-react";
-// import { useEffect } from "react";
+import ErrorIcon from '@mui/icons-material/Error';
+import BeenhereIcon from '@mui/icons-material/Beenhere';
+import InfoIcon from '@mui/icons-material/Info';
+import { useNavigate } from "react-router-dom";
+
 export default function Checkout() {
     //thông tin product từ cart    
     const cart = useSelector(state => state.cart);
@@ -20,6 +24,7 @@ export default function Checkout() {
     const handleGetTotals = () => {
         dispatchh(getTotals())
     }
+    const navigate = useNavigate();
     useEffect(() => {
         handleGetTotals();
     }, [cart])
@@ -57,18 +62,31 @@ export default function Checkout() {
         return actions.order.capture().then((details) => {
             localStorage.setItem("paymentStatus", JSON.stringify([details]));
             var bill = JSON.parse(localStorage.getItem("billingInfo"));
-            APICaller("Order​/CreateOrder", "POST", {
-                note: bill.note,
-                address: bill.adress,
-                phone: bill.phone,
-                fullName: bill.username,
-                amount: cart.cartTotalAmount,
-                paymentMethod: "online",
-                product: cart.cartItems
-            }).then(res => {
-                console.log(res);
-                submitBillingInfo();
-            });
+            if (details.status === "COMPLETED") {
+                APICaller("Order/CreateOrder", "POST", {
+                    note: bill.note,
+                    address: bill.address,
+                    phone: bill.phone,
+                    fullName: bill.fullName,
+                    amount: cart.cartTotalAmount,
+                    paymentMethod: "online",
+                    product: cart.cartItems
+                }).then(res => {
+                    console.log(res);
+                    console.log(details.status)
+                    submitBillingInfo();
+                });
+            }else{
+                toast.error("Thanh toán thất bại", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
         });
     }
 
@@ -82,12 +100,50 @@ export default function Checkout() {
         let time = new Date().toLocaleDateString();
         setCurrentTime(time);
     }
+    const USER_REGEX = /^[AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+ [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+(?: [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]*)*$/;
+    const PHONE_REGEX = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
+
+
     //thông tin user điền form   
-    const [billingInfo, setBillingInfo] = useState({ username: '', email: '', phone: '', adress: "", note: "", Status: "Chờ Xác Nhận",paymentType:"" });
+    const [billingInfo, setBillingInfo] = useState({ fullName:'', phone:'', address: '', note: "", Status: "Chờ Xác Nhận", paymentType: "" });
     localStorage.setItem("billingInfo", JSON.stringify(billingInfo));
+    
+    const [validUser, setValidUser] = useState(false);
+    const [userFocus, setUserFocus] = useState(false);
+
+    const [validPhone, setValidPhone] = useState(false);
+    const [phoneFocus, setPhoneFocus] = useState(false);
+
+    
+    function getCurrentUser() {
+        callerAPI('Customer/GetCurrentCustomer', 'GET', null).then(res => {
+            setBillingInfo(res.data);
+        }).catch(err => {
+            navigate('/dang-nhap');
+        })
+      }
+
+      useEffect(() => {
+        getCurrentUser();
+      }, [])
+
+    
+    useEffect(() => {
+        setValidUser(USER_REGEX.test(billingInfo.fullName));
+    }, [billingInfo.fullName])
+
+    useEffect(() => {
+        setValidPhone(PHONE_REGEX.test(billingInfo.phone));
+    }, [billingInfo.phone])
+
     const handleInput = (e) => {
         const { name, value } = e.target;
         setBillingInfo({ ...billingInfo, [name]: value });
+        const v3 = USER_REGEX.test(billingInfo.fullName);
+        const v4 = PHONE_REGEX.test(billingInfo.phone);
+        if (!v3 || !v4) {
+            return;
+        }
         console.log(billingInfo);
         localStorage.setItem("billingInfo", JSON.stringify(billingInfo));
     }
@@ -96,12 +152,12 @@ export default function Checkout() {
         localStorage.setItem("billingInfo", JSON.stringify(billingInfo));
         console.log(billingInfo);
         e.preventDefault();
-        if(paymentType=="cod"){
+        if (paymentType == "cod") {
             APICaller("Order/CreateOrder", "POST", {
                 note: billingInfo.note,
-                address: billingInfo.adress,
+                address: billingInfo.address,
                 phone: billingInfo.phone,
-                fullName: billingInfo.username,
+                fullName: billingInfo.fullName,
                 amount: cart.cartTotalAmount,
                 paymentMethod: "cod",
                 product: cart.cartItems
@@ -109,7 +165,7 @@ export default function Checkout() {
                 console.log(res);
             });
             submitBillingInfo();
-        }else if(paymentType=="online"){
+        } else if (paymentType == "online") {
             showPaypalButton();
         }
     }
@@ -124,11 +180,11 @@ export default function Checkout() {
     }
 
     function showSubmit2() {
-        if(document.getElementById("submit2").style.display == "none" && document.getElementById("submit2_2").style.display == "block"){
-        document.getElementById("submit1").style.display = "none";
-        document.getElementById("submit2").style.display = "block";
-        document.getElementById("submit2_2").style.display = "none";
-        }else{
+        if (document.getElementById("submit2").style.display == "none" && document.getElementById("submit2_2").style.display == "block") {
+            document.getElementById("submit1").style.display = "none";
+            document.getElementById("submit2").style.display = "block";
+            document.getElementById("submit2_2").style.display = "none";
+        } else {
             document.getElementById("submit1").style.display = "none";
             document.getElementById("submit2").style.display = "block";
         }
@@ -141,36 +197,24 @@ export default function Checkout() {
     }
 
     function submitBillingInfo() {
-            localStorage.removeItem("cartItems");
-            localStorage.removeItem("billingInfo");
-            localStorage.removeItem("paymentStatus");
-            toast.success("Đặt hàng thành công", {
-                position: "bottom-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: false,
-                progress: undefined,
-                theme: "light",
-            });
-            setInterval(() => {
-                window.location.href = "/";
-            }, 5000);
+        localStorage.removeItem("billingInfo");
+        localStorage.removeItem("paymentStatus");
+        localStorage.removeItem("cartItems");
+        toast.success("Đặt hàng thành công", {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+            theme: "light",
+        });
+        setInterval(() => {
+            window.location.href = "/";
+        }, 5000);
     }
     ////////////////////////////////////
-
-    // const {isAuthenticated} = useAuth0();
-    // const checkUser = () => {
-    //     if (isAuthenticated==false) {
-    //         window.location.href = "http://localhost:3000/";
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     checkUser();
-    // }, [])
-    // Đang cải thiện, không được uncomment
 
     return (
         <div>
@@ -189,6 +233,41 @@ export default function Checkout() {
                                     <div className="checkout-text">Điền các thông tin dưới đây, chúng tôi sẽ liên lạc khi cần thiết</div>
                                 </div>
                                 <div className="form-group">
+                                    <label className="Register-title" htmlFor="user">
+                                        <text>Họ và Tên</text>
+                                        <BeenhereIcon className={validUser ? "valid" : "hide"} />
+                                        <ErrorIcon className={validUser || !billingInfo.fullName ? "hide" : "invalid"} />
+                                    </label>
+                                    <input style={{
+                                        display: "block",
+                                        width: "90%",
+                                        height: "34px",
+                                        padding: "6px 12px",
+                                        fontSize: "16px",
+                                        color: "#797b7c",
+                                        backgroundColor: "#fff",
+                                        border: "1px solid #ccc"
+
+                                    }}
+                                        type="text" className="form-control" placeholder="Họ tên" name="fullName"
+                                        onChange={handleInput} 
+                                        value={billingInfo.fullName}
+                                        aria-invalid={validUser ? "false" : "true"}
+                                        aria-describedby="usernote"
+                                        onFocus={() => setUserFocus(true)}
+                                        onBlur={() => setUserFocus(false)}
+                                        required />
+                                    <p id="usernote" className={userFocus && billingInfo.fullName && !validUser ? "instructions" : "offscreen"}>
+                                        <InfoIcon />
+                                        <div>Viết đúng họ tên , ví dụ :Nguyễn Văn A</div>
+                                    </p>
+                                </div>
+                                <div className="form-group">
+                                    <label className="Register-title" htmlFor="phone">
+                                        <text>Số điện thoại</text>
+                                        <BeenhereIcon className={validPhone ? "valid" : "hide"} />
+                                        <ErrorIcon className={validPhone || !billingInfo.phone ? "hide" : "invalid"} />
+                                    </label>
                                     <input style={{
                                         display: "block",
                                         width: "90%",
@@ -199,22 +278,23 @@ export default function Checkout() {
                                         backgroundColor: "#fff",
                                         border: "1px solid #ccc"
                                     }}
-                                        type="text" className="form-control" placeholder="Họ tên" name="username" value={billingInfo.username} onChange={handleInput} required />
+                                        className="form-control" placeholder="Số điện thoại" name="phone"
+                                        onChange={handleInput} 
+                                        value={billingInfo.phone}
+                                        required
+                                        aria-invalid={validPhone ? "false" : "true"}
+                                        aria-describedby="phonenote"
+                                        onFocus={() => setPhoneFocus(true)}
+                                        onBlur={() => setPhoneFocus(false)} />
+                                    <p id="phonenote" className={phoneFocus && billingInfo.phone && !validPhone ? "instructions" : "offscreen"}>
+                                        <InfoIcon />
+                                        <div>0xxx xxx xxx</div>
+                                    </p>
                                 </div>
                                 <div className="form-group">
-                                    <input style={{
-                                        display: "block",
-                                        width: "90%",
-                                        height: "34px",
-                                        padding: "6px 12px",
-                                        fontSize: "16px",
-                                        color: "#797b7c",
-                                        backgroundColor: "#fff",
-                                        border: "1px solid #ccc"
-                                    }}
-                                        type="number" className="form-control" placeholder="Số điện thoại" name="phone" value={billingInfo.phone} onChange={handleInput} required />
-                                </div>
-                                <div className="form-group">
+                                <label className="Register-title" htmlFor="address">
+                                    <text>Địa chỉ</text>
+                                </label>
                                     <input style={{
                                         display: "block",
                                         maxWidth: "90%",
@@ -225,9 +305,12 @@ export default function Checkout() {
                                         backgroundColor: "#fff",
                                         border: "1px solid #ccc"
                                     }}
-                                        type="text" className="form-control" placeholder="Địa chỉ nhận hàng" name="adress" value={billingInfo.adress} onChange={handleInput} required />
+                                        type="text" className="form-control" placeholder="Địa chỉ nhận hàng" name="address" value={billingInfo.address} onChange={handleInput} required />
                                 </div>
                                 <div className="form-group">
+                                <label className="Register-title" htmlFor="note">
+                                    <text>Ghi chú</text>
+                                </label>
                                     <textarea style={{
                                         display: "block",
                                         maxWidth: "94%",
@@ -252,23 +335,22 @@ export default function Checkout() {
                                 <div className='Product-item-price'>
                                     <div className='Price-money'>
                                         <span className='checkout-text'>Sản Phẩm</span>
-                                        <span className="space"></span>
-                                        <span className="space"></span>
-                                        <span className='checkout-text'>Giá Tiền</span>
+                                        <span className="space" style={{ marginLeft: "450px" }}></span>
+                                        <span className='checkout-text'>Thành Tiền</span>
                                     </div>
                                     <div >
                                         {cart.cartItems?.map(cartItem => {
                                             return (
                                                 <div className='checkout-col' key={cartItem.productId}>
                                                     <span className=' checkout-text'>{cartItem.productName} x {cartItem.cartQuantity}</span>
-                                                    <span className=' checkout-text'>{(cartItem.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})} </span>
+                                                    <span className=' checkout-text'>{(cartItem.price * cartItem.cartQuantity).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })} </span>
                                                 </div>
                                             )
                                         })}
                                     </div>
                                     <div className='checkout-col'>
                                         <span style={{ fontWeight: "bold" }} className='checkout-text'>Tổng tiền</span>
-                                        <span className='checkout-text'>{(cart.cartTotalAmount).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</span>
+                                        <span className='checkout-text'>{(cart.cartTotalAmount).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
                                     </div>
                                     <div>
                                         <div className="section-title">

@@ -4,7 +4,7 @@ import * as Config from "../../../utils/Config";
 import axios from "axios";
 import { Link } from "react-router-dom"
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { FormControl, MenuItem, Select, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { Button } from "react-materialize";
 import callerApi from '../../../utils/APICaller';
 export default function OrderDetail() {
@@ -13,6 +13,7 @@ export default function OrderDetail() {
     const [orderdetail, setOrderDetail] = useState([]);
     const [productdetail, setProductDetail] = useState([]);
     const [status, setStatus] = useState('');
+    const [paymentMethod, setPaymentMethod] = useState('');
 
     const handleChangeStatus = (event, orderId) => {
         setStatus(event.target.value);
@@ -24,6 +25,16 @@ export default function OrderDetail() {
             window.location.reload();
         });
     };
+
+    const handleChangePaymentMethod = (event) => {
+        setPaymentMethod(event.target.value);
+        callerApi("Order/UpdateOrder", "PUT", {
+            
+        }).then(res => {
+            console.log(res);
+            window.location.reload();
+        });
+    }
 
     function getOrderUserInfo() {
         axios.get(`${Config.API_URL}/Order/GetOrderByOrderIdAdmin?id=` + orderid.orderId)
@@ -178,6 +189,22 @@ export default function OrderDetail() {
                             }}
                                 type="text" className="form-control" value={userorder.paymentMethod} disabled />
                         </div>
+                        <div id="showOfline" style={{ display: "none" }}>
+                            <FormControl>
+                                <label>Cập nhật phương thức thanh toán</label>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={paymentMethod}
+                                    onChange={handleChangePaymentMethod}
+                                >
+                                    <MenuItem value={"COD - Banking"}>COD - Banking</MenuItem>
+                                    <MenuItem value={"COD - Momo"}>COD - Momo</MenuItem>
+                                    <MenuItem value={"COD - Visa/Mastercard"}>COD - Visa/Mastercard</MenuItem>
+                                    <MenuItem value={"COD - Tiền Mặt"}>COD - Tiền Mặt</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </div>
                         <div className="form-group">
                             <label className="Register-title" htmlFor="type">
                                 <text>Trạng thái đơn hàng</text>
@@ -227,9 +254,6 @@ export default function OrderDetail() {
                 </TableBody>
             </Table>
             <br/>
-            <div id="showOfline" style={{display:"none"}}>
-                <h5>Hello</h5>
-            </div>
             <div style={{textAlign:"center", width:"200px",position:"relative",left:"40%",marginTop:"30px",marginBottom:"30px"}}>
             <div className="button-block">
             {userorder.statusId == 1 
