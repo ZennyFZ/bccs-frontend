@@ -39,7 +39,8 @@ import { ToastContainer } from 'react-toastify';
 import Homepage_Product from './components/Homepage/Homepage_Product';
 
 import AppRouter from './components/Account_v2/AppRoutes';
-import UserOrderDetail from './components/Admin/UserOrderDetail/UserDetailOrder';
+import UserOrderDetail from './components/Admin/AdminDetail/UserDetailOrder';
+import UserDetailBooking from './components/Admin/AdminDetail/UserDetailBooking';
 function App() {
   return (
     <div className="App">
@@ -110,6 +111,7 @@ function App() {
           <Route path="/admin/quan-ly-dich-vu/:id" element={<ManageService />} />
           <Route path="/admin/them-dich-vu" element={<AddService />} />
           <Route path="/admin/don-hang/:orderId" element={<UserOrderDetail />} />
+          <Route path="/admin/lich-hen/:id" element={<UserDetailBooking />} />
 
 
 
