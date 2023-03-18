@@ -111,7 +111,7 @@ function App() {
           <Route path="/admin/quan-ly-dich-vu/:id" element={<ManageService />} />
           <Route path="/admin/them-dich-vu" element={<AddService />} />
           <Route path="/admin/don-hang/:orderId" element={<UserOrderDetail />} />
-          <Route path="/admin/lich-hen/:id" element={<UserDetailBooking />} />
+          <Route path="/admin/lich-hen/:bookingId" element={<UserDetailBooking />} />
 
 
 

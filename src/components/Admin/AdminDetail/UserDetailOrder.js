@@ -238,11 +238,11 @@ export default function OrderDetail() {
             ? <Button id="submit2" onClick={(e) => ShowSubmit2(e, userorder.orderId)} value={3} style={{display:"block"}}>Hoàn thành</Button>
             : userorder.statusId == 3
             ?<></>
-            :<div></div>    
+            :<></>    
             }
             {userorder.statusId ==1 || userorder.statusId == 2 
             ? <Button onClick={(e) => handleChangeStatus(e, userorder.orderId)} value={4} style={{marigin:"10px", backgroundColor:"red"}}>Hủy</Button>
-            :<div></div> 
+            :<></> 
         }
             
             </div>

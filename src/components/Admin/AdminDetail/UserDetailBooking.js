@@ -177,7 +177,7 @@ export default function UserDetailBooking() {
                         <TableRow key={index}>
                             <TableCell><img style={{ width: "200px", height: "200px" }} src={serviceDetail.image} alt="" /></TableCell>
                             <TableCell>{serviceDetail.serviceName}</TableCell>
-                            <TableCell>{(serviceDetail[index].price)?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</TableCell>
+                             <TableCell>{(bookingdetail[index].price)?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
