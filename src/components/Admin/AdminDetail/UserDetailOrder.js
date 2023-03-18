@@ -26,13 +26,20 @@ export default function OrderDetail() {
         });
     };
 
-    const handleChangePaymentMethod = (event) => {
+    const handleChangePaymentMethod = (event, orderId) => {
         setPaymentMethod(event.target.value);
-        callerApi("Order/UpdateOrder", "PUT", {
-            
+        callerApi("Order/UpdatePayMentMethodByOrderId", "PUT", {
+            orderId: orderId,
+            paymentMethod: event.target.value
         }).then(res => {
             console.log(res);
-            window.location.reload();
+            callerApi("Order/UpdateStaus", "PUT", {
+                orderId: orderId,
+                statusId: 3
+            }).then(res => {
+                console.log(res);
+                window.location.reload();
+            });
         });
     }
 
@@ -195,8 +202,7 @@ export default function OrderDetail() {
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    value={paymentMethod}
-                                    onChange={handleChangePaymentMethod}
+                                    onChange={(e) => handleChangePaymentMethod(e, userorder.orderId)}
                                 >
                                     <MenuItem value={"COD - Banking"}>COD - Banking</MenuItem>
                                     <MenuItem value={"COD - Momo"}>COD - Momo</MenuItem>
@@ -261,7 +267,7 @@ export default function OrderDetail() {
             : userorder.statusId == 2
             ? <Button id="submit2" onClick={(e) => ShowSubmit2(e, userorder.orderId)} value={3} style={{display:"block"}}>Hoàn thành</Button>
             : userorder.statusId == 3
-            ?<Button>xong đơn hàng</Button>
+            ?<></>
             :<div></div>    
             }
             {userorder.statusId ==1 || userorder.statusId == 2 
