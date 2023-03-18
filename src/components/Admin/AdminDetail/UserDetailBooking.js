@@ -25,6 +25,14 @@ export default function UserDetailBooking() {
         });
     };
 
+    function ShowSubmit1(event, bookingId){
+        handleChangeStatus(event,bookingId);
+}
+
+function ShowSubmit2(event, bookingId){  
+        handleChangeStatus(event,bookingId);
+}
+
     function getBookingUserInfo() {
         axios.get(`${Config.API_URL}/Booking/GetBookingByBookingIdAdmin?id=` + bookingid.bookingId)
             .then(response => response.data)
@@ -156,7 +164,9 @@ export default function UserDetailBooking() {
                             border: "1px solid #ccc"
                         }}
                             type="text" className="form-control" value={userbooking.statusId == 1 ? "Chờ Xác Nhận" :
-                                "Đã Xác Nhận"
+                            userbooking.statusId == 2 ? "Đã Xác Nhận" :
+                            userbooking.statusId == 3 ? "Hoàn Thành" :
+                                "Đã Hủy"
                             } disabled />
                     </div>
                 </div>
@@ -177,7 +187,7 @@ export default function UserDetailBooking() {
                         <TableRow key={index}>
                             <TableCell><img style={{ width: "200px", height: "200px" }} src={serviceDetail.image} alt="" /></TableCell>
                             <TableCell>{serviceDetail.serviceName}</TableCell>
-                             <TableCell>{(bookingdetail[index].price)?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</TableCell>
+                            <TableCell>{(bookingdetail[index].price)?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -186,10 +196,14 @@ export default function UserDetailBooking() {
             <div style={{ textAlign: "center", width: "200px", position: "relative", left: "40%", marginTop: "30px", marginBottom: "30px" }}>
                 <div className="button-block">
                     {userbooking.statusId == 1
-                        ? <Button id="submit1" onClick={(e) => handleChangeStatus(e, userbooking.bookingId)} value={2} style={{ display: "block" }}>Xác nhận</Button>
-                        : <></>
+                        ? <Button id="submit1" onClick={(e) => ShowSubmit1(e, userbooking.bookingId)} value={2} style={{ display: "block" }}>Xác nhận</Button>
+                        : userbooking.statusId == 2
+                            ? <Button id="submit2" onClick={(e) => ShowSubmit2(e, userbooking.bookingId)} value={3} style={{ display: "block" }}>Hoàn thành</Button>
+                            : userbooking.statusId == 3
+                                ? <></>
+                                : <></>
                     }
-                    {userbooking.statusId == 1
+                    {userbooking.statusId == 1 || userbooking.statusId == 2
                         ? <Button onClick={(e) => handleChangeStatus(e, userbooking.bookingId)} value={4} style={{ marigin: "10px", backgroundColor: "red" }}>Hủy</Button>
                         : <></>
                     }
