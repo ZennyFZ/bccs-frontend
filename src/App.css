@@ -702,8 +702,8 @@
 .Register-form{
   max-width: 380px;
   min-width: 330px;
-  max-height: 650px;
-  min-height: 600px;
+  max-height: 700px;
+  min-height: 650px;
   width: 30%;
   height: 60%;
   margin: 100px auto;
@@ -763,7 +763,7 @@
   border-radius: 10px;
   background-color: #ffffff;
   border: 1px solid silver;
-  margin-top: 25px;
+  top:20%
 }
 .loginform h4{
   text-align: center;
