@@ -1200,7 +1200,7 @@ export default function Admin() {
                                                                 <div>Đã Hủy</div>}
                                                 </TableCell>
                                                 <TableCell>
-                                                    <Link to={`/admin/lich-hen/${booking.id}`}>
+                                                    <Link to={`/admin/lich-hen/${booking.bookingId}`}>
                                                         <Button variant="contained" style={{ backgroundColor: "#f5365c", color: "#fff" }}>
                                                             Chi Tiết
                                                         </Button>
