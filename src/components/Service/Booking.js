@@ -3,10 +3,11 @@ import { Button } from "react-materialize";
 import React from "react";
 import { useEffect } from 'react';
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { toast } from "react-toastify";
 import axios from "axios";
+import callerAPI from "../../utils/APICaller";
 
 import ErrorIcon from '@mui/icons-material/Error';
 import BeenhereIcon from '@mui/icons-material/Beenhere';
@@ -27,6 +28,7 @@ export default function Booking() {
     //.slice(4, 8) + "-0" + BookingDate[0].day.slice(2, 3) + "-0" + BookingDate[0].day.slice(0, 1) + "T0" + BookingDate[0].day.slice(11, 12) + ":00:00";
     const [ServiceInformation, setServiceInformation] = useState([]);
 
+
     function getServiceInformation() {
         axios.get("https://localhost:7211/api/Service/GetServiceByID?id=" + BookingDate[0].id)
             .then(response => response.data)
@@ -45,8 +47,8 @@ export default function Booking() {
 
     ////////////////////////////////////
     //thông tin user điền form   
-
-    const [scheduleInfo, setScheduleInfo] = useState({ username: '', email: '', phone: '', adress: "", note: "", Status: 1, paymentType: "" });
+    const navigate = useNavigate();
+    const [scheduleInfo, setScheduleInfo] = useState({ fullName: '', email: '', phone: '', address: "", note: "", Status: 1, paymentType: "" });
     localStorage.setItem("scheduleInfo", JSON.stringify(scheduleInfo));
 
     const [validUser, setValidUser] = useState(false);
@@ -58,9 +60,21 @@ export default function Booking() {
     const USER_REGEX = /^[AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+ [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+(?: [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]*)*$/;
     const PHONE_REGEX = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
 
+    function getCurrentUser() {
+        callerAPI('Customer/GetCurrentCustomer', 'GET', null).then(res => {
+            setScheduleInfo(res.data);
+        }).catch(err => {
+            navigate('/dang-nhap');
+        })
+      }
+
+      useEffect(() => {
+        getCurrentUser();
+      }, [])
+
     useEffect(() => {
-        setValidUser(USER_REGEX.test(scheduleInfo.username));
-    }, [scheduleInfo.username])
+        setValidUser(USER_REGEX.test(scheduleInfo.fullName));
+    }, [scheduleInfo.fullName])
 
     useEffect(() => {
         setValidPhone(PHONE_REGEX.test(scheduleInfo.phone));
@@ -69,7 +83,7 @@ export default function Booking() {
     const handleInput = (e) => {
         const { name, value } = e.target;
         setScheduleInfo({ ...scheduleInfo, [name]: value });
-        const v3 = USER_REGEX.test(scheduleInfo.username);
+        const v3 = USER_REGEX.test(scheduleInfo.fullName);
         const v4 = PHONE_REGEX.test(scheduleInfo.phone);
         if (!v3 || !v4) {
             return;
@@ -86,8 +100,8 @@ export default function Booking() {
             Price: ServiceInformation.price,
             Note: scheduleInfo.note,
             Phone: scheduleInfo.phone,
-            Address: scheduleInfo.adress,
-            FullName: scheduleInfo.username,
+            address: scheduleInfo.address,
+            fullName: scheduleInfo.fullName,
             service: [{ serviceId: ServiceInformation.serviceId }]
         }).then(res => {
             console.log(res);
@@ -148,7 +162,7 @@ export default function Booking() {
                                     <label className="Register-title" htmlFor="user">
                                         <text>Họ và Tên</text>
                                         <BeenhereIcon className={validUser ? "valid" : "hide"} />
-                                        <ErrorIcon className={validUser || !scheduleInfo.username ? "hide" : "invalid"} />
+                                        <ErrorIcon className={validUser || !scheduleInfo.fullName ? "hide" : "invalid"} />
                                     </label>
                                     <input style={{
                                         display: "block",
@@ -160,15 +174,15 @@ export default function Booking() {
                                         backgroundColor: "#fff",
                                         border: "1px solid #ccc"
                                     }}
-                                        type="text" className="form-control" placeholder="Họ tên" name="username"
+                                        type="text" className="form-control" placeholder="Họ tên" name="fullName"
                                         onChange={handleInput}
-                                        value={scheduleInfo.username}
+                                        value={scheduleInfo.fullName}
                                         aria-invalid={validUser ? "false" : "true"}
                                         aria-describedby="usernote"
                                         onFocus={() => setUserFocus(true)}
                                         onBlur={() => setUserFocus(false)}
                                         required />
-                                    <p id="usernote" className={userFocus && scheduleInfo.username && !validUser ? "instructions" : "offscreen"}>
+                                    <p id="usernote" className={userFocus && scheduleInfo.fullName && !validUser ? "instructions" : "offscreen"}>
                                         <InfoIcon />
                                         <div>Viết đúng họ tên , ví dụ :Nguyễn Văn A</div>
                                     </p>
@@ -216,7 +230,7 @@ export default function Booking() {
                                         backgroundColor: "#fff",
                                         border: "1px solid #ccc"
                                     }}
-                                        type="text" className="form-control" placeholder="Địa chỉ" name="adress" value={scheduleInfo.adress} onChange={handleInput} required />
+                                        type="text" className="form-control" placeholder="Địa chỉ" name="address" value={scheduleInfo.address} onChange={handleInput} required />
                                 </div>
                                 <div className="form-group">
                                     <label className="Register-title" htmlFor="note">
