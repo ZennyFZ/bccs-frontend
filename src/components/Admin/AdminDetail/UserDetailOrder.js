@@ -7,13 +7,14 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { FormControl, MenuItem, Select, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { Button } from "react-materialize";
 import callerApi from '../../../utils/APICaller';
+import { toast } from 'react-toastify';
 export default function OrderDetail() {
     const orderid = useParams();
     const [userorder, setUserOrder] = useState([]);
     const [orderdetail, setOrderDetail] = useState([]);
     const [productdetail, setProductDetail] = useState([]);
     const [status, setStatus] = useState('');
-    const [paymentMethod, setPaymentMethod] = useState('');
+    const [paymentMethod, setPaymentMethod] = useState(null);
 
     const handleChangeStatus = (event, orderId) => {
         setStatus(event.target.value);
@@ -27,10 +28,9 @@ export default function OrderDetail() {
     };
 
     const handleChangePaymentMethod = (event, orderId) => {
-        setPaymentMethod(event.target.value);
         callerApi("Order/UpdatePayMentMethodByOrderId", "PUT", {
             orderId: orderId,
-            paymentMethod: event.target.value
+            paymentMethod: event
         }).then(res => {
             console.log(res);
             callerApi("Order/UpdateStaus", "PUT", {
@@ -79,12 +79,17 @@ export default function OrderDetail() {
             handleChangeStatus(event,orderId);
     }
 
-    function ShowSubmit2(event, orderId){
+    function CheckAndSubmit(event, orderId){
         if(userorder.paymentMethod =="online"){
             handleChangeStatus(event,orderId);
         }
         else{
-            document.getElementById("showOfline").style.display = "block";
+            if(userorder.paymentMethod =="cod" && paymentMethod!=null){
+                handleChangePaymentMethod(paymentMethod,orderId);
+            }else{
+                toast.error("Vui lòng cập nhật phương thức thanh toán", 2000);
+                document.getElementById("error").innerHTML = "Vui lòng cập nhật phương thức thanh toán";
+            }
         }
 }
     useEffect(() => {
@@ -196,21 +201,25 @@ export default function OrderDetail() {
                             }}
                                 type="text" className="form-control" value={userorder.paymentMethod} disabled />
                         </div>
-                        <div id="showOfline" style={{ display: "none" }}>
-                            <FormControl>
-                                <label>Cập nhật phương thức thanh toán</label>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    onChange={(e) => handleChangePaymentMethod(e, userorder.orderId)}
-                                >
-                                    <MenuItem value={"COD - Banking"}>COD - Banking</MenuItem>
-                                    <MenuItem value={"COD - Momo"}>COD - Momo</MenuItem>
-                                    <MenuItem value={"COD - Visa/Mastercard"}>COD - Visa/Mastercard</MenuItem>
-                                    <MenuItem value={"COD - Tiền Mặt"}>COD - Tiền Mặt</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </div>
+                        {userorder.statusId === 2 && userorder.paymentMethod === "cod" ? (
+                            <div id="showOfline">
+                                <FormControl>
+                                    <label>Cập nhật phương thức thanh toán</label>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        onChange={(e) => setPaymentMethod(e.target.value)}
+                                        required
+                                    >
+                                        <MenuItem value={"COD - Banking"}>COD - Banking</MenuItem>
+                                        <MenuItem value={"COD - Momo"}>COD - Momo</MenuItem>
+                                        <MenuItem value={"COD - Visa/Mastercard"}>COD - Visa/Mastercard</MenuItem>
+                                        <MenuItem value={"COD - Tiền Mặt"}>COD - Tiền Mặt</MenuItem>
+                                    </Select>
+                                </FormControl>
+                                <div style={{color: "red"}} id="error"></div>
+                            </div>) : <></>
+                        }
                         <div className="form-group">
                             <label className="Register-title" htmlFor="type">
                                 <text>Trạng thái đơn hàng</text>
@@ -265,7 +274,7 @@ export default function OrderDetail() {
             {userorder.statusId == 1 
             ? <Button id="submit1" onClick={(e) => ShowSubmit1(e, userorder.orderId)} value={2} style={{display:"block"}}>Xác nhận</Button> 
             : userorder.statusId == 2
-            ? <Button id="submit2" onClick={(e) => ShowSubmit2(e, userorder.orderId)} value={3} style={{display:"block"}}>Hoàn thành</Button>
+            ? <Button id="submit2" onClick={(e) => CheckAndSubmit(e, userorder.orderId)} value={3} style={{display:"block"}}>Hoàn thành</Button>
             : userorder.statusId == 3
             ?<></>
             :<div></div>    

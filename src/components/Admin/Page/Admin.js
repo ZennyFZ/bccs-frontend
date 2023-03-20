@@ -46,7 +46,6 @@ function TabPanel(props) {
 
 function TabPanel2(props){
     const { children, value, index, ...other } = props;
-    let options = [...document.querySelectorAll("#selectBox option:checked")].map(elemento => elemento.value)
     return (
         <div
             role="tabpanel"
@@ -66,7 +65,6 @@ function TabPanel2(props){
 
 function TabPanel3(props){
     const { children, value, index, ...other } = props;
-    let options = [...document.querySelectorAll("#selectBox option:checked")].map(elemento => elemento.value)
     return (
         <div
             role="tabpanel"
@@ -152,6 +150,19 @@ export default function Admin() {
             },
         ],
     });
+    const [chartOptions, setChartOptions] = useState({
+        plugins: {
+            datalabels: {
+                formatter: (value) => {
+                    const total = 0;
+                    const percent = ((value / total) * 100).toFixed(2);
+                    return percent + "%";
+                },
+                color: 'white',
+            },
+        },
+    });
+
     const [chartData2, setChartData2] = useState({
         labels: [],
         datasets: [
@@ -163,6 +174,19 @@ export default function Admin() {
                 borderWidth: 0,
             },
         ],
+    });
+
+    const [chartOptions2, setChartOptions2] = useState({
+        plugins: {
+            datalabels: {
+                formatter: (value) => {
+                    const total = 0;
+                    const percent = ((value / total) * 100).toFixed(2);
+                    return percent + "%";
+                },
+                color: 'white',
+            },
+        },
     });
 
 
@@ -249,7 +273,7 @@ export default function Admin() {
     }, [])
 
     useEffect(() => {
-        if(categorySale){
+        if (categorySale) {
             setChartData({
                 labels: ["Thức Ăn", "Thuốc"],
                 datasets: [
@@ -261,6 +285,18 @@ export default function Admin() {
                         borderWidth: 1,
                     },
                 ],
+            });
+            setChartOptions({
+                plugins: {
+                    datalabels: {
+                        formatter: (value) => {
+                            const total = categorySale.foodQuantity + categorySale.medicineQuantity;
+                            const percent = ((value / total) * 100).toFixed(2);
+                            return percent + "%";
+                        },
+                        color: 'white',
+                    },
+                },
             });
             setChartData2({
                 labels: ["Thức Ăn", "Thuốc"],
@@ -275,6 +311,18 @@ export default function Admin() {
                 ],
             });
         }
+        setChartOptions2({
+            plugins: {
+                datalabels: {
+                    formatter: (value) => {
+                        const total = categorySale.foodAmount + categorySale.medicineAmount;
+                        const percent = ((value / total) * 100).toFixed(2);
+                        return percent + "%";
+                    },
+                    color: 'white',
+                },
+            },
+        });
     }, [categorySale])
 
     function deleteProduct(id) {
@@ -541,13 +589,14 @@ export default function Admin() {
                         <div className="bottom-line2" style={{ marginTop: "25px" }}></div>
                         <div style={{display: "flex"}}>
                         <div style={{width: "680px", height: "450px"}}>
-                            <GigaChart chartData={chartData} />
+                            <GigaChart chartData={chartData} chartOptions={chartOptions} />
                             <div style={{textAlign: "center"}}>Số Lượng</div>
                         </div>
                         <div style={{width: "600px", height: "450px"}}>
-                            <GigaChart chartData={chartData2} />
+                            <GigaChart chartData={chartData2} chartOptions={chartOptions2} />
                             <div style={{textAlign: "center"}}>Doanh Thu</div>
                         </div>
+                        {/* <MyPieChart /> */}
                         </div>
                     </div>
 

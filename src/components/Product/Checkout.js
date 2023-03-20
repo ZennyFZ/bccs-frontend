@@ -69,7 +69,7 @@ export default function Checkout() {
                     phone: bill.phone,
                     fullName: bill.fullName,
                     amount: cart.cartTotalAmount,
-                    paymentMethod: "online",
+                    paymentMethod: "Online",
                     product: cart.cartItems
                 }).then(res => {
                     console.log(res);
@@ -159,7 +159,7 @@ export default function Checkout() {
                 phone: billingInfo.phone,
                 fullName: billingInfo.fullName,
                 amount: cart.cartTotalAmount,
-                paymentMethod: "cod",
+                paymentMethod: "COD",
                 product: cart.cartItems
             }).then(res => {
                 console.log(res);
