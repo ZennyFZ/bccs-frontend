@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Button from "@mui/material/Button";
 //
@@ -45,7 +44,13 @@ export default function Navigation() {
   function getCurrentUser() {
     callerAPI('Customer/GetCurrentCustomer', 'GET', null).then(res => {
       setUser(res.data);
+      if(res.data.roleId === 2){
+        localStorage.setItem("isAdmin", true);
+      }else{
+        localStorage.setItem("isAdmin", false);
+      }
     }).catch(err => {
+      localStorage.setItem("isAdmin", false);
       console.log(err);
     })
   }
@@ -137,7 +142,20 @@ export default function Navigation() {
             </div> */}
             {/* Account */}
             {/* //Login */}
-            {user?.fullName && user?.mail ? (
+
+            {/* Check Đăng Nhập Hay Chưa */}
+            {user ? (<></>) : (
+              <Link to="/dang-nhap" style={{ textDecoration: "none" }}>
+                <Button>
+                  <div className="NavItem">
+                    Đăng Nhập
+                  </div>
+                </Button>
+              </Link>
+            )}
+
+            {/* Nếu là user thì menu sẽ như thế này */}
+            {user?.fullName && user?.mail && user?.roleId === 1 ? (
               <div>
                 <Tooltip title="User Profile">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -188,14 +206,57 @@ export default function Navigation() {
                   </MenuItem>
                 </Menu>
               </div>
-              ) : (
-              <Link to="/dang-nhap" style={{ textDecoration: "none" }}>
-                <Button>
-                  <div className="NavItem">
-                    Đăng Nhập
-                  </div>
-                </Button>
-              </Link>
+            ) : (
+              <></>
+            )}
+
+            {/* Nếu là admin thì menu sẽ như thế này */}
+            {user?.fullName && user?.mail && user?.roleId === 2 ? (
+              <div>
+                <Tooltip title="User Profile">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar alt={user.fullName} src={"https://www.angrybirdsnest.com/wp-content/uploads/2012/04/Angry-Birds-Space-Avatar-Bomb-Bird.jpg"} />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">
+                      <Link to="/profile" style={{ textDecoration: "none", color: "#000000DE" }}>
+                        Hồ Sơ
+                      </Link>
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">
+                      <Link to="/admin" style={{ textDecoration: "none", color: "#000000DE" }}>
+                        Admin
+                      </Link>
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem>
+                    <Typography textAlign="center" onClick={() => logout()}>
+                      Đăng Xuất
+                    </Typography>
+                  </MenuItem>
+                </Menu>
+              </div>
+            ) : (
+              <></>
             )}
             {/* //Login */}
 

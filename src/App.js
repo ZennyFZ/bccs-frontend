@@ -95,23 +95,15 @@ function App() {
 
           {/* Admin */}
 
-          {/* <Route path="/admin" element={<Protected><Admin /></Protected>} />
-          <Route path="/admin/quan-ly-tai-khoan" element={<Protected><AccountAdmin /></Protected>} />
-          <Route path="/admin/quan-ly-tai-khoan/:id" element={<Protected><ManageAccount /></Protected>} />
-          <Route path="/admin/quan-ly-san-pham" element={<ProductAdmin />} />
+          <Route path="/admin" element={<Protected><Admin /></Protected>} />
           <Route path="/admin/quan-ly-san-pham/:id" element={<Protected><ManageProduct /></Protected>} />
-          <Route path="/admin/quan-ly-bai-viet" element={<PostAdmin />} />
+          <Route path="/admin/them-san-pham" element={<Protected><AddProduct /></Protected>} />
           <Route path="/admin/quan-ly-bai-viet/:id" element={<Protected><ManagePost /></Protected>} />
-          <Route path="/admin/dich-vu" element={<Protected><ScheduleAdmin /></Protected>} /> */}
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/quan-ly-san-pham/:id" element={<ManageProduct />} />
-          <Route path="/admin/them-san-pham" element={<AddProduct />} />
-          <Route path="/admin/quan-ly-bai-viet/:id" element={<ManagePost />} />
-          <Route path="/admin/them-bai-viet" element={<AddPost />} />
-          <Route path="/admin/quan-ly-dich-vu/:id" element={<ManageService />} />
-          <Route path="/admin/them-dich-vu" element={<AddService />} />
-          <Route path="/admin/don-hang/:orderId" element={<UserOrderDetail />} />
-          <Route path="/admin/lich-hen/:bookingId" element={<UserDetailBooking />} />
+          <Route path="/admin/them-bai-viet" element={<Protected><AddPost /></Protected>} />
+          <Route path="/admin/quan-ly-dich-vu/:id" element={<Protected><ManageService /></Protected>} />
+          <Route path="/admin/them-dich-vu" element={<Protected><AddService /></Protected>} />
+          <Route path="/admin/don-hang/:orderId" element={<Protected><UserOrderDetail /></Protected>} />
+          <Route path="/admin/lich-hen/:bookingId" element={<Protected><UserDetailBooking /></Protected>} />
 
 
 
