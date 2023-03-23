@@ -5,7 +5,12 @@ export default function Footer() {
     const location = useLocation();
     const pathName = location.pathname;
     return(
-        <div className="footer">
+        <div className="footer" style={{
+            backgroundImage: "url('')",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+        }}>
             <div className="footer-box">
                 <Link to="/" style={{textDecoration: "none"}}>
                     <img src="https://cdn.discordapp.com/attachments/1074987128984973365/1075688774006218752/logo.png" alt="logo" width="50" height="50" />

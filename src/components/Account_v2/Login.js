@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
-import callerApi from '../../utils/APICaller_Account';
+import callerApi from '../../utils/APICaller';
+import callerApi2 from '../../utils/APICaller_Account';
 import { Link} from 'react-router-dom';
 import { Button} from 'react-materialize';
 import Box from '@mui/material/Box';
@@ -23,11 +24,12 @@ const Login = () => {
             .required('không được để trống'),
         }),
         onSubmit: values => {
-            callerApi('Login', 'POST', {
+            callerApi('Customer/Login', 'POST' , {
             email: values.email,
             password: values.password,
           }).then(res => {
             if (res.status === 200){
+              localStorage.setItem("token", res.data.authenToken);
               toast.success("Đăng nhập thành công");
               setInterval(() => {
                 checkLogin();
@@ -41,7 +43,7 @@ const Login = () => {
       });
     
       function checkLogin(){
-        callerApi('GetCurrentCustomer', 'GET', null).then(res => {
+        callerApi2('Customer/GetCurrentCustomer', 'GET', null).then(res => {
           if (res.data.roleId === 1){
             window.location.href = "/";
           } else if (res.data.roleId === 2){

@@ -16,7 +16,7 @@ import IconButton from '@mui/material/IconButton';
 import {getTotals} from "../../src/context/CartSlice";
 import {useSelector, useDispatch} from 'react-redux';
 import { useEffect } from 'react';
-import callerAPI from "../utils/APICaller";
+import callerAPI2 from "../utils/APICaller_Account";
 
 
 export default function Navigation() {
@@ -42,7 +42,7 @@ export default function Navigation() {
   }, [cart])
 
   function getCurrentUser() {
-    callerAPI('Customer/GetCurrentCustomer', 'GET', null).then(res => {
+    callerAPI2('Customer/GetCurrentCustomer', 'GET', null).then(res => {
       setUser(res.data);
       if(res.data.roleId === 2){
         localStorage.setItem("isAdmin", true);
@@ -56,11 +56,7 @@ export default function Navigation() {
   }
 
   function logout(){
-    callerAPI('Customer/LogOut', 'GET', null).then(res => {
-      console.log(res);
-    }).catch(err => {
-      console.log(err);
-    })
+    localStorage.removeItem("token");
     window.location.href = "/";
   }
 

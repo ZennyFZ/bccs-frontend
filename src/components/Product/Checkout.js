@@ -5,8 +5,7 @@ import { getTotals } from "../../context/CartSlice";
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useState } from "react";
-import APICaller from "../../utils/APICaller";
-import callerAPI from "../../utils/APICaller";
+import callerAPI from "../../utils/APICaller_Account";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { Link } from "react-router-dom";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
@@ -63,7 +62,7 @@ export default function Checkout() {
             localStorage.setItem("paymentStatus", JSON.stringify([details]));
             var bill = JSON.parse(localStorage.getItem("billingInfo"));
             if (details.status === "COMPLETED") {
-                APICaller("Order/CreateOrder", "POST", {
+                callerAPI("Order/CreateOrder", "POST", {
                     note: bill.note,
                     address: bill.address,
                     phone: bill.phone,
@@ -153,7 +152,7 @@ export default function Checkout() {
         console.log(billingInfo);
         e.preventDefault();
         if (paymentType == "cod") {
-            APICaller("Order/CreateOrder", "POST", {
+            callerAPI("Order/CreateOrder", "POST", {
                 note: billingInfo.note,
                 address: billingInfo.address,
                 phone: billingInfo.phone,

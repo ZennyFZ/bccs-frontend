@@ -5,6 +5,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import callerApi from '../../utils/APICaller';
+import callerApi2 from '../../utils/APICaller_Account';
 import { useEffect } from 'react';
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -64,7 +65,7 @@ export default function Profile() {
       address: Yup.string().required("Vui lòng nhập địa chỉ").max(50, "Địa chỉ không được quá 50 ký tự"),
     }),
     onSubmit: (values) => {
-      callerApi("Customer/UpdateAccount", "PUT", {
+      callerApi2("Customer/UpdateAccount", "PUT", {
         fullName: values.fullName,
         phone: values.phone,
         address: values.address,
@@ -94,7 +95,7 @@ export default function Profile() {
       confirmPassword: Yup.string().required("Vui lòng nhập lại mật khẩu mới").oneOf([Yup.ref('newPassword'), null], 'Mật khẩu không khớp'),
     }),
     onSubmit: (values) => {
-      callerApi("Customer/ChangePassword", "PUT", {
+      callerApi2("Customer/ChangePassword", "PUT", {
         newPassword: values.newPassword
       }).then((response) => {
         if (response.status === 200) {
@@ -112,7 +113,7 @@ export default function Profile() {
   };
 
   async function getCurrentUser() {
-    await callerApi("Customer/GetCurrentCustomer", "GET", null).then((response) => {
+    await callerApi2("Customer/GetCurrentCustomer", "GET", null).then((response) => {
         setUserInfo(response.data);
         formik.setFieldValue("fullName", response.data.fullName);
         formik.setFieldValue("mail", response.data.mail);

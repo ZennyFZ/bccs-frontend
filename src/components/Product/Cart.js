@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import { removeFromCart, decreaseQuantity, increaseQuantity, clearCart, getTotals} from "../../context/CartSlice";
 import { useEffect } from 'react';
 import { toast } from "react-toastify";
-import callerAPI from "../../utils/APICaller";
+import callerAPI from "../../utils/APICaller_Account";
 import * as React from "react";
 import { useNavigate } from 'react-router-dom';
 

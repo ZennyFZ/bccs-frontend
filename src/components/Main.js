@@ -7,7 +7,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 class main extends Component {
     render() {
         return (
-            <div>
+            <div style={{
+                backgroundImage: "url('https://static.vecteezy.com/system/resources/previews/001/370/764/original/abstract-flat-background-free-vector.jpg')",
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+            }}>
                 <Banner/>
                 <HomepageProduct />
                 <HomepageService />

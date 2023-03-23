@@ -2,7 +2,7 @@ import { Slider, Slide, Caption } from "react-materialize";
 export default function Banner() {
     return (
         <div className="Main">
-        <Slider>
+        <Slider >
           <Slide
             image={
               <img

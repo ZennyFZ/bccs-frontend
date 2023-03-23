@@ -126,7 +126,9 @@ export default function Admin() {
     const [value, setValue] = React.useState((localStorage.getItem("tabValue"))? JSON.parse(localStorage.getItem("tabValue")) : 0);
     const [value2, setValue2] = React.useState((localStorage.getItem("tabValue2"))? JSON.parse(localStorage.getItem("tabValue2")) : 0);
     const [value3, setValue3] = React.useState((localStorage.getItem("tabValue3"))? JSON.parse(localStorage.getItem("tabValue3")) : 0);
+    const [search, setSearch] = useState("");
     const [products, setProducts] = useState([]);
+    const [productList, setProductList] = useState([]);
     const [services, setServices] = useState([]);
     const [posts, setPosts] = useState([]);
     const [orders, setOrders] = useState([]);
@@ -258,7 +260,6 @@ export default function Admin() {
     }
 
     useEffect(() => {
-        
         getMostSoldProduct();
         getCategorySale();
         getRevenue();
@@ -271,6 +272,12 @@ export default function Admin() {
         getServices();
         getProducts();
     }, [])
+
+    useEffect(() => {
+        setProductList(products.filter((product) => {
+            return product.productName.toLowerCase().includes(search.toLowerCase())
+        }));
+    }, [search, products])
 
     useEffect(() => {
         if (categorySale) {
@@ -425,8 +432,9 @@ export default function Admin() {
                 onChange={handleChange}
                 aria-label="Vertical tabs example"
                 sx={{ borderRight: 1, borderColor: 'divider', backgroundColor: "#f5f5f5" }}
+                
             >
-                <Tab onClick={()=> setTabValue(0)} style={{backgroundColor: "white"}} icon={<BarChartIcon style={{color: "red"}} />} iconPosition="start" label="Bảng Điều Khiển" {...a11yProps(0)} />
+                <Tab  onClick={()=> setTabValue(0)} style={{backgroundColor: "white"}} icon={<BarChartIcon style={{color: "red"}} />} iconPosition="start" label="Bảng Điều Khiển" {...a11yProps(0)} />
                 <Tab onClick={()=> setTabValue(1)} style={{backgroundColor: "white"}} icon={<InventoryIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Sản Phẩm" {...a11yProps(1)} />
                 <Tab onClick={()=> setTabValue(2)} style={{backgroundColor: "white"}} icon={<HomeIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Dịch Vụ" {...a11yProps(2)} />
                 <Tab onClick={()=> setTabValue(3)} style={{backgroundColor: "white"}} icon={<ArticleIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Bài Viết" {...a11yProps(3)} />
@@ -690,12 +698,15 @@ export default function Admin() {
                     <div className="introHeading">Quản Lý Sản Phẩm</div>
                     <div className="bottom-line2" style={{ marginTop: "25px" }}></div>
                     <div className="row" style={{ width: '1200px' }}>
+                        <div>
                         <Link to="/admin/them-san-pham">
                             <Button variant="contained" style={{ float: "left" }}>
                                 <AddIcon />
                                 Thêm Sản Phẩm Mới
                             </Button>
                         </Link>
+                        <div style={{float: "right", width: "500px"}}><input onChange={(e)=>setSearch(e.target.value)} type="text" placeholder="Tìm kiếm sản phẩm.." name="search" /></div>
+                        </div>
                         <Table>
                             <TableHead>
                                 <TableRow>
@@ -710,7 +721,7 @@ export default function Admin() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {products.map((product) => (
+                                {productList.map((product) => (
                                     <TableRow key={product.productId}>
                                         <TableCell>{product.productId}</TableCell>
                                         <TableCell>
