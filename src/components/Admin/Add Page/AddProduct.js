@@ -11,6 +11,7 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import callerApi from '../../../utils/APICaller';
+import callerApi2 from '../../../utils/APICaller_Account';
 export default function AddProduct() {
     const [birdList, setBirdList] = React.useState([]);
     const formik = useFormik({
@@ -33,7 +34,7 @@ export default function AddProduct() {
             forBird: Yup.string().required("Vui lòng chọn 1 loại chim").typeError("Không được để trống"),
         }),
         onSubmit: (values) => {
-            callerApi("Product/CreateProduct", "Put", {
+            callerApi2("Product/CreateProduct", "POST", {
                 productName: values.name,
                 price: values.price,
                 quantity: values.quantity,

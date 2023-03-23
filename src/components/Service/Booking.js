@@ -6,8 +6,8 @@ import { useState } from "react";
 import { Link , useNavigate} from "react-router-dom";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { toast } from "react-toastify";
-import axios from "axios";
-import callerAPI from "../../utils/APICaller_Account";
+import callerAPI from "../../utils/APICaller";
+import callerAPI2 from "../../utils/APICaller_Account";
 
 import ErrorIcon from '@mui/icons-material/Error';
 import BeenhereIcon from '@mui/icons-material/Beenhere';
@@ -30,12 +30,11 @@ export default function Booking() {
 
 
     function getServiceInformation() {
-        axios.get("https://localhost:7211/api/Service/GetServiceByID?id=" + BookingDate[0].id)
-            .then(response => response.data)
-            .then((data) => {
-                setServiceInformation(data)
-                localStorage.setItem("ServiceInformation", JSON.stringify(data));
-            });
+        callerAPI("Service/GetServiceByID?id=" + BookingDate[0].id, "GET", null)
+            .then((response) => {
+                setServiceInformation(response.data);
+                localStorage.setItem("ServiceInformation", JSON.stringify(response.data));
+            })
     }
 
     useEffect(() => {
@@ -61,7 +60,7 @@ export default function Booking() {
     const PHONE_REGEX = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
 
     function getCurrentUser() {
-        callerAPI('Customer/GetCurrentCustomer', 'GET', null).then(res => {
+        callerAPI2('Customer/GetCurrentCustomer', 'GET', null).then(res => {
             setScheduleInfo(res.data);
         }).catch(err => {
             navigate('/dang-nhap');
@@ -95,7 +94,7 @@ export default function Booking() {
         localStorage.setItem("scheduleInfo", JSON.stringify(scheduleInfo));
         console.log(scheduleInfo);
         e.preventDefault();
-        axios.post("https://localhost:7211/api/Booking/CreateBooking", {
+        callerAPI2('Booking/CreateBooking', 'POST', {
             bookingdate: DateSQL,
             Price: ServiceInformation.price,
             Note: scheduleInfo.note,
@@ -105,7 +104,9 @@ export default function Booking() {
             service: [{ serviceId: ServiceInformation.serviceId }]
         }).then(res => {
             console.log(res);
-        });
+        }).catch(err => {
+            console.log(err);
+        })
         submitScheduleInfo();
     }
     ////////////////////////////////////

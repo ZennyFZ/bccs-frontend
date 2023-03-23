@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import BeenhereIcon from '@mui/icons-material/Beenhere';
-import callerApi from '../../utils/APICaller_Account';
+import callerApi from '../../utils/APICaller';
 import InfoIcon from '@mui/icons-material/Info';
 import ErrorIcon from '@mui/icons-material/Error';
 import { Card } from "react-materialize";
@@ -36,7 +36,7 @@ const ForgetPassword = () => {
             setErrMsg("Invalid Entry");
             return;
         }
-            callerApi("GetPasswordByEmail?email="+ email, "Put", {
+            callerApi("Customer/GetPasswordByEmail?email="+ email, "Put", {
                 mail: email
             }).then(response => {
                 console.log(response?.data);

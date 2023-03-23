@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { toast } from 'react-toastify';
-import callerApi from '../../../utils/APICaller';
+import callerApi2 from '../../../utils/APICaller_Account';
 export default function AddService() {
     const formik = useFormik({
         initialValues: {
@@ -22,7 +22,7 @@ export default function AddService() {
             image: Yup.string().required("Không được để trống").typeError("Không được để trống"),
         }),
         onSubmit: (values) => {
-            callerApi("Service/CreateService", "POST", {
+            callerApi2("Service/CreateService", "POST", {
                 serviceName: values.serviceName,
                 price: values.price,
                 desciption: values.desciption,

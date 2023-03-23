@@ -8,7 +8,7 @@ class main extends Component {
     render() {
         return (
             <div style={{
-                backgroundImage: "url('https://static.vecteezy.com/system/resources/previews/001/370/764/original/abstract-flat-background-free-vector.jpg')",
+                backgroundImage: "url('https://media.discordapp.net/attachments/1074987128984973365/1088273356249387068/back.png?width=1096&height=701')",
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",

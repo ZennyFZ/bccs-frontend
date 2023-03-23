@@ -95,9 +95,7 @@ export default function Profile() {
       confirmPassword: Yup.string().required("Vui lòng nhập lại mật khẩu mới").oneOf([Yup.ref('newPassword'), null], 'Mật khẩu không khớp'),
     }),
     onSubmit: (values) => {
-      callerApi2("Customer/ChangePassword", "PUT", {
-        newPassword: values.newPassword
-      }).then((response) => {
+      callerApi2("Customer/ChangePassword?newPassword="+values.newPassword, "PUT", null).then((response) => {
         if (response.status === 200) {
           toast.success("Cập nhật mật khẩu thành công");
         }

@@ -4,8 +4,7 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Container, Card } from 'react-materialize'
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import * as Config from "../../utils/Config";
-import axios from "axios";
+import callerApi from '../../utils/APICaller';
 import './Service.css'
 import { Button } from '@mui/material';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -24,11 +23,10 @@ export default function ServiceDetail() {
         }
     ])
     function getData() {
-        axios.get(`${Config.API_URL}/Service/GetServiceByID?id=` + Serviceid.id)
-            .then(response => response.data)
-            .then((data) => {
-                setService(data)
-            });
+        callerApi(`Service/GetServiceByID?id=${Serviceid.id}`, 'GET', null).then(res => {
+            console.log(res.data);
+            setService(res.data);
+        })
     }
     function showScheduleButton(pickedTime) {
         document.getElementById("schedule").style.display = "block";

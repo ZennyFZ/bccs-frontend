@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import * as Config from "../../utils/Config";
-import axios from "axios";
+import callerApi from '../../utils/APICaller';
 import { Container,Card,Button } from 'react-materialize'
 import { addToCart } from '../../context/CartSlice'
 import { useDispatch } from 'react-redux'
@@ -23,12 +22,10 @@ export default function ProductDetail() {
     console.log(Productid);
 
     function getData() {
-        axios.get(`${Config.API_URL}/Product/GetProductById?id=` + Productid.id)
-            .then(response => response.data)
-            .then((data) => {
-              setProductList(data)
-            });
-        console.log(productlist);
+        callerApi(`Product/GetProductById?id=${Productid.id}`, 'GET', null).then(res => {
+            console.log(res.data);
+            setProductList(res.data);
+        })
     }
 
     useEffect(()=>{

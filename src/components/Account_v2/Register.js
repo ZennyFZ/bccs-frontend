@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import BeenhereIcon from '@mui/icons-material/Beenhere';
-import callerApi from '../../utils/APICaller_Account';
+import callerApi from '../../utils/APICaller';
 import InfoIcon from '@mui/icons-material/Info';
 import ErrorIcon from '@mui/icons-material/Error';
 import { Card } from "react-materialize";
@@ -74,7 +74,7 @@ const Register = () => {
             setErrMsg("Invalid Entry");
             return;
         }
-            callerApi("RegisterAccount?confirmPassword="+ matchPwd, "Put", {
+            callerApi("Customer/RegisterAccount?confirmPassword="+ matchPwd, "POST", {
                 fullName: user,
                 phone: phone,
                 address: adress,
@@ -86,6 +86,7 @@ const Register = () => {
                 if (response?.status === 200) {
                     console.log(response.data);
                     toast.success("Đăng ký thành công")
+                    window.location.href = "/login";
                 }
             }).catch(err =>{
                 console.log(err.response.status);

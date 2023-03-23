@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { toast } from 'react-toastify';
 import callerApi from '../../../utils/APICaller';
+import callerApi2 from '../../../utils/APICaller_Account';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 export default function ManageService() {
@@ -25,7 +26,7 @@ export default function ManageService() {
             image: Yup.string().required("Không được để trống").typeError("Không được để trống"),
         }),
         onSubmit: (values) => {
-            callerApi("Service/UpdateService", "PUT", {
+            callerApi2("Service/UpdateService", "PUT", {
                 serviceId: serviceid.id,
                 serviceName: values.serviceName,
                 price: values.price,

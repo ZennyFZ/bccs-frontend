@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import * as Config from "../../utils/Config";
-import axios from "axios";
+import callerApi from '../../utils/APICaller';
 import { Container,Row,Col,Card,Button } from 'react-materialize'
 import ClassIcon from '@mui/icons-material/Class';
 import PersonIcon from '@mui/icons-material/Person';
@@ -13,20 +12,17 @@ export default function PostDetail() {
     console.log(Postid);
 
     function getData() {
-        axios.get(`${Config.API_URL}/Post/GetPostById?id=` + Postid.id)
-            .then(response => response.data)
-            .then((data) => {
-                setPost(data)
-            });
-        console.log(post);
+        callerApi(`Post/GetPostById?id=` + Postid.id, 'GET', null).then(res => {
+            console.log(res.data);
+            setPost(res.data);
+        })
     }
 
     function getBirdType() {
-        axios.get(`${Config.API_URL}/Bird/GetBirdtypeByID?id=` + post.birdType)
-            .then(response => response.data)
-            .then((data) => {
-                setBirdType(data)
-            });
+        callerApi(`Bird/GetBirdtypeByID?id=` + post.birdType, 'GET', null).then(res => {
+            console.log(res.data);
+            setBirdType(res.data);
+        })
     }
 
     useEffect(()=>{
