@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { toast } from 'react-toastify';
 import callerApi from '../../../utils/APICaller';
+import callerApi2 from '../../../utils/APICaller_Account';
 import {useEffect} from 'react';
 import { FormControl} from '@mui/material';
 import Select from '@mui/material/Select';
@@ -31,7 +32,7 @@ export default function AddPost() {
             title: Yup.string().required("Không được để trống").max(100, "Tiêu đề không được hơn 100 ký tự").typeError("Không được để trống")
         }),
         onSubmit: (values) => {
-            callerApi("Post/AddPost", "PUT", {
+            callerApi2("Post/AddPost", "POST", {
                 description: values.description,
                 author: values.author,
                 date: values.date,

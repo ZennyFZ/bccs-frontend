@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useParams } from "react-router-dom";
 import callerApi from '../../../utils/APICaller';
+import callerApi2 from '../../../utils/APICaller_Account';
 export default function ManageProduct() {
     const [birdList, setBirdList] = React.useState([]);
     const productid = useParams();
@@ -35,7 +36,7 @@ export default function ManageProduct() {
             forBird: Yup.string().required("Vui lòng chọn 1 loại chim").typeError("Không được để trống"),
         }),
         onSubmit: (values) => {
-            callerApi("Product/UpdateProduct", "POST", {
+            callerApi2("Product/UpdateProduct", "PUT", {
                 productId: productid.id,
                 productName: values.name,
                 price: values.price,

@@ -5,6 +5,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
+import Modal from '@mui/material/Modal';
 import { Link } from "react-router-dom";
 import { Button } from '@mui/material';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
@@ -12,6 +13,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect, useState } from "react";
 import callerApi from '../../../utils/APICaller';
+import callerApi2 from '../../../utils/APICaller_Account';
 import { toast } from 'react-toastify';
 import { Container, Card, CardContent, CardActions } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -123,14 +125,29 @@ function a11yProps3(index) {
 }
 
 export default function Admin() {
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+      };
     const [value, setValue] = React.useState((localStorage.getItem("tabValue"))? JSON.parse(localStorage.getItem("tabValue")) : 0);
     const [value2, setValue2] = React.useState((localStorage.getItem("tabValue2"))? JSON.parse(localStorage.getItem("tabValue2")) : 0);
     const [value3, setValue3] = React.useState((localStorage.getItem("tabValue3"))? JSON.parse(localStorage.getItem("tabValue3")) : 0);
     const [search, setSearch] = useState("");
+    const [search2, setSearch2] = useState("");
+    const [search3, setSearch3] = useState("");
     const [products, setProducts] = useState([]);
     const [productList, setProductList] = useState([]);
     const [services, setServices] = useState([]);
+    const [serviceList, setServiceList] = useState([]);
     const [posts, setPosts] = useState([]);
+    const [postList, setPostList] = useState([]);
     const [orders, setOrders] = useState([]);
     const [bookings, setBookings] = useState([]);
     const [status, setStatus] = React.useState('');
@@ -140,6 +157,10 @@ export default function Admin() {
     const [revenue, setRevenue] = useState("");
     const [categorySale, setCategorySale] = useState([]);
     const [mostSoldProduct, setMostSoldProduct] = useState("");
+    const [deleteId, setDeleteId] = useState("");
+    const [open, setOpen] = React.useState(false);
+    const handleOpen =  () => setOpen(true);
+    const handleClose = () => setOpen(false);
     const [chartData, setChartData] = useState({
         labels: [],
         datasets: [
@@ -218,7 +239,7 @@ export default function Admin() {
     }
 
     async function getBookings() {
-        await callerApi("Booking/GetAllBooking", "GET", null).then(res => {
+        await callerApi2("Booking/GetAllBooking", "GET", null).then(res => {
             setBookings(res.data);
         });
     }
@@ -273,11 +294,24 @@ export default function Admin() {
         getProducts();
     }, [])
 
+    //Cho Search
     useEffect(() => {
         setProductList(products.filter((product) => {
             return product.productName.toLowerCase().includes(search.toLowerCase())
         }));
     }, [search, products])
+
+    useEffect(() => {
+        setServiceList(services.filter((service) => {
+            return service.serviceName.toLowerCase().includes(search2.toLowerCase())
+        }));
+    }, [search2, services])
+
+    useEffect(() => {
+        setPostList(posts.filter((post) => {
+            return post.title.toLowerCase().includes(search3.toLowerCase())
+        }));
+    }, [search3, posts])
 
     useEffect(() => {
         if (categorySale) {
@@ -332,8 +366,18 @@ export default function Admin() {
         });
     }, [categorySale])
 
+    function deleteModal(){
+        if(localStorage.getItem("tabValue")==="1"){
+            deleteProduct(deleteId);
+        }else if(localStorage.getItem("tabValue")==="2"){
+            deleteService(deleteId);
+        }else if(localStorage.getItem("tabValue")==="3"){
+            deletePost(deleteId);
+        }
+    }
+
     function deleteProduct(id) {
-        callerApi("Product/DeteleProduct?proId=" + id, "DELETE", null).then(res => {
+        callerApi2("Product/DeteleProduct?proId=" + id, "DELETE", null).then(res => {
             console.log(res);
             if (res.status === 200) {
                 toast.success("Xóa thành công");
@@ -347,7 +391,7 @@ export default function Admin() {
     }
 
     function deleteService(id) {
-        callerApi("Service/DeleteService?id=" + id, "DELETE", null).then(res => {
+        callerApi2("Service/DeleteService?id=" + id, "DELETE", null).then(res => {
             console.log(res);
             if (res.status === 200) {
                 toast.success("Xóa thành công");
@@ -361,7 +405,7 @@ export default function Admin() {
     }
 
     function deletePost(id) {
-        callerApi("Post/DeletePost?postId=" + id, "DELETE", null).then(res => {
+        callerApi2("Post/DeletePost?postId=" + id, "DELETE", null).then(res => {
             console.log(res);
             if (res.status === 200) {
                 toast.success("Xóa thành công");
@@ -374,28 +418,6 @@ export default function Admin() {
         });
     }
 
-
-    const handleChangeStatus = (event, orderid) => {
-        setStatus(event.target.value);
-        callerApi("Order/UpdateStaus", "PUT", {
-            orderId: orderid,
-            statusId: event.target.value
-        }).then(res => {
-            console.log(res);
-            window.location.reload();
-        });
-    };
-
-    const handleChangeStatusBooking = (event, bookingid) => {
-        setStatus(event.target.value);
-        callerApi("Booking/UpdateStaus", "PUT", {
-            bookingId: bookingid,
-            statusId: event.target.value
-        }).then(res => {
-            console.log(res);
-            window.location.reload();
-        });
-    };
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -425,6 +447,22 @@ export default function Admin() {
         <Box
             sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex' }}
         >
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <Typography style={{ fontWeight: "bold" }} id="modal-modal-title" variant="h6" component="h2">
+                        Xác Nhận Xóa?
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        <Button onClick={()=>deleteModal()} variant="contained" style={{ backgroundColor: "green", color: "white", marginRight: "10px" }}>Xóa</Button>
+                        <Button onClick={handleClose} variant="contained" style={{ backgroundColor: "red", color: "white" }}>Hủy</Button>
+                    </Typography>
+                </Box>
+            </Modal>
             <Tabs
                 orientation="vertical"
                 variant="scrollable"
@@ -441,6 +479,7 @@ export default function Admin() {
                 <Tab onClick={()=> setTabValue(4)} style={{backgroundColor: "white"}} icon={<ShoppingCartIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Đơn Hàng" {...a11yProps(4)} />
                 <Tab onClick={()=> setTabValue(5)} style={{backgroundColor: "white"}} icon={<CalendarMonthIcon style={{color: "red"}} />} iconPosition="start" label="Quản Lý Đặt Lịch" {...a11yProps(5)} />
             </Tabs>
+
             <TabPanel value={value} index={0} style={{ marginBottm: "10px", backgroundColor: '#f5f5f5' }}>
                 <div>
                     <div className="introHeading">Tổng Quan</div>
@@ -604,7 +643,6 @@ export default function Admin() {
                             <GigaChart chartData={chartData2} chartOptions={chartOptions2} />
                             <div style={{textAlign: "center"}}>Doanh Thu</div>
                         </div>
-                        {/* <MyPieChart /> */}
                         </div>
                     </div>
 
@@ -738,7 +776,7 @@ export default function Admin() {
                                                     <EditIcon />
                                                 </Button>
                                             </Link>
-                                            <Button variant="contained" color="secondary" onClick={() => deleteProduct(product.productId)}>
+                                            <Button variant="contained" color="secondary" onClick={()=>{handleOpen();setDeleteId(product.productId)}}>
                                                 <DeleteIcon />
                                             </Button>
                                         </TableCell>
@@ -760,6 +798,7 @@ export default function Admin() {
                                 Thêm Dịch Vụ Mới
                             </Button>
                         </Link>
+                        <div style={{float: "right", width: "500px"}}><input onChange={(e)=>setSearch2(e.target.value)} type="text" placeholder="Tìm kiếm dịch vụ.." name="search" /></div>
                         <Table>
                             <TableHead>
                                 <TableRow>
@@ -772,7 +811,7 @@ export default function Admin() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {services.map((service) => (
+                                {serviceList.map((service) => (
                                     <TableRow key={service.serviceId}>
                                         <TableCell>{service.serviceId}</TableCell>
                                         <TableCell>
@@ -787,7 +826,7 @@ export default function Admin() {
                                                     <EditIcon />
                                                 </Button>
                                             </Link>
-                                            <Button variant="contained" color="secondary" onClick={() => deleteService(service.serviceId)}>
+                                            <Button variant="contained" color="secondary" onClick={()=>{handleOpen();setDeleteId(service.serviceId)}}>
                                                 <DeleteIcon />
                                             </Button>
                                         </TableCell>
@@ -809,6 +848,7 @@ export default function Admin() {
                                 Thêm Bài Viết Mới
                             </Button>
                         </Link>
+                        <div style={{float: "right", width: "500px"}}><input onChange={(e)=>setSearch3(e.target.value)} type="text" placeholder="Tìm kiếm bài viết.." name="search" /></div>
                         <Table>
                             <TableHead>
                                 <TableRow>
@@ -823,7 +863,7 @@ export default function Admin() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {posts.map((post) => (
+                                {postList.map((post) => (
                                     <TableRow key={post.postId}>
                                         <TableCell>{post.postId}</TableCell>
                                         <TableCell>
@@ -844,7 +884,7 @@ export default function Admin() {
                                                     <EditIcon />
                                                 </Button>
                                             </Link>
-                                            <Button variant="contained" color="secondary" onClick={() => deletePost(post.postId)}>
+                                            <Button variant="contained" color="secondary" onClick={()=>{handleOpen();setDeleteId(post.postId)}}>
                                                 <DeleteIcon />
                                             </Button>
                                         </TableCell>

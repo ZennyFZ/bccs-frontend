@@ -7,7 +7,7 @@ import Spinner from '../Spinner/spinner';
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
+import callerApi from '../../utils/APICaller';
 import { useNavigate } from 'react-router-dom';
 
 export default function Product({ Products }) {
@@ -37,13 +37,10 @@ export default function Product({ Products }) {
             filterCategory: Yup.string().required('Vui lòng chọn 1 loại mục'),
         }),
         onSubmit: values => {
-            axios.get (`https://localhost:7211/api/Product/GetAllProduct/Filter?filterPrice=${values.filterPrice}&filterCategory=${values.filterCategory}`)
-            .then(res => {
+            callerApi(`Product/GetAllProduct/Filter?filterPrice=${values.filterPrice}&filterCategory=${values.filterCategory}`, 'GET', null).then(res => {
                 console.log(res.data);
                 setProductList(res.data);
-            }
-            )
-            console.log(values);
+            })
         },
         
     });

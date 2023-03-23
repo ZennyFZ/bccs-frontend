@@ -3,7 +3,7 @@ import { Container, Row, Col, Card, Button, Select } from 'react-materialize'
 import FormControl from '@mui/material/FormControl';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
+import callerApi from '../../utils/APICaller';
 import { useEffect, useState } from 'react';
 import PersonIcon from '@mui/icons-material/Person';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -18,11 +18,10 @@ export default function Post({ Posts }) {
             filterDate: Yup.string().required('Vui lòng chọn 1 loại mục'),
         }),
         onSubmit: values => {
-            axios.get(`https://localhost:7211/api/Post/GetAllPost/FilterByDate?filter=${values.filterDate}`).then(res => {
+            callerApi(`Post/GetAllPost/FilterByDate?filter=${values.filterDate}`, 'GET', null).then(res => {
                 console.log(res.data);
                 setPostList(res.data);
             })
-            console.log(values);
         },
     });
 
