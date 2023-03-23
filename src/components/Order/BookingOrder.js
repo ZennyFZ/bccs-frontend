@@ -65,10 +65,9 @@ export default function BookingOrder(Bookings) {
             <div>
               <div className="titles2">
                 <h3>Mã</h3>
+                <h3>Họ và Tên</h3>
                 <h3>Ngày Hẹn</h3>
                 <h3 className="Quantity">Giá</h3>
-                <h3>Địa Chỉ & Liên Hệ</h3>
-                <h3>Ghi Chú</h3>
                 <h3 className="total">Trạng Thái</h3>
                 <h3>Thông Tin</h3>
               </div>
@@ -77,6 +76,7 @@ export default function BookingOrder(Bookings) {
                   return (
                     <div className="cart-item2" key={booking.bookingId}>
                       <div>{booking.bookingId}</div>
+                      <div>{booking.fullName}</div>
                       <div>
                         <div>
                           <h5>{booking.bookingDate.slice(8,10)+"-"+booking.bookingDate.slice(5,7)+"-"+booking.bookingDate.slice(0,4)+" "+booking.bookingDate.slice(11,19)}</h5>
@@ -84,15 +84,6 @@ export default function BookingOrder(Bookings) {
                       </div>
                       <div className="cart-product-quantity">
                         <div className="count">{(booking.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
-                      </div>
-                      <div>
-                        <div>
-                          <h5 style={{ fontSize: '20px' }}>Địa chỉ: {booking.address}</h5>
-                          <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {booking.phone}</h5>
-                        </div>
-                      </div>
-                      <div>
-                        {booking.note}
                       </div>
                       <div className="cart-product-total-price">
                         {booking.statusId == 1 ? <div>Chờ Xác Nhận</div> :
@@ -117,10 +108,9 @@ export default function BookingOrder(Bookings) {
             <div>
               <div className="titles2">
                 <h3>Mã</h3>
+                <h3>Họ và Tên</h3>
                 <h3>Ngày Hẹn</h3>
                 <h3 className="Quantity">Giá</h3>
-                <h3>Địa Chỉ & Liên Hệ</h3>
-                <h3>Ghi Chú</h3>
                 <h3 className="total">Trạng Thái</h3>
                 <h3>Thông Tin</h3>
               </div>
@@ -130,6 +120,7 @@ export default function BookingOrder(Bookings) {
                   return (
                     <div className="cart-item2" key={booking.bookingId}>
                       <div>{booking.bookingId}</div>
+                      <div>{booking.fullName}</div>
                       <div>
                         <div>
                           <h5>{booking.bookingDate.slice(8,10)+"-"+booking.bookingDate.slice(5,7)+"-"+booking.bookingDate.slice(0,4)+" "+booking.bookingDate.slice(11,19)}</h5>
@@ -137,15 +128,6 @@ export default function BookingOrder(Bookings) {
                       </div>
                       <div className="cart-product-quantity">
                         <div className="count">{(booking.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
-                      </div>
-                      <div>
-                        <div>
-                          <h5 style={{ fontSize: '20px' }}>Địa chỉ: {booking.address}</h5>
-                          <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {booking.phone}</h5>
-                        </div>
-                      </div>
-                      <div>
-                        {booking.note}
                       </div>
                       <div className="cart-product-total-price">
                         Chờ Xác Nhận
@@ -167,10 +149,9 @@ export default function BookingOrder(Bookings) {
             <div>
               <div className="titles2">
                 <h3>Mã</h3>
+                <h3>Họ và Tên</h3>
                 <h3>Ngày Hẹn</h3>
                 <h3 className="Quantity">Giá</h3>
-                <h3>Địa Chỉ & Liên Hệ</h3>
-                <h3>Ghi Chú</h3>
                 <h3 className="total">Trạng Thái</h3>
                 <h3>Thông Tin</h3>
               </div>
@@ -180,6 +161,7 @@ export default function BookingOrder(Bookings) {
                   return (
                     <div className="cart-item2" key={booking.bookingId}>
                       <div>{booking.bookingId}</div>
+                      <div>{booking.fullName}</div>
                       <div>
                         <div>
                           <h5>{booking.bookingDate.slice(8,10)+"-"+booking.bookingDate.slice(5,7)+"-"+booking.bookingDate.slice(0,4)+" "+booking.bookingDate.slice(11,19)}</h5>
@@ -187,15 +169,6 @@ export default function BookingOrder(Bookings) {
                       </div>
                       <div className="cart-product-quantity">
                         <div className="count">{(booking.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
-                      </div>
-                      <div>
-                        <div>
-                          <h5 style={{ fontSize: '20px' }}>Địa chỉ: {booking.address}</h5>
-                          <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {booking.phone}</h5>
-                        </div>
-                      </div>
-                      <div>
-                        {booking.note}
                       </div>
                       <div className="cart-product-total-price">
                         Đã Xác Nhận
@@ -217,10 +190,9 @@ export default function BookingOrder(Bookings) {
             <div>
               <div className="titles2">
                 <h3>Mã</h3>
+                <h3>Họ và Tên</h3>
                 <h3>Ngày Hẹn</h3>
                 <h3 className="Quantity">Giá</h3>
-                <h3>Địa Chỉ & Liên Hệ</h3>
-                <h3>Ghi Chú</h3>
                 <h3 className="total">Trạng Thái</h3>
                 <h3>Thông Tin</h3>
               </div>
@@ -230,6 +202,7 @@ export default function BookingOrder(Bookings) {
                   return (
                     <div className="cart-item2" key={booking.bookingId}>
                       <div>{booking.bookingId}</div>
+                      <div>{booking.fullName}</div>
                       <div>
                         <div>
                           <h5>{booking.bookingDate.slice(8,10)+"-"+booking.bookingDate.slice(5,7)+"-"+booking.bookingDate.slice(0,4)+" "+booking.bookingDate.slice(11,19)}</h5>
@@ -237,15 +210,6 @@ export default function BookingOrder(Bookings) {
                       </div>
                       <div className="cart-product-quantity">
                         <div className="count">{(booking.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
-                      </div>
-                      <div>
-                        <div>
-                          <h5 style={{ fontSize: '20px' }}>Địa chỉ: {booking.address}</h5>
-                          <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {booking.phone}</h5>
-                        </div>
-                      </div>
-                      <div>
-                        {booking.note}
                       </div>
                       <div className="cart-product-total-price">
                         Hoàn Thành
@@ -267,10 +231,9 @@ export default function BookingOrder(Bookings) {
             <div>
               <div className="titles2">
                 <h3>Mã</h3>
+                <h3>Họ và Tên</h3>
                 <h3>Ngày Hẹn</h3>
                 <h3 className="Quantity">Giá</h3>
-                <h3>Địa Chỉ & Liên Hệ</h3>
-                <h3>Ghi Chú</h3>
                 <h3 className="total">Trạng Thái</h3>
                 <h3>Thông Tin</h3>
               </div>
@@ -280,6 +243,7 @@ export default function BookingOrder(Bookings) {
                   return (
                     <div className="cart-item2" key={booking.bookingId}>
                       <div>{booking.bookingId}</div>
+                      <div>{booking.fullName}</div>
                       <div>
                         <div>
                           <h5>{booking.bookingDate.slice(8,10)+"-"+booking.bookingDate.slice(5,7)+"-"+booking.bookingDate.slice(0,4)+" "+booking.bookingDate.slice(11,19)}</h5>
@@ -287,15 +251,6 @@ export default function BookingOrder(Bookings) {
                       </div>
                       <div className="cart-product-quantity">
                         <div className="count">{(booking.price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
-                      </div>
-                      <div>
-                        <div>
-                          <h5 style={{ fontSize: '20px' }}>Địa chỉ: {booking.address}</h5>
-                          <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {booking.phone}</h5>
-                        </div>
-                      </div>
-                      <div>
-                        {booking.note}
                       </div>
                       <div className="cart-product-total-price">
                         Đã Hủy

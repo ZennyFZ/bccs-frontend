@@ -12,6 +12,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect, useState } from "react";
 import callerApi from '../../../utils/APICaller';
+import callerApi1 from '../../../utils/APICaller_Account';
 import { toast } from 'react-toastify';
 import { Container, Card, CardContent, CardActions } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -218,7 +219,7 @@ export default function Admin() {
     }
 
     async function getBookings() {
-        await callerApi("Booking/GetAllBooking", "GET", null).then(res => {
+        await callerApi1("Booking/GetAllBooking", "GET", null).then(res => {
             setBookings(res.data);
         });
     }

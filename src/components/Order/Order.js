@@ -40,10 +40,6 @@ function a11yProps(index) {
   };
 }
 
-function showButton(){
-  
-}
-
 export default function Order(Orders) {
   console.log(Orders);
   const [value, setValue] = React.useState(0);
@@ -69,10 +65,9 @@ export default function Order(Orders) {
             <div>
               <div className="titles2">
                 <h3>Mã Đơn Hàng</h3>
+                <h3>Họ và Tên</h3>
                 <h3 className="product-title">Ngày Đặt</h3>
                 <h3 className="Quantity">Tổng Tiền</h3>
-                <h3>Địa Chỉ & Liên Hệ</h3>
-                <h3>Ghi Chú</h3>
                 <h3>Phương Thức Thanh Toán</h3>
                 <h3 className="total">Trạng Thái</h3>
                 <h3>Thông Tin</h3>
@@ -82,6 +77,7 @@ export default function Order(Orders) {
                   return (
                     <div className="cart-item2" key={order.id}>
                       <div>{order.orderId}</div>
+                      <div>{order.fullName}</div>
                       <div>
                         <div>
                           <h5>{order.orderDate.slice(8,10)+"-"+order.orderDate.slice(5,7)+"-"+order.orderDate.slice(0,4)+" "+order.orderDate.slice(11,19)}</h5>
@@ -90,15 +86,6 @@ export default function Order(Orders) {
                       {/* <div className="cart-product-price">{order.ProductQuantity}</div> */}
                       <div className="cart-product-quantity">
                         <div className="count">{(order.amount).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
-                      </div>
-                      <div>
-                        <div>
-                          <h5 style={{ fontSize: '20px' }}>Địa chỉ nhận hàng: {order.address}</h5>
-                          <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {order.phone}</h5>
-                        </div>
-                      </div>
-                      <div>
-                        {order.note}
                       </div>
                       <div>
                         {order.paymentMethod}
@@ -126,10 +113,9 @@ export default function Order(Orders) {
             <div>
               <div className="titles2">
                 <h3>Mã Đơn Hàng</h3>
+                <h3>Họ và Tên</h3>
                 <h3 className="product-title">Ngày Đặt</h3>
                 <h3 className="Quantity">Tổng Tiền</h3>
-                <h3>Địa Chỉ & Liên Hệ</h3>
-                <h3>Ghi Chú</h3>
                 <h3>Phương Thức Thanh Toán</h3>
                 <h3 className="total">Trạng Thái</h3>
                 <h3>Thông Tin</h3>
@@ -140,6 +126,7 @@ export default function Order(Orders) {
                   return (
                     <div className="cart-item2" key={order.id}>
                       <div>{order.orderId}</div>
+                      <div>{order.fullName}</div>
                       <div>
                         <div>
                           <h5>{order.orderDate.slice(8,10)+"-"+order.orderDate.slice(5,7)+"-"+order.orderDate.slice(0,4)+" "+order.orderDate.slice(11,19)}</h5>
@@ -148,15 +135,6 @@ export default function Order(Orders) {
                       {/* <div className="cart-product-price">{order.ProductQuantity}</div> */}
                       <div className="cart-product-quantity">
                         <div className="count">{(order.amount).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
-                      </div>
-                      <div>
-                        <div>
-                          <h5 style={{ fontSize: '20px' }}>Địa chỉ nhận hàng: {order.address}</h5>
-                          <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {order.phone}</h5>
-                        </div>
-                      </div>
-                      <div>
-                        {order.note}
                       </div>
                       <div>
                         {order.paymentMethod}
@@ -181,10 +159,9 @@ export default function Order(Orders) {
             <div>
               <div className="titles2">
                 <h3>Mã Đơn Hàng</h3>
+                <h3>Họ và Tên</h3>
                 <h3 className="product-title">Ngày Đặt</h3>
                 <h3 className="Quantity">Tổng Tiền</h3>
-                <h3>Địa Chỉ & Liên Hệ</h3>
-                <h3>Ghi Chú</h3>
                 <h3>Phương Thức Thanh Toán</h3>
                 <h3 className="total">Trạng Thái</h3>
                 <h3>Thông Tin</h3>
@@ -195,6 +172,7 @@ export default function Order(Orders) {
                   return (
                     <div className="cart-item2" key={order.id}>
                       <div>{order.orderId}</div>
+                      <div>{order.fullName}</div>
                       <div>
                         <div>
                           <h5>{order.orderDate.slice(8,10)+"-"+order.orderDate.slice(5,7)+"-"+order.orderDate.slice(0,4)+" "+order.orderDate.slice(11,19)}</h5>
@@ -203,15 +181,6 @@ export default function Order(Orders) {
                       {/* <div className="cart-product-price">{order.ProductQuantity}</div> */}
                       <div className="cart-product-quantity">
                         <div className="count">{(order.amount).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
-                      </div>
-                      <div>
-                        <div>
-                          <h5 style={{ fontSize: '20px' }}>Địa chỉ nhận hàng: {order.address}</h5>
-                          <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {order.phone}</h5>
-                        </div>
-                      </div>
-                      <div>
-                        {order.note}
                       </div>
                       <div>
                         {order.paymentMethod}
@@ -236,10 +205,9 @@ export default function Order(Orders) {
             <div>
               <div className="titles2">
                 <h3>Mã Đơn Hàng</h3>
+                <h3>Họ và Tên</h3>
                 <h3 className="product-title">Ngày Đặt</h3>
                 <h3 className="Quantity">Tổng Tiền</h3>
-                <h3>Địa Chỉ & Liên Hệ</h3>
-                <h3>Ghi Chú</h3>
                 <h3>Phương Thức Thanh Toán</h3>
                 <h3 className="total">Trạng Thái</h3>
                 <h3>Thông Tin</h3>
@@ -250,6 +218,7 @@ export default function Order(Orders) {
                   return (
                     <div className="cart-item2" key={order.id}>
                       <div>{order.orderId}</div>
+                      <div>{order.fullName}</div>
                       <div>
                         <div>
                           <h5>{order.orderDate.slice(8,10)+"-"+order.orderDate.slice(5,7)+"-"+order.orderDate.slice(0,4)+" "+order.orderDate.slice(11,19)}</h5>
@@ -258,15 +227,6 @@ export default function Order(Orders) {
                       {/* <div className="cart-product-price">{order.ProductQuantity}</div> */}
                       <div className="cart-product-quantity">
                         <div className="count">{(order.amount).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
-                      </div>
-                      <div>
-                        <div>
-                          <h5 style={{ fontSize: '20px' }}>Địa chỉ nhận hàng: {order.address}</h5>
-                          <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {order.phone}</h5>
-                        </div>
-                      </div>
-                      <div>
-                        {order.note}
                       </div>
                       <div>
                         {order.paymentMethod}
@@ -291,10 +251,9 @@ export default function Order(Orders) {
             <div>
               <div className="titles2">
                 <h3>Mã Đơn Hàng</h3>
+                <h3>Họ và Tên</h3>
                 <h3 className="product-title">Ngày Đặt</h3>
                 <h3 className="Quantity">Tổng Tiền</h3>
-                <h3>Địa Chỉ & Liên Hệ</h3>
-                <h3>Ghi Chú</h3>
                 <h3>Phương Thức Thanh Toán</h3>
                 <h3 className="total">Trạng Thái</h3>
                 <h3>Thông Tin</h3>
@@ -305,6 +264,7 @@ export default function Order(Orders) {
                   return (
                     <div className="cart-item2" key={order.id}>
                       <div>{order.orderId}</div>
+                      <div>{order.fullName}</div>
                       <div>
                         <div>
                           <h5>{order.orderDate.slice(8,10)+"-"+order.orderDate.slice(5,7)+"-"+order.orderDate.slice(0,4)+" "+order.orderDate.slice(11,19)}</h5>
@@ -313,15 +273,6 @@ export default function Order(Orders) {
                       {/* <div className="cart-product-price">{order.ProductQuantity}</div> */}
                       <div className="cart-product-quantity">
                         <div className="count">{(order.amount).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
-                      </div>
-                      <div>
-                        <div>
-                          <h5 style={{ fontSize: '20px' }}>Địa chỉ nhận hàng: {order.address}</h5>
-                          <h5 style={{ fontSize: '20px' }}>Số Điện Thoại: {order.phone}</h5>
-                        </div>
-                      </div>
-                      <div>
-                        {order.note}
                       </div>
                       <div>
                         {order.paymentMethod}
