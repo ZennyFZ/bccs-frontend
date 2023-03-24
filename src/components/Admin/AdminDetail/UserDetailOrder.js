@@ -102,11 +102,11 @@ export default function OrderDetail() {
     }
 
     function CheckAndSubmit(event, orderId) {
-        if (userorder.paymentMethod == "online") {
+        if (userorder.paymentMethod.toLowerCase() == "online") {
             handleChangeStatus(event, orderId);
         }
         else {
-            if (userorder.paymentMethod == "cod" && paymentMethod != null) {
+            if (userorder.paymentMethod.toLowerCase() == "cod" && paymentMethod != null) {
                 handleChangePaymentMethod(paymentMethod, orderId);
             } else {
                 toast.error("Vui lòng cập nhật phương thức thanh toán", 2000);
@@ -225,7 +225,7 @@ export default function OrderDetail() {
                                     }}
                                         type="text" className="form-control" value={userorder.paymentMethod} disabled />
                                 </div>
-                                {userorder.statusId === 2 && userorder.paymentMethod === "cod" ? (
+                                {userorder.statusId === 2 && userorder.paymentMethod.toLowerCase() === "cod" ? (
                                     <div id="showOfline">
                                         <FormControl>
                                             <label>Cập nhật phương thức thanh toán</label>

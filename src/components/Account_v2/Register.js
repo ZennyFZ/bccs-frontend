@@ -86,7 +86,7 @@ const Register = () => {
                 if (response?.status === 200) {
                     console.log(response.data);
                     toast.success("Đăng ký thành công")
-                    window.location.href = "/login";
+                    window.location.href = "/dang-nhap";
                 }
             }).catch(err =>{
                 console.log(err.response.status);
