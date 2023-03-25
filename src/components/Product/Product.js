@@ -109,7 +109,8 @@ export default function Product({ Products }) {
 
                 <Row>
                     {productList
-                    .map((product) =>
+                    .map((product) => (
+                        product.quantity > 0 && (
                     (<Col s={12} m={6} l={4}  >
                         <Card style={{ borderRadius: "12px" }}>
                             <div className='Product-info'>
@@ -132,6 +133,8 @@ export default function Product({ Products }) {
                             </div>
                         </Card>
                     </Col>)
+                        )
+                    )
                     )}
                 </Row>
             </Container>

@@ -21,7 +21,7 @@ export default function ManageService() {
         },
         validationSchema: Yup.object({
             serviceName: Yup.string().required("Không được để trống").max(50, "Tên dịch vụ không được hơn 50 ký tự").typeError("Không được để trống"),
-            price: Yup.number().required("Không được để trống").min(0, "Giá không được âm").max(1000000000,"Giá không được hơn 1 tỷ").typeError("Không được để trống"),
+            price: Yup.number().required("Không được để trống").min(0, "Giá không được âm").max(1000000000,"Giá không được hơn 1 tỷ").typeError("Chỉ cho phép số"),
             desciption: Yup.string().required("Không được để trống").typeError("Không được để trống"),
             image: Yup.string().required("Không được để trống").typeError("Không được để trống"),
         }),
@@ -75,13 +75,13 @@ export default function ManageService() {
                                 {formik.errors.serviceName && formik.touched.serviceName && (<p style={{color: "red"}}>{formik.errors.serviceName}</p>)}
                             </div>
                             <div style={{marginTop: "20px"}}>
-                                <label>Hình Ảnh Dịch Vụ</label>
+                                <label>{"Hình Ảnh Dịch Vụ (Đường dẫn http://xxxxx/x.png)"}</label>
                                 <input type="text" className="form-control" id="image" value={formik.values.image} onChange={formik.handleChange} />
                                 {formik.errors.image && formik.touched.image && (<p style={{color: "red"}}>{formik.errors.image}</p>)}
                             </div>
                             <div style={{marginTop: "20px"}}>
                                 <label>Giá Dịch Vụ</label>
-                                <input type="number" className="form-control" id="price" value={formik.values.price} onChange={formik.handleChange} />
+                                <input type="text" className="form-control" id="price" value={formik.values.price} onChange={formik.handleChange} />
                                 {formik.errors.price && formik.touched.price && (<p style={{color: "red"}}>{formik.errors.price}</p>)}
                             </div>
                             <div style={{marginTop: "20px"}}>

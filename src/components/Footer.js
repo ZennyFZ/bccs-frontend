@@ -47,7 +47,7 @@ export default function Footer() {
             </div>
 
             <div className="footer-box">
-                <div><div style={{fontWeight: "bold"}}>Địa Chỉ:</div> 525 Nguyễn Trãi, Hồ Chí Minh</div>
+                <div><div style={{fontWeight: "bold"}}>Địa Chỉ:</div> Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh 700000</div>
                 <div><div style={{fontWeight: "bold"}}>Số Điện Thoại:</div> 19001080</div>
             </div>
 

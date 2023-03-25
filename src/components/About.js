@@ -55,7 +55,7 @@ export default function About() {
           <div class="AboutContentContainer">
             <h3 class="AboutTitle">Cam kết khách hàng</h3>
             <p class="AboutDescription">Với nhiều năm trong nghề, chúng tôi đem đến quý khách những dịch vụ, mặt hàng tốt nhất cho quý khách.</p>
-            <p class="AboutDescription">Địa chỉ: 525 Nguyễn Trãi, Hồ Chí Minh</p>
+            <p class="AboutDescription">Địa chỉ: Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh 700000</p>
             <p class="AboutDescription">Số Điện Thoại: 19001080</p>
           </div>
         </div>
@@ -63,7 +63,7 @@ export default function About() {
         <div className="row">
           <div className="map-column">
             <div clasName="contact-map">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.74293607856!2d106.66672831474872!3d10.754284392336514!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752efbbe2ab5dd%3A0x9199f784684f4237!2zNTI1IMSQLiBOZ3V54buFbiBUcsOjaSwgUGjGsOG7nW5nIDcsIFF14bqtbiA1LCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1676371087922!5m2!1svi!2s"
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.610010498175!2d106.80769431474951!3d10.84112759227762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752731176b07b1%3A0xb752b24b379bae5e!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBGUFQgVFAuIEhDTQ!5e0!3m2!1svi!2s!4v1679758336490!5m2!1svi!2s"
                 width="600" height="450"
                 style={{ border: 0 }}
                 allowfullscreen=""

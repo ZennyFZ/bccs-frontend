@@ -23,7 +23,10 @@ export default function ProductDetail() {
 
     function getData() {
         callerApi(`Product/GetProductById?id=${Productid.id}`, 'GET', null).then(res => {
+            if(res.data.quantity === 0){
             console.log(res.data);
+            window.location.href = "/";
+            }
             setProductList(res.data);
         })
     }
