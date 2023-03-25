@@ -80,7 +80,7 @@ export default function OrderDetail() {
         <div>
             <br/>
             <div className="start-shopping">
-                <Link to="/admin">
+                <Link to="/don-hang">
                     <div style={{ display: "flex" }}><KeyboardBackspaceIcon />Quay Về</div>
                 </Link>
             </div>

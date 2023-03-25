@@ -76,7 +76,7 @@ export default function BookingOrderDetail() {
     return (
         <div>
             <div className="start-shopping">
-                <Link to="/admin">
+                <Link to="/lich-hen">
                     <div style={{ display: "flex" }}><KeyboardBackspaceIcon />Quay Về</div><br />
                 </Link>
             </div>
